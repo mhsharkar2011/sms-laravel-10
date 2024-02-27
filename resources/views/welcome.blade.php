@@ -22,7 +22,6 @@
       <a href="/index2.html" class="h1"><b>Admin</b>LTE</a>
     </div>
     <div class="card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
 
       <form action="/index3.html" method="post">
         <div class="input-group mb-3">
