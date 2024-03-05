@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,17 +21,40 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/',[AuthenticatedSessionController::class,'create']);
-Route::post('create',[AuthenticatedSessionController::class,'AuthLogin']);
+Route::get('/', [AuthController::class, 'login']);
+Route::post('login', [AuthController::class, 'AuthLogin']);
 
-Route::get('admin/dashboard', function () {
-    return view('admin.dashboard');
+// Route::post('/create', [AuthController::class, 'AuthLogin'])->name('auth.login');
+
+
+
+// Route::get('admin/list', [AuthController::class, 'index']);
+
+Route::group(['middleware' => 'admin'], function () {
+    Route::get('admin/dashboard', function () {
+        $admins = User::count();
+        return view('admin.dashboard',compact('admins'));
+    });
 });
 
-Route::get('admin/admin/list', function () {
-    return view('admin.admin.list');
+Route::group(['middleware' => 'teacher'], function () {
+    Route::get('teacher/dashboard', function () {
+       
+        return view('teacher.dashboard',compact('admins'));
+    });
 });
 
+Route::group(['middleware' => 'student'], function () {
+    Route::get('student/dashboard', function () {
+        return view('student.dashboard');
+    });
+});
+
+Route::group(['middleware' => 'parent'], function () {
+    Route::get('parent/dashboard', function () {
+        return view('parent.dashboard');
+    });
+});
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');

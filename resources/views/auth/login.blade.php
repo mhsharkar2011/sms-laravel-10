@@ -23,8 +23,8 @@
       </div>
       <div class="card-body">
   
-        <form action="{{ url('create') }}" method="post">
-            {{ csrf_field() }}
+        <form action="{{ url('login') }}" method="post">
+            @csrf
           <div class="input-group mb-3">
             <input type="email" class="form-control" required name="email" placeholder="Email">
             <div class="input-group-append">
