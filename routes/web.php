@@ -23,12 +23,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AuthController::class, 'login']);
 Route::post('login', [AuthController::class, 'AuthLogin']);
+Route::get('logout', [AuthController::class, 'logout']);
 
 // Route::post('/create', [AuthController::class, 'AuthLogin'])->name('auth.login');
 
 
 
-// Route::get('admin/list', [AuthController::class, 'index']);
+Route::get('admin/list', [AuthController::class, 'index']);
 
 Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/dashboard', function () {
@@ -39,7 +40,6 @@ Route::group(['middleware' => 'admin'], function () {
 
 Route::group(['middleware' => 'teacher'], function () {
     Route::get('teacher/dashboard', function () {
-       
         return view('teacher.dashboard',compact('admins'));
     });
 });
