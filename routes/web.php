@@ -40,19 +40,22 @@ Route::group(['middleware' => 'admin'], function () {
 
 Route::group(['middleware' => 'teacher'], function () {
     Route::get('teacher/dashboard', function () {
+        $admins = User::count();
         return view('teacher.dashboard',compact('admins'));
     });
 });
 
 Route::group(['middleware' => 'student'], function () {
     Route::get('student/dashboard', function () {
-        return view('student.dashboard');
+        $admins = User::count();
+        return view('student.dashboard',compact('admins'));
     });
 });
 
 Route::group(['middleware' => 'parent'], function () {
     Route::get('parent/dashboard', function () {
-        return view('parent.dashboard');
+        $admins = User::count();
+        return view('parent.dashboard',compact('admins'));
     });
 });
 
