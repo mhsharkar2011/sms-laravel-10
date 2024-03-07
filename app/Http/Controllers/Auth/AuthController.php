@@ -13,10 +13,12 @@ class AuthController extends Controller
     public function login()
     {
         // dd(Hash::make(12345678));
+       
         if (!empty(Auth::check())) 
         {
+            $data['header_title'] = 'Dashboard';
             if (Auth::user()->user_type == 1) {
-                return redirect('admin/dashboard');
+                return redirect('admin/dashboard',$data);
             } else if (Auth::user()->user_type == 2) {
                 return redirect('teacher/dashboard');
             } else if (Auth::user()->user_type == 3) {

@@ -1,5 +1,6 @@
 @extends('admin.layouts.app')
 
+@section('title','Dashboard')
 @section('content')
 
 <div class="content-wrapper">
@@ -14,6 +15,7 @@
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item active">Admin Dashboard</li>
+              
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->

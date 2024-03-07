@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -32,31 +33,19 @@ Route::get('logout', [AuthController::class, 'logout']);
 Route::get('admin/list', [AuthController::class, 'index']);
 
 Route::group(['middleware' => 'admin'], function () {
-    Route::get('admin/dashboard', function () {
-        $admins = User::count();
-        return view('admin.dashboard',compact('admins'));
-    });
+    Route::get('admin/dashboard',[DashboardController::class, 'dashboard']);
 });
 
 Route::group(['middleware' => 'teacher'], function () {
-    Route::get('teacher/dashboard', function () {
-        $admins = User::count();
-        return view('teacher.dashboard',compact('admins'));
-    });
+    Route::get('teacher/dashboard',[DashboardController::class, 'dashboard']);
 });
 
 Route::group(['middleware' => 'student'], function () {
-    Route::get('student/dashboard', function () {
-        $admins = User::count();
-        return view('student.dashboard',compact('admins'));
-    });
+    Route::get('student/dashboard',[DashboardController::class, 'dashboard']);
 });
 
 Route::group(['middleware' => 'parent'], function () {
-    Route::get('parent/dashboard', function () {
-        $admins = User::count();
-        return view('parent.dashboard',compact('admins'));
-    });
+    Route::get('parent/dashboard',[DashboardController::class, 'dashboard']);
 });
 
 // Route::get('/dashboard', function () {
