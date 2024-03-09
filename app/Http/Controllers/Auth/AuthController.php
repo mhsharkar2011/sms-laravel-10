@@ -16,7 +16,6 @@ class AuthController extends Controller
     public function login()
     {
         // dd(Hash::make(12345678));
-
         if (!empty(Auth::check())) {
 
             if (Auth::user()->user_type == 1) {
@@ -34,10 +33,7 @@ class AuthController extends Controller
 
     public function AuthLogin(Request $request)
     {
-        // dd($request->all());
-
         $remember = !empty($request->remember) ? true : false;
-
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)) {
             if (Auth::user()->user_type == 1) {
                 return redirect('admin/dashboard');
@@ -53,6 +49,7 @@ class AuthController extends Controller
         }
     }
 
+    // Forgot Password
     public function forgotPassword()
     {
         return view('auth.forgot-password');
@@ -62,79 +59,42 @@ class AuthController extends Controller
     {
         $user = User::getSingleEmail($request->email);
         if (!empty($user)) {
-            $user->remember_token = Str::random(34);
+            $user->remember_token = Str::random(16);
             $user->save();
             Mail::to($user->email)->send(new forgotPasswordMail($user));
             return redirect()->back()->with('success', 'Please check your email and reset your password');
-
         } else {
             return redirect()->back()->with('error', 'Email not found');
         }
     }
+
+    // Reset password
+    public function resetPassword($remember_token)
+    {
+        $user = User::getSingleToken($remember_token);
+        if(!empty($user)){
+            $data['user'] = $user;
+            return view('auth.reset',$data);
+        }else{
+            abort(404);
+        }
+    }
+
+    public function postResetPassword($token, Request $request){
+        if($request->password == $request->cpassword){
+            $user = User::getSingleToken($token);
+            $user->password = Hash::make($request->password);
+            $user->save();
+            return redirect(url('/'))->with('success', 'Password reset successfully');
+        }else{
+            return redirect()->back()->with('error', 'Password and Confirm Password does not match');
+        }
+    }
+
+    // Logout
     public function logout()
     {
         Auth::logout();
         return redirect(url(''));
-    }
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $admins = User::all();
-        return view('admin.admin.list', compact('admins'));
-    }
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //dd(Hash::make(123456));
-        if (!empty(Auth::check())) {
-            return redirect('admin/dashboard');
-        }
-        return view('auth.login');
-    }
-
-
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

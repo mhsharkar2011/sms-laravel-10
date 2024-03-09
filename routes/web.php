@@ -27,6 +27,8 @@ Route::post('login', [AuthController::class, 'AuthLogin']);
 Route::get('logout', [AuthController::class, 'logout']);
 Route::get('forgot-password', [AuthController::class, 'forgotPassword']);
 Route::post('forgot-password', [AuthController::class, 'postForgotPassword']);
+Route::get('reset/{token}', [AuthController::class, 'resetPassword']);
+Route::post('reset/{token}', [AuthController::class, 'postResetPassword']);
 
 
 // Route::post('/create', [AuthController::class, 'AuthLogin'])->name('auth.login');

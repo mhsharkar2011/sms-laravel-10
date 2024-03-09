@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
                 'password' => static::$password ??= Hash::make('123456'),
                 'user_type' => '1',
                 'email_verified_at' => now(),
-                'remember_token' => Str::random(10),
+                'remember_token' => Str::random(34),
                 'created_at' => now(),
             ],
             [
@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
                 'password' => static::$password ??= Hash::make('123456'),
                 'user_type' => '2',
                 'email_verified_at' => now(),
-                'remember_token' => Str::random(10),
+                'remember_token' => Str::random(34),
                 'created_at' => now(),
             ],
             [
@@ -42,7 +42,7 @@ class UserSeeder extends Seeder
                 'password' => static::$password ??= Hash::make('123456'),
                 'user_type' => '3',
                 'email_verified_at' => now(),
-                'remember_token' => Str::random(10),
+                'remember_token' => Str::random(34),
                 'created_at' => now(),
             ],
             [
@@ -51,7 +51,7 @@ class UserSeeder extends Seeder
                 'password' => static::$password ??= Hash::make('123456'),
                 'user_type' => '4',
                 'email_verified_at' => now(),
-                'remember_token' => Str::random(10),
+                'remember_token' => Str::random(34),
                 'created_at' => now(),
             ],
         ]);
