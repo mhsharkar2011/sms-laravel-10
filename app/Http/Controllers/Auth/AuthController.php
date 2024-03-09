@@ -16,6 +16,7 @@ class AuthController extends Controller
     public function login()
     {
         // dd(Hash::make(12345678));
+        $data['header_title'] = 'Login';
         if (!empty(Auth::check())) {
 
             if (Auth::user()->user_type == 1) {
@@ -28,7 +29,7 @@ class AuthController extends Controller
                 return redirect('parent/dashboard');
             }
         }
-        return view('auth.login');
+        return view('auth.login',$data);
     }
 
     public function AuthLogin(Request $request)

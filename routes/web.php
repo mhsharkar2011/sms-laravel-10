@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\DashboardController;
@@ -24,19 +25,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AuthController::class, 'login']);
 Route::post('login', [AuthController::class, 'AuthLogin']);
-Route::get('logout', [AuthController::class, 'logout']);
 Route::get('forgot-password', [AuthController::class, 'forgotPassword']);
 Route::post('forgot-password', [AuthController::class, 'postForgotPassword']);
 Route::get('reset/{token}', [AuthController::class, 'resetPassword']);
 Route::post('reset/{token}', [AuthController::class, 'postResetPassword']);
-
-
-// Route::post('/create', [AuthController::class, 'AuthLogin'])->name('auth.login');
+Route::get('logout', [AuthController::class, 'logout']);
 
 
 
-Route::get('admin/list', [AuthController::class, 'index']);
-
+// Admin Route
 Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/dashboard',[DashboardController::class, 'dashboard']);
 });
