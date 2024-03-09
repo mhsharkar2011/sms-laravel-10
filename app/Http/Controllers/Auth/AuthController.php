@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     public function login()
     {
-        dd(User::all());
+        // dd(Hash::make(12345678));
        
         if (!empty(Auth::check())) 
         {
