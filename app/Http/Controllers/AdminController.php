@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
@@ -12,9 +13,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        // $data['header_title'] = 'Admin List';
-        // $data['admin'] = User::all();
-        // return view('admin.admin.list',$data);
+        $data['header_title'] = 'Admin List';
+        $data['admins'] = User::where('user_type',1)->get();
+        return view('admin.admin-list',$data);
     }
 
     /**
@@ -22,16 +23,34 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        $data['header_title'] = 'Admin Create';
+        return view('admin.admin-create',$data);
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
-    }
+{
+    // Validate incoming request data
+    $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users|max:255',
+        'password' => 'required|string|min:8', // You may need to adjust this based on your requirements
+    ]);
+
+    // Create a new user with validated data
+    User::create([
+        'name' => $validatedData['name'],
+        'email' => $validatedData['email'],
+        'user_type' => 1, // Assuming the default user type is 1 for admins
+        'password' => bcrypt($validatedData['password']), // Hash the password for security
+    ]);
+
+    // Redirect back with success message
+    return back()->with('success', 'User added successfully');
+}
+
 
     /**
      * Display the specified resource.

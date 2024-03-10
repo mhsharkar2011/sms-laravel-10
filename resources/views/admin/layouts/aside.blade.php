@@ -23,68 +23,88 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
+                {{-- Admin Dashboard --}}
                 @if (Auth::user()->user_type == 1)
                 <li class="nav-item">
-                    <a href="{{ url('admin/dashboard') }}" class="nav-link @if (Request::segment(2) == 'dashboard') active @endif">
+                    <a href="{{ url('admin/admin-dashboard') }}" class="nav-link @if (Request::segment(2) == 'dashboard') active @endif">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
-                            Dashboard
+                           Dashboard
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('admin/list') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
+                    <a href="{{ url('admins') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
                             Admin
                         </p>
                     </a>
                 </li>
+                {{-- Teacher Dashboard --}}
                 @elseif (Auth::user()->user_type == 2)
                 <li class="nav-item">
-                    <a href="{{ url('teacher/dashboard') }}" class="nav-link @if (Request::segment(2) == 'dashboard') active @endif">
+                    <a href="{{ url('teacher/teacher-dashboard') }}" class="nav-link @if (Request::segment(2) == 'dashboard') active @endif">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
-                            Dashboard
+                           Dashboard
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('student/list') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
-                        <i class="nav-icon fas fa-user"></i>
-                        <p>
-                            Student
-                        </p>
-                    </a>
-                </li>
-                @elseif (Auth::user()->user_type == 3)
-                <li class="nav-item">
-                    <a href="{{ url('student/dashboard') }}" class="nav-link @if (Request::segment(2) == 'dashboard') active @endif">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Dashboard
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ url('subject/list') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
+                    <a href="{{ url('subject/subject-list') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
                             Subject
                         </p>
                     </a>
                 </li>
-                @elseif (Auth::user()->user_type == 4)
                 <li class="nav-item">
-                    <a href="{{ url('parent/dashboard') }}" class="nav-link @if (Request::segment(2) == 'dashboard') active @endif">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <a href="{{ url('student/student-list') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
+                        <i class="nav-icon fas fa-user"></i>
                         <p>
-                            Dashboard
+                            Student
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('exam/list') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
+                    <a href="{{ url('parent/parent-list') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            Parents
+                        </p>
+                    </a>
+                </li>
+                {{-- Student Dashboard --}}
+                @elseif (Auth::user()->user_type == 3)
+                <li class="nav-item">
+                    <a href="{{ url('student/student-dashboard') }}" class="nav-link @if (Request::segment(2) == 'dashboard') active @endif">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                           Dashboard
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('subject/subject-list') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            Subject
+                        </p>
+                    </a>
+                </li>
+                {{-- Parent Dashboard --}}
+                @elseif (Auth::user()->user_type == 4)
+                <li class="nav-item">
+                    <a href="{{ url('parent/parent-dashboard') }}" class="nav-link @if (Request::segment(2) == 'dashboard') active @endif">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                           Dashboard
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('exam/exam-list') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
                             Exam
