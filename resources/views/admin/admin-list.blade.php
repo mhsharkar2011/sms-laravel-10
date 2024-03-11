@@ -10,7 +10,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title btn btn-flat">Admin List</h3>
-                                <a href="{{ url('admins/create') }}" class="card-title float-right btn btn-sm btn-primary">Admin List</a>
+                                <a href="{{ url('admins/create') }}" class="card-title float-right btn btn-sm btn-primary">Add Admin</a>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -19,9 +19,9 @@
                                         <tr>
                                             <th>Roll No.</th>
                                             <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Created At</th>
-                                            <th>Updated At</th>
+                                            <th>Photo</th>
+                                            <th>Attendance Progress</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -33,7 +33,17 @@
                                             <td>{{$admin->email }}</td>
                                             <td>{{$admin->created_at }}</td>
                                             <td>{{$admin->updated_at }}</td>
-                                            <td>Edit</td>
+                                            <td class="project-actions text-start">
+                                                <a class="btn btn-primary btn-sm" href="{{ url('admins/profile') }}"><i class="fas fa-folder"></i> View</a>
+                                                <a class="btn btn-info btn-sm" href=""><i class="fas fa-pencil-alt"></i> Edit</a>
+                                               
+
+                                                <form action="{{ route('admins.destroy', $admin->id) }}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <a class="btn btn-danger btn-sm" href="#"><i class="fas fa-trash"></i> Delete</a>
+                                                </form>
+                                            </td>
                                         </tr>
                                     </tbody>
                                     @endforeach
@@ -41,9 +51,9 @@
                                         <tr>
                                             <th>Roll No.</th>
                                             <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Created At</th>
-                                            <th>Updated At</th>
+                                            <th>Photo</th>
+                                            <th>Attendance Progress</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </tfoot>

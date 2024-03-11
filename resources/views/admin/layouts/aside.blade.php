@@ -15,7 +15,7 @@
                     alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                <a href="{{ url('admins/profile') }}" class="d-block">{{ Auth::user()->name }}</a>
             </div>
         </div>
 
@@ -37,15 +37,7 @@
                     <a href="{{ url('admins') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
-                            Admin
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ url('admins/profile') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
-                        <i class="nav-icon fas fa-user"></i>
-                        <p>
-                            Profile
+                            Admins
                         </p>
                     </a>
                 </li>
@@ -63,7 +55,7 @@
                     <a href="{{ url('subject/subject-list') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
-                            Subject
+                            Subjects
                         </p>
                     </a>
                 </li>
@@ -71,7 +63,7 @@
                     <a href="{{ url('student/student-list') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
-                            Student
+                            Students
                         </p>
                     </a>
                 </li>
@@ -97,7 +89,7 @@
                     <a href="{{ url('subject/subject-list') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
-                            Subject
+                            Subjects
                         </p>
                     </a>
                 </li>
@@ -115,7 +107,7 @@
                     <a href="{{ url('exam/exam-list') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
-                            Exam
+                            Exams
                         </p>
                     </a>
                 </li>
