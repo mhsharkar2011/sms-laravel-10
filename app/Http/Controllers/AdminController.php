@@ -57,7 +57,7 @@ class AdminController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('admin.admin-show');
     }
 
     /**
@@ -79,8 +79,9 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        //
+        dd($user);
+        return redirect()->route('admins.index')->with('success','User deleted successfully');
     }
 }
