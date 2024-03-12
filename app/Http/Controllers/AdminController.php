@@ -33,24 +33,21 @@ class AdminController extends Controller
     public function store(Request $request)
 {
     // Validate incoming request data
-    // $validatedData = $request->validate([
-    //     'name' => 'required|string|max:255',
-    //     'email' => 'required|email|unique:users|max:255',
-    //     'password' => 'required|string|min:8', // You may need to adjust this based on your requirements
-    // ]);
+    $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users|max:255',
+        'password' => 'required|string|min:8', // You may need to adjust this based on your requirements
+    ]);
 
     // Create a new user with validated data
-    // User::create([
-    //     'name' => $validatedData['name'],
-    //     'email' => $validatedData['email'],
-    //     'user_type' => 1, // Assuming the default user type is 1 for admins
-    //     'password' => bcrypt($validatedData['password']), // Hash the password for security
-    // ]);
+    User::create([
+        'name' => $validatedData['name'],
+        'email' => $validatedData['email'],
+        'user_type' => 1, // Assuming the default user type is 1 for admins
+        'password' => bcrypt($validatedData['password']), // Hash the password for security
+    ]);
 
     // Redirect back with success message
-
-
-    dd($request->all());
     return back()->with('success', 'User added successfully');
 }
 
