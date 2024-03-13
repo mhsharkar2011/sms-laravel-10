@@ -5,13 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ !empty($header_title) ? $header_title:'' }} - School</title>
-    <a id="toggle_btn" href="javascript:void(0);">
-        <span class="bar-icon">
-            <span></span>
-            <span></span>
-            <span></span>
-        </span>
-    </a>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -39,6 +32,7 @@
     <link rel="stylesheet" href="{{ url('public/plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ url('public/plugins/summernote/summernote-bs4.min.css') }}">
+    <link rel="stylesheet" href="{{ url('public/plugins/toastr/toastr.min.css') }}">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -96,6 +90,8 @@
     <script src="{{ url('public/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ url('public/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ url('public/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+    <script src="{{ url('public/plugins/toastr/toastr.min.js') }}"></script>
+    
 
     <!-- AdminLTE App -->
     <script src="{{ url('public/dist/js/adminlte.js') }}"></script>

@@ -12,6 +12,9 @@
                                 <h3 class="card-title btn btn-flat">Admin List</h3>
                                 <a href="{{ url('admins/create') }}" class="card-title float-right btn btn-sm btn-primary">Add Admin</a>
                             </div>
+                            <div class="col-6">
+                            @include('_message')
+                            </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped">

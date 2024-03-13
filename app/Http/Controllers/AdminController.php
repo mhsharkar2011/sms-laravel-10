@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
@@ -33,22 +35,32 @@ class AdminController extends Controller
     public function store(Request $request)
 {
     // Validate incoming request data
-    $validatedData = $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|email|unique:users|max:255',
-        'password' => 'required|string|min:8', // You may need to adjust this based on your requirements
-    ]);
+    // $validatedData = $request->validate([
+    //     'name' => 'required|string|max:255',
+    //     'email' => 'required|email|unique:users|max:255',
+    //     'password' => 'required|string|min:8', // You may need to adjust this based on your requirements
+    // ]);
 
     // Create a new user with validated data
-    User::create([
-        'name' => $validatedData['name'],
-        'email' => $validatedData['email'],
-        'user_type' => 1, // Assuming the default user type is 1 for admins
-        'password' => bcrypt($validatedData['password']), // Hash the password for security
-    ]);
+    // User::create([
+    //     'name' => $validatedData['name'],
+    //     'email' => $validatedData['email'],
+    //     'user_type' => 1, // Assuming the default user type is 1 for admins
+    //     'password' => bcrypt($validatedData['password']), // Hash the password for security
+    // ]);
 
     // Redirect back with success message
-    return back()->with('success', 'User added successfully');
+    
+    $user = new User();
+    $user->name = trim($request->name);
+    $user->email = trim($request->email);
+    $user->password = trim($request->password);
+    $user->save();
+
+    Session::flash('success', 'Trips Created Successfully');
+    return back()->with('status','Trip created successfully');
+
+    // return redirect()->route('admins.index')->with('success', 'User added successfully');
 }
 
 
@@ -81,7 +93,7 @@ class AdminController extends Controller
      */
     public function destroy(User $user)
     {
-        dd($user);
+        
         return redirect()->route('admins.index')->with('success','User deleted successfully');
     }
 }

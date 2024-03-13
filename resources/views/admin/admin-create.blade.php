@@ -7,6 +7,7 @@
         <div class="container-fluid">
             <div class="row justify-content-center">
                 <!-- left column -->
+                {!! Toastr::message() !!}
                 <div class="col-md-6 mt-4">
                     <!-- general form elements -->
                     <div class="card card-primary">
