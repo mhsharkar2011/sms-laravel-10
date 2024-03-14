@@ -17,32 +17,30 @@
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Roll No.</th>
+                                            <th>SL No.</th>
                                             <th>Name</th>
                                             <th>Photo</th>
+                                            <th>Email</th>
                                             <th>Attendance Progress</th>
+                                            <th>Created At</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    @foreach ($admins as $admin )
+                                    @foreach ($getAdmin as $user )
                                     <tbody>
                                         <tr>
-                                            <td>{{ $admin->id }}</td>
-                                            <td>{{ $admin->name }}</td>
-                                            <td>{{$admin->email }}</td>
-                                            <td>{{$admin->created_at }}</td>
-                                            <td>{{$admin->updated_at }}</td>
+                                            <td>{{ $user->id }}</td>
+                                            <td>{{ $user->name }}</td>
+                                            <td><x-avatar :user="$user->avatar" width="48" height="48" class="rounded-circle" />
+                                            <td>{{$user->email }}</td>
+                                            <td>Attendance Process</td>
+                                            <td>{{$user->created_at }}</td>
+                                            <td>Status</td>
                                             <td class="project-actions text-start">
-                                                <a class="btn btn-primary btn-sm" href="{{ url('admins/profile') }}"><i class="fas fa-folder"></i> View</a>
-                                                <a class="btn btn-info btn-sm" href=""><i class="fas fa-pencil-alt"></i> Edit</a>
-                                               
-
-                                                <form action="{{ route('admins.destroy', $admin->id) }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <a class="btn btn-danger btn-sm" href="#"><i class="fas fa-trash"></i> Delete</a>
-                                                </form>
+                                                <a class="btn btn-primary btn-sm" href="{{ url('admins/profile', $user->id) }}"><i class="fas fa-eye"></i></a>
+                                                <a class="btn btn-info btn-sm" href="{{ route('admins.edit',$user->id) }}"><i class="fas fa-pencil-alt"></i></a>
+                                                <a class="btn btn-danger btn-sm" href="{{ url('admins/delete',$user->id) }}"><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
                                     </tbody>

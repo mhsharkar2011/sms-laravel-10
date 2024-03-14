@@ -15,27 +15,28 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{ route(admins.update) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('admins.update',$user->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">Full Name</label>
-                                    <input type="text" name="name" class="form-control" placeholder="Enter Name">
+                                    <input type="text" name="name" class="form-control" value="{{ $user->name }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email Address</label>
-                                    <input type="email" name="email" class="form-control" placeholder="Enter email">
+                                    <input type="email" name="email" class="form-control" value="{{ $user->email }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="password">Password</label>
-                                    <input type="password" name="password" class="form-control" placeholder="Password">
+                                    <input type="password" name="password" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label for="avatar">Photo</label>
                                     <div class="input-group">
                                         <div class="custom-file">
                                             <input type="file" name="avatar" class="custom-file-input">
-                                            <label class="custom-file-label" for="avatar">Choose file</label>
+                                            {{-- <label class="custom-file-label" for="avatar">Choose file</label> --}}
+                                            <x-avatar :user="$employee->avatar" width="48px" height="48px" class="rounded-circle"/>
                                         </div>
                                     </div>
                                 </div>

@@ -18,6 +18,7 @@
                         <form action="{{ route('admins.store') }}" method="POST">
                             @csrf
                             <div class="card-body">
+                                @include('_message')
                                 <div class="form-group">
                                     <label for="name">Full Name</label>
                                     <input type="text" name="name" class="form-control" placeholder="Enter Name">
