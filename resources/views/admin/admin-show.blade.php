@@ -9,17 +9,18 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-3">
-
+<form action="{{ url('admins/profile',$user->id) }}" method="post">
+  @csrf
             <!-- Profile Image -->
             <div class="card card-primary card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
                   <img class="profile-user-img img-fluid img-circle"
-                       src="{{ asset('public/dist/img/user4-128x128.jpg') }}"
+                       src="{{ $user->avatar }}"
                        alt="User profile picture">
                 </div>
 
-                <h3 class="profile-username text-center">Nina Mcintire</h3>
+                <h3 class="profile-username text-center">{{ $user->name }}</h3>
 
                 <p class="text-muted text-center">Software Engineer</p>
 
@@ -39,6 +40,7 @@
               </div>
               <!-- /.card-body -->
             </div>
+          </form>
             <!-- /.card -->
 
             <!-- About Me Box -->

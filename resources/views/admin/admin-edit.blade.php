@@ -15,8 +15,9 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{ route('admins.update',$user->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="" method="POST" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">Full Name</label>
@@ -36,14 +37,14 @@
                                         <div class="custom-file">
                                             <input type="file" name="avatar" class="custom-file-input">
                                             {{-- <label class="custom-file-label" for="avatar">Choose file</label> --}}
-                                            <x-avatar :user="$employee->avatar" width="48px" height="48px" class="rounded-circle"/>
+                                            <x-avatar :user="$user->avatar" width="48px" height="48px" class="rounded-circle"/>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer text-center">
                                     <button type="reset" class="btn btn-warning">Clear</button>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             </div>
                         </form>

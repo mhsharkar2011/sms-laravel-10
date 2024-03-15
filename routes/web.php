@@ -36,7 +36,12 @@ Route::get('logout', [AuthController::class, 'logout']);
 // Admin Route
 Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/admin-dashboard',[DashboardController::class, 'dashboard']);
-    Route::resource('admins',AdminController::class);
+    Route::get('admins',[AdminController::class,'index'])->name('admins.index');
+    Route::get('admins/create',[AdminController::class,'create'])->name('admin.create');
+    Route::post('admins',[AdminController::class,'store'])->name('admin.store');
+    Route::get('admins/profile/{user}',[AdminController::class,'show'])->name('admins.show');
+    Route::get('admins/profile/edit/{user}',[AdminController::class,'edit'])->name('admins.edit');
+    Route::put('admins/profile/edit/{user}',[AdminController::class,'update'])->name('admins.update');
 });
 
 Route::group(['middleware' => 'teacher'], function () {
