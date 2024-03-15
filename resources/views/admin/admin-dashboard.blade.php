@@ -31,7 +31,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>{{ $admins }}</h3>
+                <h3>{{ $totalAdmin }}</h3>
 
                 <p>Total Users</p>
               </div>
@@ -46,7 +46,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>{{ $teachers }}</h3>
+                <h3>{{ $totalTeacher }}</h3>
 
                 <p>Total Teachers</p>
               </div>
@@ -61,7 +61,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>{{ $students }}</h3>
+                <h3>{{ $totalStudent }}</h3>
 
                 <p>Total Students</p>
               </div>
@@ -76,7 +76,7 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>{{ $parents }}</h3>
+                <h3>{{ $totalParent }}</h3>
 
                 <p>Parents</p>
               </div>

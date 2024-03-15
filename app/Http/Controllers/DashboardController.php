@@ -11,12 +11,21 @@ class DashboardController extends Controller
     public function dashboard()
     {
         $data['header_title'] = 'Dashboard';
-        $data['admins'] = User::where('user_type',1)->count();
-        $data['teachers'] = User::where('user_type',2)->count();
-        $data['students'] = User::where('user_type',3)->count();
-        $data['parents'] = User::where('user_type',4)->count();
-        
+        $data['totalAdmin'] = User::where('user_type', 1)
+            ->where('is_delete', 0)
+            ->count();
+        $data['totalTeacher'] = User::where('user_type', 2)
+            ->where('is_delete', 0)
+            ->count();
+        $data['totalStudent'] = User::where('user_type', 3)
+            ->where('is_delete', 0)
+            ->count();
+        $data['totalParent'] = User::where('user_type', 4)
+            ->where('is_delete', 0)
+            ->count();
+
         if (Auth::user()->user_type == 1) {
+            $data['admins'] = User::all();
             return view('admin.admin-dashboard', $data);
         } else if (Auth::user()->user_type == 2) {
             $data['admins'] = User::all();
