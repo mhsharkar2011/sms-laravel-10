@@ -104,7 +104,8 @@ class AdminController extends Controller
      */
     public function destroy(User $user)
     {
-        dd($user);
+        $user->is_delete = 1;
+        $user->save();
         return redirect()->route('admins.index')->with('success','User deleted successfully');
     }
 }

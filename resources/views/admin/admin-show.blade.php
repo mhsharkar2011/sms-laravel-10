@@ -15,9 +15,7 @@
             <div class="card card-primary card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
-                  <img class="profile-user-img img-fluid img-circle"
-                       src="{{ $user->avatar }}"
-                       alt="User profile picture">
+                  <x-avatar :user="$user->avatar" width="48" height="48" class="rounded-circle" />
                 </div>
 
                 <h3 class="profile-username text-center">{{ $user->name }}</h3>

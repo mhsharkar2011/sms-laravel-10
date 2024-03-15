@@ -42,6 +42,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admins/profile/{user}',[AdminController::class,'show'])->name('admins.show');
     Route::get('admins/profile/edit/{user}',[AdminController::class,'edit'])->name('admins.edit');
     Route::put('admins/profile/edit/{user}',[AdminController::class,'update'])->name('admins.update');
+    Route::get('admins/delete/{user}',[AdminController::class,'destroy'])->name('admins.destroy');
 });
 
 Route::group(['middleware' => 'teacher'], function () {
