@@ -1,9 +1,9 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="{{ url('/') }}" class="brand-link">
         <img src="{{ url('public/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
             class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">SMS</span>
+        <span class="brand-text font-weight-light">English - School</span>
     </a>
 
     <!-- Sidebar -->
@@ -15,7 +15,7 @@
                     alt="User Image">
             </div>
             <div class="info">
-                <a href="{{ url('admins/profile') }}" class="d-block">{{ Auth::user()->name }}</a>
+                <a href="{{ url('admins/profile', Auth::user()->id) }}" class="d-block">{{ Auth::user()->name }}</a>
             </div>
         </div>
 

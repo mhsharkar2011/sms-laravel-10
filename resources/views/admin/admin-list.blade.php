@@ -9,8 +9,8 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title btn btn-flat">Admin List</h3>
-                                <a href="{{ url('admins/create') }}" class="card-title float-right btn btn-sm btn-primary">Add Admin</a>
+                                <h3 class="card-title btn btn-flat">User List</h3>
+                                <a href="{{ url('admins/create') }}" class="card-title float-right btn btn-sm btn-primary">New User</a>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">

@@ -21,7 +21,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">Full Name</label>
-                                    <input type="text" name="name" class="form-control" value="{{ $user->name }}">
+                                    <input type="text" name="name" class="form-control" value="{{ old ($user->name) }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email Address</label>
@@ -32,12 +32,12 @@
                                     <input type="password" name="password" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="avatar">Photo</label>
+                                    <label for="avatar"><x-avatar :user="$user->avatar" width="80px" height="80px" class="rounded-circle"/></label>
+                                    
                                     <div class="input-group">
                                         <div class="custom-file">
                                             <input type="file" name="avatar" class="custom-file-input">
-                                            {{-- <label class="custom-file-label" for="avatar">Choose file</label> --}}
-                                            <x-avatar :user="$user->avatar" width="48px" height="48px" class="rounded-circle"/>
+                                            <label class="custom-file-label" for="avatar">Choose file</label>
                                         </div>
                                     </div>
                                 </div>

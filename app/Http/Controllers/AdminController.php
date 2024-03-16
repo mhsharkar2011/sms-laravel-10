@@ -25,7 +25,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        $data['header_title'] = 'Admin Create';
+        $data['header_title'] = 'User Create';
         return view('admin.admin-create',$data);
     }
 
@@ -34,28 +34,29 @@ class AdminController extends Controller
      */
     public function store(Request $request)
 {
-    // Validate incoming request data
-    // $validatedData = $request->validate([
-    //     'name' => 'required|string|max:255',
-    //     'email' => 'required|email|unique:users|max:255',
-    //     'password' => 'required|string|min:8', // You may need to adjust this based on your requirements
-    // ]);
+    //Validate incoming request data
+    $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users|max:255',
+        'password' => 'required|string|min:8', // You may need to adjust this based on your requirements
+    ]);
 
-    // Create a new user with validated data
-    // User::create([
-    //     'name' => $validatedData['name'],
-    //     'email' => $validatedData['email'],
-    //     'user_type' => 1, // Assuming the default user type is 1 for admins
-    //     'password' => bcrypt($validatedData['password']), // Hash the password for security
-    // ]);
+    //Create a new user with validated data
+    User::create([
+        'name' => $validatedData['name'],
+        'email' => $validatedData['email'],
+        'user_type' => 1, // Assuming the default user type is 1 for admins
+        'password' => bcrypt($validatedData['password']), // Hash the password for security
+    ]);
 
     // Redirect back with success message
-    $user = new User();
-    $user->name = trim($request->name);
-    $user->email = trim($request->email);
-    $user->password = Hash::make($request->password);
-    $user->user_type = 1;
-    $user->save();
+    // $user = new User();
+    // $user->name = trim($request->name);
+    // $user->email = trim($request->email);
+    // if(!empty($request->password)){
+    //     $user->password = Hash::make($request->password);
+    // }
+    // $user->save();
     return redirect()->route('admins.create')->with('success', 'User added successfully');
 }
 
@@ -65,7 +66,8 @@ class AdminController extends Controller
      */
     public function show(User $user)
     {
-        return view('admin.admin-show',compact('user'));
+        $header_title = 'Profile';
+        return view('admin.admin-show',compact('header_title','user'));
     }
 
     /**
@@ -73,7 +75,9 @@ class AdminController extends Controller
      */
     public function edit(User $user)
     {
-        return view('admin.admin-edit',compact('user'));        
+        $data['header_title'] = 'Profile Edit';
+        $data['user'] = $user;
+        return view('admin.admin-edit',$data);        
     }
 
     /**
@@ -81,15 +85,23 @@ class AdminController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $input = $request->except('avatar');
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users|max:255'.$user->id,
+        ]);
+
+        $input = $validatedData()->except(['avatar']);
 
         if ($user->avatar && $request->hasFile('avatar')) {
             Storage::delete('public/avatars/' . $user->avatar);
             $user->avatar = null;
         }
+        if(!empty($request->password)){
+            $user->password = Hash::make($request->password);
+        }
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
-            $filename = $user->id . '-' . $user->name . '-' . date('Ymd') . '.' . $avatar->getClientOriginalExtension();
+            $filename = $user->id . '-' . $user->name . '-' . date('Ymd_Hsi') . '.' . $avatar->getClientOriginalExtension();
             $avatar->storeAs('public/avatars', $filename);
             $user->avatar = $filename;
             $user->save();

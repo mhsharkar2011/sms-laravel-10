@@ -37,8 +37,8 @@ Route::get('logout', [AuthController::class, 'logout']);
 Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/admin-dashboard',[DashboardController::class, 'dashboard']);
     Route::get('admins',[AdminController::class,'index'])->name('admins.index');
-    Route::get('admins/create',[AdminController::class,'create'])->name('admin.create');
-    Route::post('admins',[AdminController::class,'store'])->name('admin.store');
+    Route::get('admins/create',[AdminController::class,'create'])->name('admins.create');
+    Route::post('admins',[AdminController::class,'store'])->name('admins.store');
     Route::get('admins/profile/{user}',[AdminController::class,'show'])->name('admins.show');
     Route::get('admins/profile/edit/{user}',[AdminController::class,'edit'])->name('admins.edit');
     Route::put('admins/profile/edit/{user}',[AdminController::class,'update'])->name('admins.update');

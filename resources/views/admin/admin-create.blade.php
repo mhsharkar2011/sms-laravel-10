@@ -11,7 +11,7 @@
                     <!-- general form elements -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">New Admin Create</h3>
+                            <h3 class="card-title">New User Add</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
@@ -21,15 +21,17 @@
                                 @include('_message')
                                 <div class="form-group">
                                     <label for="name">Full Name</label>
-                                    <input type="text" name="name" class="form-control" placeholder="Enter Name">
+                                    <input type="text" name="name" class="form-control" value="{{ old('name') }}" required placeholder="Enter Name">
+                                    <div class="text-red">{{ $errors->first('name') }}</div>
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email Address</label>
-                                    <input type="email" name="email" class="form-control" placeholder="Enter email">
+                                    <input type="email" name="email" class="form-control" value="{{ old('email') }}" required placeholder="Enter email">
+                                    <div class="text-red">{{ $errors->first('email') }}</div>
                                 </div>
                                 <div class="form-group">
                                     <label for="password">Password</label>
-                                    <input type="password" name="password" class="form-control" placeholder="Password">
+                                    <input type="password" name="password" class="form-control" required placeholder="Password">
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer text-center">
