@@ -41,6 +41,38 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ url('class/class-list') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            Class
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('subject/subject-list') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            Subjects
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('student/student-list') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            Students
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('parent/parent-list') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            Parents
+                        </p>
+                    </a>
+                </li>
                 {{-- Teacher Dashboard --}}
                 @elseif (Auth::user()->user_type == 2)
                 <li class="nav-item">

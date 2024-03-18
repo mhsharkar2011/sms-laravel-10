@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SchoolClassController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,7 @@ Route::get('logout', [AuthController::class, 'logout']);
 // Admin Route
 Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/admin-dashboard',[DashboardController::class, 'dashboard']);
+    // Admin Route
     Route::get('admins',[AdminController::class,'index'])->name('admins.index');
     Route::get('admins/create',[AdminController::class,'create'])->name('admins.create');
     Route::post('admins',[AdminController::class,'store'])->name('admins.store');
@@ -43,6 +45,10 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admins/profile/edit/{user}',[AdminController::class,'edit'])->name('admins.edit');
     Route::put('admins/profile/edit/{user}',[AdminController::class,'update'])->name('admins.update');
     Route::get('admins/delete/{user}',[AdminController::class,'destroy'])->name('admins.destroy');
+    // Class Route
+    Route::get('classes',[SchoolClassController::class,'index'])->name('classes.index');
+    Route::get('classes',[SchoolClassController::class,'create'])->name('classes.create');
+
 });
 
 Route::group(['middleware' => 'teacher'], function () {
