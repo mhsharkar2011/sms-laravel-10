@@ -14,7 +14,8 @@ class SchoolClass extends Model
     ];
 
     static public function getClass(){
-        return self::select('classes.*')
+        return self::select('school_classes.*')
+            ->where('is_delete','=',0)
             ->orderBy('id', 'desc')
             ->get();
     }

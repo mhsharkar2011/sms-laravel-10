@@ -11,5 +11,11 @@ class Subject extends Model
 
     protected $guarded = [
         'id'
-    ];    
+    ];
+    
+    static public function getSubject(){
+        return Subject::where('is_delete',0)
+                ->orderBy('id','DESC')
+                ->get();
+    }
 }

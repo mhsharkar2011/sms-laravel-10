@@ -32,9 +32,8 @@
                                 <td>{{$user->created_at }}</td>
                                 <td>Status</td>
                                 <td class="project-actions text-start">
-                                    <a class="btn btn-primary btn-sm" href="{{ url('admins/profile', $user->id) }}"><i class="fas fa-eye"></i></a>
-                                    <a class="btn btn-info btn-sm" href="{{ url('admins/profile/edit',$user->id) }}"><i class="fas fa-pencil-alt"></i></a>
-                                    <a class="btn btn-danger btn-sm" href="{{ url('admins/delete',$user->id) }}"><i class="fas fa-trash"></i></a>
+                                    <a class="btn btn-info btn-sm" href="{{ url('classes/edit',$user->id) }}"><i class="fas fa-pencil-alt"></i></a>
+                                    <a class="btn btn-danger btn-sm" href="{{ url('classes/delete',$user->id) }}"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
                             @endforeach

@@ -38,7 +38,7 @@ class SchoolClassController extends Controller
         SchoolClass::create([
             'name' => $validatedData['name']
         ]);
-        return redirect()->route('class.create')->with('success', 'Class added successfully');
+        return redirect()->route('classes.create')->with('success', 'Class added successfully');
     }
 
     /**
@@ -70,6 +70,8 @@ class SchoolClassController extends Controller
      */
     public function destroy(SchoolClass $schoolClass)
     {
-        //
+        $schoolClass->is_delete = 1;
+        $schoolClass->save();
+        return redirect()->route('classes.index')->with('success','Class Deleted successfully');
     }
 }

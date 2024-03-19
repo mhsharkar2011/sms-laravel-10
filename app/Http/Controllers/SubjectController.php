@@ -13,7 +13,9 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        $subjects = Subject::all();
+        $data['header_title'] = 'Subject List';
+        $data['getSubject'] = Subject::getSubject();
+        return view('subject.subject-list', $data);
     }
 
     /**
@@ -21,7 +23,8 @@ class SubjectController extends Controller
      */
     public function create()
     {
-        return view('subject.subject-create');
+        $data['header_title'] = 'Class Create';
+        return view('subject.subject-create',$data);
     }
 
     /**
@@ -80,6 +83,8 @@ class SubjectController extends Controller
      */
     public function destroy(Subject $subject)
     {
-        //
+        $subject->is_delete = 1;
+        $subject->save();
+        return redirect(url('subjects'))->with('success','Subject Deleted successfully');
     }
 }
