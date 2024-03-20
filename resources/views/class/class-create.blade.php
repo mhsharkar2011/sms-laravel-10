@@ -24,6 +24,13 @@
                                     <input type="text" name="name" class="form-control" value="{{ old('name') }}" required placeholder="Enter Name">
                                     <div class="text-red">{{ $errors->first('name') }}</div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="status">Status</label>
+                                    <select name="status" id="" class="form-control">
+                                        <option value="0">Active</option>
+                                        <option value="1">Inactive</option>
+                                    </select>
+                                </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer text-center">
                                     <button type="reset" class="btn btn-warning">Clear</button>

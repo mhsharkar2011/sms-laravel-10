@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SchoolClass;
+use App\Models\ClassModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class SchoolClassController extends Controller
+class ClassController extends Controller
 {
-    /**
+     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $data['header_title'] = 'Class List';
-        $data['getClass'] = SchoolClass::getClass();
+        $data['getClass'] = ClassModel::getClass();
         return view('class.class-list', $data);
     }
 
@@ -31,20 +32,18 @@ class SchoolClassController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255'
-        ]);
-
-        SchoolClass::create([
-            'name' => $validatedData['name']
-        ]);
+       $class = new ClassModel;
+       $class->name = $request->name;
+       $class->status = $request->status;
+       $class->created_by = Auth::user()->id;
+       $class->save();
         return redirect()->route('classes.create')->with('success', 'Class added successfully');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(SchoolClass $schoolClass)
+    public function show(ClassModel $ClassModel)
     {
         //
     }
@@ -52,7 +51,7 @@ class SchoolClassController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(SchoolClass $schoolClass)
+    public function edit(ClassModel $ClassModel)
     {
         //
     }
@@ -60,7 +59,7 @@ class SchoolClassController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SchoolClass $schoolClass)
+    public function update(Request $request, ClassModel $ClassModel)
     {
         //
     }
@@ -68,10 +67,11 @@ class SchoolClassController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SchoolClass $schoolClass)
+    public function destroy($id)
     {
-        $schoolClass->is_delete = 1;
-        $schoolClass->save();
+        $class= ClassModel::findOrFail($id);
+        $class->is_deleted = 1;
+        $class->save();
         return redirect()->route('classes.index')->with('success','Class Deleted successfully');
     }
 }

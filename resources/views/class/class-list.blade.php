@@ -19,32 +19,41 @@
                         <tr>
                           <th>SL No.</th>
                           <th>Name</th>
-                          <th>Created At</th>
                           <th>Status</th>
+                          <th>Created By</th>
+                          <th>Created At</th>
                           <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                            @foreach ($getClass as $user )
+                            @foreach ($getClass as $value )
                             <tr>
-                                <td>{{ $user->id }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{$user->created_at }}</td>
-                                <td>Status</td>
+                                <td>{{ $value->id }}</td>
+                                <td>{{ $value->name }}</td>
+                                <td>
+                                  @if ($value->status == 0)
+                                    Active
+                                  @else
+                                    Inactive
+                                  @endif
+                                </td>
+                                <td>{{ $value->created_by_name }}</td>
+                                <td>{{date('d-m-Y H:i:A', strtotime($value->created_at)) }}</td>
                                 <td class="project-actions text-start">
-                                    <a class="btn btn-info btn-sm" href="{{ url('classes/edit',$user->id) }}"><i class="fas fa-pencil-alt"></i></a>
-                                    <a class="btn btn-danger btn-sm" href="{{ url('classes/delete',$user->id) }}"><i class="fas fa-trash"></i></a>
+                                    <a class="btn btn-info btn-sm" href="{{ url('classes/edit',$value->id) }}"><i class="fas fa-pencil-alt"></i></a>
+                                    <a class="btn btn-danger btn-sm" href="{{ url('classes/delete',$value->id) }}"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
                         <tfoot>
                         <tr>
-                            <th>SL No.</th>
-                            <th>Name</th>
-                            <th>Created At</th>
-                            <th>Status</th>
-                            <th>Action</th>
+                          <th>SL No.</th>
+                          <th>Name</th>
+                          <th>Status</th>
+                          <th>Created By</th>
+                          <th>Created At</th>
+                          <th>Action</th>
                         </tr>
                         </tfoot>
                       </table>

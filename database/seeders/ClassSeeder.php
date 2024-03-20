@@ -6,14 +6,14 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class StudentClassSeeder extends Seeder
+class ClassSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        DB::table('student_classes')->insert([
+        DB::table('classes')->insert([
             [
                 'name' => 'One',
                 'created_at' => now(),
