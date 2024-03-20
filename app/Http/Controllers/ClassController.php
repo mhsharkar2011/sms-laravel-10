@@ -40,20 +40,15 @@ class ClassController extends Controller
         return redirect()->route('classes.create')->with('success', 'Class added successfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(ClassModel $ClassModel)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(ClassModel $ClassModel)
     {
-        //
+        $data['header_titles'] = 'Class Edit';
+        $data['classModel'] = $ClassModel;
+        return view('class.class-create',$data);
     }
 
     /**
@@ -61,7 +56,8 @@ class ClassController extends Controller
      */
     public function update(Request $request, ClassModel $ClassModel)
     {
-        //
+        $class = $request->all();
+        $request->class()->save();
     }
 
     /**
