@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\ClassController;
+use App\Http\Controllers\ClassSubjectController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
@@ -39,12 +40,21 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('classes/delete/{id}', [ClassController::class, 'destroy'])->name('classes.delete');
 
     // Subject Route
-    Route::get('subjects', [SubjectController::class, 'index'])->name('subject.index');
+    Route::get('subjects', [SubjectController::class, 'index'])->name('subjects.index');
     Route::get('subjects/create', [SubjectController::class, 'create'])->name('subjects.create');
     Route::post('subjects', [SubjectController::class, 'store'])->name('subjects.store');
     Route::get('subjects/edit/{subject}', [SubjectController::class, 'edit'])->name('subjects.edit');
     Route::put('subjects/update/{subject}', [SubjectController::class, 'update'])->name('subjects.update');
     Route::get('subjects/delete/{subject}', [SubjectController::class, 'destroy'])->name('subjects.delete');
+
+    // assign_subjects
+    Route::get('assign_subjects', [ClassSubjectController::class, 'index'])->name('assign_subjects.index');
+    Route::get('assign_subjects/create', [ClassSubjectController::class, 'create'])->name('assign_subjects.create');
+    Route::post('assign_subjects', [ClassSubjectController::class, 'store'])->name('assign_subjects.store');
+    Route::get('assign_subjects/edit/{id}', [ClassSubjectController::class, 'edit'])->name('assign_subjects.edit');
+    Route::put('assign_subjects/update/{id}', [ClassSubjectController::class, 'update'])->name('assign_subjects.update');
+    Route::get('assign_subjects/delete/{id}', [ClassSubjectController::class, 'destroy'])->name('assign_subjects.delete');
+
 });
 
 // Teacher Middleware =================================================================

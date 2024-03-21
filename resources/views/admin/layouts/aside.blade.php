@@ -58,6 +58,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ url('assign_subjects') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            Assign Subjects
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ url('students') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
