@@ -12,10 +12,14 @@ class Subject extends Model
     protected $guarded = [
         'id'
     ];
-    
-    static public function getSubject(){
-        return Subject::where('is_delete',0)
-                ->orderBy('id','DESC')
-                ->get();
+
+    static public function getSubject()
+    {
+        $return  = self::select('subjects.*', 'users.name as created_by_name')
+            ->join('users', 'users.id', 'subjects.created_by')
+            ->where('is_deleted', '=', 0)
+            ->orderBy('subjects.id', 'desc')
+            ->get();
+        return $return;
     }
 }

@@ -11,24 +11,25 @@
                     <!-- general form elements -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">New Subject Add</h3>
+                            <h3 class="card-title">Update Class</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{ route('subjects.store') }}" method="POST">
+                        <form action="{{ route('classes.update',$class->id) }}" method="POST">
                             @csrf
+                            @method('PUT')
                             <div class="card-body">
                                 @include('_message')
                                 <div class="form-group">
                                     <label for="name">Name</label>
-                                    <input type="text" name="name" class="form-control" value="{{ old('name') }}" required placeholder="Enter Name">
+                                    <input type="text" name="name" class="form-control" value="{{ $class->name }}">
                                     <div class="text-red">{{ $errors->first('name') }}</div>
                                 </div>
                                 <div class="form-group">
                                     <label for="status">Status</label>
-                                    <select name="status" id="" class="form-control">
-                                        <option value="0">Active</option>
-                                        <option value="1">Inactive</option>
+                                    <select name="status" id="status" class="form-control">
+                                        <option {{ ($class->status == 0) ? 'selected' :'' }} value="0">Active</option>
+                                        <option {{ ($class->status == 1) ? 'selected' :'' }} value="1">Inactive</option>
                                     </select>
                                 </div>
                                 <!-- /.card-body -->

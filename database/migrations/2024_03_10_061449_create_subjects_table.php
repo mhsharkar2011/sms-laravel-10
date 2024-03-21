@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('is_delete')->default(0);
+            $table->string('status')->default(0);
+            $table->string('created_by');
+            $table->string('is_deleted')->default(0);
             $table->timestamps();
         });
     }

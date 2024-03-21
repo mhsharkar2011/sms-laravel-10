@@ -10,7 +10,7 @@
                   <div class="card">
                     <div class="card-header">
                       <h3 class="card-title">Class List</h3>
-                      <a href="{{ url('subjects/create') }}" class="card-title float-right btn btn-sm btn-primary">New Class Add</a>
+                      <a href="{{ url('subjects/create') }}" class="card-title float-right btn btn-sm btn-primary">New Subject Add</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -19,8 +19,9 @@
                         <tr>
                           <th>SL No.</th>
                           <th>Name</th>
-                          <th>Created At</th>
                           <th>Status</th>
+                          <th>Created By</th>
+                          <th>Created At</th>
                           <th>Action</th>
                         </tr>
                         </thead>
@@ -29,8 +30,15 @@
                             <tr>
                                 <td>{{ $subject->id }}</td>
                                 <td>{{ $subject->name }}</td>
+                                <td>
+                                  @if ($subject->status == 0)
+                                    Active
+                                  @else
+                                    Inactive
+                                  @endif
+                                </td>
+                                <td>{{$subject->created_by_name }}</td>
                                 <td>{{$subject->created_at }}</td>
-                                <td>Status</td>
                                 <td class="project-actions text-start">
                                     <a class="btn btn-info btn-sm" href="{{ url('subjects/edit',$subject->id) }}"><i class="fas fa-pencil-alt"></i></a>
                                     <a class="btn btn-danger btn-sm" href="{{ url('subjects/delete',$subject->id) }}"><i class="fas fa-trash"></i></a>
@@ -42,8 +50,9 @@
                         <tr>
                             <th>SL No.</th>
                             <th>Name</th>
-                            <th>Created At</th>
                             <th>Status</th>
+                            <th>Created By</th>
+                            <th>Created At</th>
                             <th>Action</th>
                         </tr>
                         </tfoot>

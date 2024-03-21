@@ -37,35 +37,35 @@ class ClassController extends Controller
        $class->status = $request->status;
        $class->created_by = Auth::user()->id;
        $class->save();
-        return redirect()->route('classes.create')->with('success', 'Class added successfully');
+        return back()->with('success', 'Class added successfully');
     }
 
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ClassModel $ClassModel)
+    public function edit(ClassModel $class)
     {
         $data['header_titles'] = 'Class Edit';
-        $data['classModel'] = $ClassModel;
-        return view('class.class-create',$data);
+        $data['class'] = $class;
+        return view('class.class-edit',$data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ClassModel $ClassModel)
+    public function update(Request $request, ClassModel $class)
     {
-        $class = $request->all();
-        $request->class()->save();
+        $classData = $request->all();
+        $class->update($classData);
+        return redirect()->route('classes.index')->with('Class Updated Successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(ClassModel $class)
     {
-        $class= ClassModel::findOrFail($id);
         $class->is_deleted = 1;
         $class->save();
         return redirect()->route('classes.index')->with('success','Class Deleted successfully');

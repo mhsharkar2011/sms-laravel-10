@@ -34,12 +34,16 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('classes', [ClassController::class, 'index'])->name('classes.index');
     Route::get('classes/create', [ClassController::class, 'create'])->name('classes.create');
     Route::post('classes', [ClassController::class, 'store'])->name('classes.store');
+    Route::get('classes/edit/{class}', [ClassController::class, 'edit'])->name('classes.edit');
+    Route::put('classes/update/{class}', [ClassController::class, 'update'])->name('classes.update');
     Route::get('classes/delete/{id}', [ClassController::class, 'destroy'])->name('classes.delete');
 
     // Subject Route
     Route::get('subjects', [SubjectController::class, 'index'])->name('subject.index');
     Route::get('subjects/create', [SubjectController::class, 'create'])->name('subjects.create');
     Route::post('subjects', [SubjectController::class, 'store'])->name('subjects.store');
+    Route::get('subjects/edit/{subject}', [SubjectController::class, 'edit'])->name('subjects.edit');
+    Route::put('subjects/update/{subject}', [SubjectController::class, 'update'])->name('subjects.update');
     Route::get('subjects/delete/{subject}', [SubjectController::class, 'destroy'])->name('subjects.delete');
 });
 

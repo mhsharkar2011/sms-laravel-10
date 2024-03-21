@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Subject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class SubjectController extends Controller
@@ -33,54 +34,27 @@ class SubjectController extends Controller
 
     public function store(Request $request)
     {
-        // Define validation rules
-        $rules = [
-            'name' => 'required|string|max:255',
-            // Add more validation rules for other fields if necessary
-        ];
-
-        // Validate the incoming request data
-        $validation = Validator::make($request->all(), $rules);
-
-        // Check if validation fails
-        if ($validation->fails()) {
-            return back()->withErrors($validation)->withInput();
-        }
-
-        // If validation passes, proceed with storing the data
-        $subject = Subject::create($request->all());
-
-        return back()->with('success', 'Data inserted successfully');
+       $subject = new Subject;
+       $subject->name = $request->name;
+       $subject->status = $request->status;
+       $subject->created_by = Auth::user()->id;
+        $subject->save();
+        return back()->with('success', 'Subject Created successfully');
     }
 
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Subject $subject)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Subject $subject)
     {
-        //
+        $data['header_title'] = "Subject Edit";
+        $data['subject'] = $subject;
+        return view('subject.subject-edit',$data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Subject $subject)
     {
-        //
+        $subject->update($request->all());
+        return redirect()->route('subject.index')->with('success', 'Subject has been updated');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Subject $subject)
     {
         $subject->is_delete = 1;
