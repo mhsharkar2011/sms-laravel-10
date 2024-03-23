@@ -1,7 +1,7 @@
-@props(['user'])
+@props(['avatar'])
 
-@if ($user)
-    <img src="{{ asset('public/storage/avatars/'.$user) }}" {{ $attributes }} alt="{{ $user }}">
+@if ($avatar)
+    <img src="{{ asset('public/storage/avatars/'.$avatar) }}" {{ $attributes }} alt="{{ $avatar }}">
 @else
-    <img src="{{ asset('public/storage/img/avatar4.png') }}" alt="{{ $user }}'s avatar" {{ $attributes }} >
+    <img src="{{ asset('public/storage/img/avatar4.png') }}" alt="{{ $avatar }}'s avatar" {{ $attributes }} >
 @endif

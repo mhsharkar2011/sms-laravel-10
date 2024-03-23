@@ -32,7 +32,7 @@
                             <tr>
                                 <td>{{ $user->id }}</td>
                                 <td>{{ $user->name }}</td>
-                                <td><x-avatar :user="$user->avatar" width="48" height="48" class="rounded-circle" />
+                                <td><x-avatar :avatar="$user->avatar" width="48" height="48" class="rounded-circle" />
                                 <td>{{$user->email }}</td>
                                 <td>Attendance Process</td>
                                 <td>{{$user->created_at }}</td>

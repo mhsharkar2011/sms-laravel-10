@@ -17,6 +17,7 @@ Route::post('forgot-password', [AuthController::class, 'postForgotPassword']);
 Route::get('reset/{token}', [AuthController::class, 'resetPassword']);
 Route::post('reset/{token}', [AuthController::class, 'postResetPassword']);
 Route::get('logout', [AuthController::class, 'logout']);
+Route::get('users/profile/{user}', [AdminController::class, 'show'])->name('users.show');
 
 
 
@@ -40,12 +41,12 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('classes/delete/{id}', [ClassController::class, 'destroy'])->name('classes.delete');
 
     // Subject Route
-    Route::get('subjects', [SubjectController::class, 'index'])->name('subjects.index');
-    Route::get('subjects/create', [SubjectController::class, 'create'])->name('subjects.create');
-    Route::post('subjects', [SubjectController::class, 'store'])->name('subjects.store');
-    Route::get('subjects/edit/{subject}', [SubjectController::class, 'edit'])->name('subjects.edit');
-    Route::put('subjects/update/{subject}', [SubjectController::class, 'update'])->name('subjects.update');
-    Route::get('subjects/delete/{subject}', [SubjectController::class, 'destroy'])->name('subjects.delete');
+    Route::get('admins/subjects', [SubjectController::class, 'index'])->name('admins.subjects');
+    Route::get('admins/subjects/create', [SubjectController::class, 'create'])->name('admins.subjects.create');
+    Route::post('admins/subjects', [SubjectController::class, 'store'])->name('admins.subjects.store');
+    Route::get('admins/subjects/edit/{subject}', [SubjectController::class, 'edit'])->name('admins.subjects.edit');
+    Route::put('admins/subjects/update/{subject}', [SubjectController::class, 'update'])->name('admins.subjects.update');
+    Route::get('admins/subjects/delete/{subject}', [SubjectController::class, 'destroy'])->name('admins.subjects.delete');
 
     // assign_subjects
     Route::get('assign_subjects', [ClassSubjectController::class, 'index'])->name('assign_subjects.index');
@@ -73,6 +74,7 @@ Route::group(['middleware' => 'student'], function () {
     Route::get('students/profile/edit/{user}', [StudentController::class, 'edit'])->name('students.edit');
     Route::put('students/profile/update/{user}', [StudentController::class, 'update'])->name('students.update');
     Route::get('students/delete/{user}', [StudentController::class, 'destroy'])->name('students.destroy');
+
 });
 
 // Parent Middleware =================================================================
