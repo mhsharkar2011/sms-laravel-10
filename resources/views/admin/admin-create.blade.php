@@ -31,7 +31,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="password">Password</label>
-                                    <input type="password" name="password" class="form-control" required placeholder="Password">
+                                    <input type="password" name="password" class="form-control" placeholder="Password">
+                                    <div class="text-red">{{ $errors->first('password') }}</div>
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer text-center">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -87,10 +88,11 @@ class AdminController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users|max:255'.$user->id,
+            'password' => 'required|string|min:8',
+            // 'email' => 'required|email|unique:users|max:255'.$user->id,
         ]);
 
-        $input = $validatedData()->except(['avatar']);
+        $input = Arr::except($validatedData,'avatar');
 
         if ($user->avatar && $request->hasFile('avatar')) {
             Storage::delete('public/avatars/' . $user->avatar);
@@ -98,6 +100,7 @@ class AdminController extends Controller
         }
         if(!empty($request->password)){
             $user->password = Hash::make($request->password);
+            $user->save();
         }
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');

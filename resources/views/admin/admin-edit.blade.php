@@ -15,21 +15,24 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('admins.update',$user->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">Full Name</label>
-                                    <input type="text" name="name" class="form-control" value="{{ old ($user->name) }}">
+                                    <input type="text" name="name" class="form-control" value="{{ $user->name }}">
+                                    <div class="text-red">{{ $errors->first('name') }}</div>
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email Address</label>
                                     <input type="email" name="email" class="form-control" value="{{ $user->email }}">
+                                    <div class="text-red">{{ $errors->first('email') }}</div>
                                 </div>
                                 <div class="form-group">
                                     <label for="password">Password</label>
                                     <input type="password" name="password" class="form-control">
+                                    <div class="text-red">{{ $errors->first('password') }}</div>
                                 </div>
                                 <div class="form-group">
                                     <label for="avatar"><x-avatar :user="$user->avatar" width="80px" height="80px" class="rounded-circle"/></label>

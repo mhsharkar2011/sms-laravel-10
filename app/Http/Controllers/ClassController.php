@@ -30,10 +30,14 @@ class ClassController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, ClassModel $class)
     {
-       $class = new ClassModel;
-       $class->name = $request->name;
+        $validatedData = $request->validate([
+            'name' => 'required|unique:classes,name,' . $class->id . 'id|min:3',
+        ]);
+
+    //    $class = new ClassModel;
+       $class->name = $validatedData['name'];
        $class->status = $request->status;
        $class->created_by = Auth::user()->id;
        $class->save();
@@ -56,8 +60,13 @@ class ClassController extends Controller
      */
     public function update(Request $request, ClassModel $class)
     {
-        $classData = $request->all();
-        $class->update($classData);
+        
+        $validatedData = $request->validate([
+            'name' => 'required|unique:classes,name,' . $class->id . 'id|min:3',
+        ]);
+
+        // $classData = $validatedData;
+        $class->update($validatedData);
         return redirect()->route('classes.index')->with('Class Updated Successfully');
     }
 
