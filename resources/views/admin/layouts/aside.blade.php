@@ -12,7 +12,7 @@
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <x-avatar :avatar="Auth::user()->avatar" width="48" height="48" class="rounded-circle" />
             <div class="info">
-                <a href="{{ route('users.show', Auth::user()->id) }}" class="d-block">{{ Auth::user()->name }}</a>
+                <a href="{{ route('admins.show', Auth::user()->id) }}" class="d-block">{{ Auth::user()->name }}</a>
             </div>
         </div>
 
@@ -63,7 +63,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('students') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
+                    <a href="{{ url('admins/students') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
                             Students
@@ -123,10 +123,10 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('#') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
+                    <a href="{{ url('students/teachers') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
-                            Subjects
+                            Teachers
                         </p>
                     </a>
                 </li>
@@ -151,7 +151,7 @@
                 @endif
             
                 <li class="nav-item">
-                    <a href="{{ url('logout') }}" class="nav-link">
+                    <a href="{{ url('destroy') }}" class="nav-link">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
                             Logout

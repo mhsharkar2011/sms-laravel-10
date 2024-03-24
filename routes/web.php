@@ -7,6 +7,7 @@ use App\Http\Controllers\ClassSubjectController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 
 // Public Route
@@ -16,14 +17,14 @@ Route::get('forgot-password', [AuthController::class, 'forgotPassword']);
 Route::post('forgot-password', [AuthController::class, 'postForgotPassword']);
 Route::get('reset/{token}', [AuthController::class, 'resetPassword']);
 Route::post('reset/{token}', [AuthController::class, 'postResetPassword']);
-Route::get('logout', [AuthController::class, 'logout']);
-Route::get('users/profile/{user}', [AdminController::class, 'show'])->name('users.show');
+Route::get('destroy', [AuthController::class, 'destroy']);
 
 
 
 // Admin Middleware =================================================================
 Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/admin-dashboard', [DashboardController::class, 'dashboard']);
+    Route::get('admins/students', [AdminController::class, 'index'])->name('admins.index');
     // Admin Route
     Route::get('admins', [AdminController::class, 'index'])->name('admins.index');
     Route::get('admins/create', [AdminController::class, 'create'])->name('admins.create');
@@ -61,6 +62,8 @@ Route::group(['middleware' => 'admin'], function () {
 // Teacher Middleware =================================================================
 Route::group(['middleware' => 'teacher'], function () {
     Route::get('teacher/teacher-dashboard', [DashboardController::class, 'dashboard']);
+    Route::get('teachers', [TeacherController::class, 'index'])->name('teachers.index');
+
 });
 
 // Student Middleware =================================================================
@@ -68,6 +71,7 @@ Route::group(['middleware' => 'student'], function () {
     Route::get('student/student-dashboard', [DashboardController::class, 'dashboard']);
     // Students Route
     Route::get('students', [StudentController::class, 'index'])->name('students.index');
+    Route::get('students/teachers', [TeacherController::class, 'index'])->name('teachers.index');
     Route::get('students/create', [StudentController::class, 'create'])->name('students.create');
     Route::post('students', [StudentController::class, 'store'])->name('students.store');
     Route::get('students/profile/{user}', [StudentController::class, 'show'])->name('students.show');

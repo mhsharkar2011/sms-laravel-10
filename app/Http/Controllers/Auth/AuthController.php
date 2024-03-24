@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Mail\forgotPasswordMail;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -29,7 +30,7 @@ class AuthController extends Controller
                 return redirect('parent/parent-dashboard');
             }
         }
-        return view('auth.login',$data);
+        return view('auth.login', $data);
     }
 
     public function AuthLogin(Request $request)
@@ -73,29 +74,41 @@ class AuthController extends Controller
     public function resetPassword($remember_token)
     {
         $user = User::getSingleToken($remember_token);
-        if(!empty($user)){
+        if (!empty($user)) {
             $data['user'] = $user;
-            return view('auth.reset',$data);
-        }else{
+            return view('auth.reset', $data);
+        } else {
             abort(404);
         }
     }
 
-    public function postResetPassword($token, Request $request){
-        if($request->password == $request->cpassword){
+    public function postResetPassword($token, Request $request)
+    {
+        if ($request->password == $request->cpassword) {
             $user = User::getSingleToken($token);
             $user->password = Hash::make($request->password);
             $user->save();
             return redirect(url('/'))->with('success', 'Password reset successfully');
-        }else{
+        } else {
             return redirect()->back()->with('error', 'Password and Confirm Password does not match');
         }
     }
 
-    // Logout
-    public function logout()
+    public function destroy(Request $request): RedirectResponse
     {
-        Auth::logout();
-        return redirect(url(''));
+        Auth::guard('web')->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
+
+    // // Logout
+    // public function logout()
+    // {
+    //     Auth::logout();
+    //     return redirect(url(''));
+    // }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Teacher;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller
@@ -12,7 +13,10 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        //
+        $data['header_title'] = 'Teachers List';
+        $data['getTeacher'] = User::getTeacher();
+        return view('teacher.teacher-list',$data);
+
     }
 
     /**

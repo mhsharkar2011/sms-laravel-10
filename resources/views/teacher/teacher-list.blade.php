@@ -25,7 +25,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                            @foreach ($getSubject as $subject )
+                            @foreach ($getTeacher as $subject )
                             <tr>
                                 <td>{{ $subject->id }}</td>
                                 <td>{{ $subject->name }}</td>

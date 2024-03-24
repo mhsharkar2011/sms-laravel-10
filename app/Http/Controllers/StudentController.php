@@ -16,7 +16,7 @@ class StudentController extends Controller
     {
         $data['header_title'] = 'Teacher List';
         $data['getStudent'] = User::getStudent();
-        return view('student.index',$data);
+        return view('student.student-list',$data);
     }
 
     /**
@@ -40,7 +40,8 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        //
+        $header_title = 'Profile';
+        return view('student.profile',compact('header_title','user'));
     }
 
     /**

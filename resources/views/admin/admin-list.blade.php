@@ -10,7 +10,7 @@
                   <div class="card">
                     <div class="card-header">
                       <h3 class="card-title">Admin List</h3>
-                      <a href="{{ url('admins/create') }}" class="card-title float-right btn btn-sm btn-primary">New User</a>
+                      <a href="{{ url('admins/create') }}" class="card-title float-right btn btn-sm btn-primary">Add New Admin</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -28,19 +28,18 @@
                         </tr>
                         </thead>
                         <tbody>
-                            @foreach ($getAdmin as $user )
+                            @foreach ($getAdmin as $value )
                             <tr>
-                                <td>{{ $user->id }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td><x-avatar :avatar="$user->avatar" width="48" height="48" class="rounded-circle" />
-                                <td>{{$user->email }}</td>
-                                <td>Attendance Process</td>
-                                <td>{{$user->created_at }}</td>
+                                <td>{{ $value->id }}</td>
+                                <td>{{ $value->name }}</td>
+                                <td><x-avatar :avatar="$value->avatar" width="48" height="48" class="rounded-circle" />
+                                <td>{{$value->email }}</td>
+                                <td>{{$value->created_at }}</td>
                                 <td>Status</td>
                                 <td class="project-actions text-start">
-                                    <a class="btn btn-primary btn-sm" href="{{ url('admins/profile', $user->id) }}"><i class="fas fa-eye"></i></a>
-                                    <a class="btn btn-info btn-sm" href="{{ url('admins/profile/edit',$user->id) }}"><i class="fas fa-pencil-alt"></i></a>
-                                    <a class="btn btn-danger btn-sm" href="{{ url('admins/delete',$user->id) }}"><i class="fas fa-trash"></i></a>
+                                    <a class="btn btn-primary btn-sm" href="{{ url('admins/profile', $value->id) }}"><i class="fas fa-eye"></i></a>
+                                    <a class="btn btn-info btn-sm" href="{{ url('admins/profile/edit',$value->id) }}"><i class="fas fa-pencil-alt"></i></a>
+                                    <a class="btn btn-danger btn-sm" href="{{ url('admins/delete',$value->id) }}"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
                             @endforeach
