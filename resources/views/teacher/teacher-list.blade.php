@@ -9,8 +9,10 @@
                 <div class="col-12">
                   <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Class List</h3>
-                      <a href="{{ url('subjects/create') }}" class="card-title float-right btn btn-sm btn-primary">New Class Add</a>
+                      <h3 class="card-title">Admin List</h3>
+                      @if (Auth::user()->user_type == 1)
+                      <a href="{{ url('admins/create') }}" class="card-title float-right btn btn-sm btn-primary">Add New User</a>
+                      @endif
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -19,21 +21,27 @@
                         <tr>
                           <th>SL No.</th>
                           <th>Name</th>
+                          <th>Photo</th>
+                          <th>Email</th>
+                          <th>Proccessing</th>
                           <th>Created At</th>
                           <th>Status</th>
                           <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                            @foreach ($getTeacher as $subject )
+                            @foreach ($getTeacher as $value )
                             <tr>
-                                <td>{{ $subject->id }}</td>
-                                <td>{{ $subject->name }}</td>
-                                <td>{{$subject->created_at }}</td>
+                                <td>{{ $value->id }}</td>
+                                <td>{{ $value->name }}</td>
+                                <td><x-avatar :avatar="$value->avatar" width="48" height="48" class="rounded-circle" />
+                                <td>{{$value->email }}</td>
+                                <td>{{$value->created_at }}</td>
                                 <td>Status</td>
                                 <td class="project-actions text-start">
-                                    <a class="btn btn-info btn-sm" href="{{ url('subjects/edit',$subject->id) }}"><i class="fas fa-pencil-alt"></i></a>
-                                    <a class="btn btn-danger btn-sm" href="{{ url('subjects/delete',$subject->id) }}"><i class="fas fa-trash"></i></a>
+                                    <a class="btn btn-primary btn-sm" href="{{ url('admins/profile', $value->id) }}"><i class="fas fa-eye"></i></a>
+                                    <a class="btn btn-info btn-sm" href="{{ url('admins/profile/edit',$value->id) }}"><i class="fas fa-pencil-alt"></i></a>
+                                    <a class="btn btn-danger btn-sm" href="{{ url('admins/delete',$value->id) }}"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
                             @endforeach
@@ -42,6 +50,9 @@
                         <tr>
                             <th>SL No.</th>
                             <th>Name</th>
+                            <th>Photo</th>
+                            <th>Email</th>
+                            <th>Proccessing</th>
                             <th>Created At</th>
                             <th>Status</th>
                             <th>Action</th>

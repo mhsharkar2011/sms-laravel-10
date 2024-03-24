@@ -14,7 +14,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $data['header_title'] = 'Teacher List';
+        $data['header_title'] = 'Student List';
         $data['getStudent'] = User::getStudent();
         return view('student.student-list',$data);
     }

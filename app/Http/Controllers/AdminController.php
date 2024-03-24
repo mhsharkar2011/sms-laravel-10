@@ -31,33 +31,22 @@ class AdminController extends Controller
         return view('admin.admin-create', $data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //Validate incoming request data
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users|max:255',
-            'password' => 'required|string|min:8', // You may need to adjust this based on your requirements
+            'password' => 'required|string|min:8',
         ]);
 
         User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
-            'user_type' => 1, // Assuming the default user type is 1 for admins
-            'password' => bcrypt($validatedData['password']), // Hash the password for security
+            'user_type' => $request->user_type,
+            'created_by' => Auth::user()->id,
+            'password' => Hash::make($validatedData['password']),
         ]);
 
-        // Redirect back with success message
-        // $user = new User();
-        // $user->name = trim($request->name);
-        // $user->email = trim($request->email);
-        // if(!empty($request->password)){
-        //     $user->password = Hash::make($request->password);
-        // }
-        // $user->save();
         return redirect()->route('admins.create')->with('success', 'User added successfully');
     }
 

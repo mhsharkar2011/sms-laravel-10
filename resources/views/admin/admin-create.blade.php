@@ -34,6 +34,15 @@
                                     <input type="password" name="password" class="form-control" placeholder="Password">
                                     <div class="text-red">{{ $errors->first('password') }}</div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="user_type">User Type</label>
+                                    <select name="user_type" id="" class="form-control">
+                                        <option value="1">Admin</option>
+                                        <option value="2">Teacher</option>
+                                        <option value="3">Student</option>
+                                        <option value="4">Parent</option>
+                                    </select>
+                                </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer text-center">
                                     <button type="reset" class="btn btn-warning">Clear</button>

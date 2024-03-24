@@ -24,7 +24,8 @@ Route::get('destroy', [AuthController::class, 'destroy']);
 // Admin Middleware =================================================================
 Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/admin-dashboard', [DashboardController::class, 'dashboard']);
-    Route::get('admins/students', [AdminController::class, 'index'])->name('admins.index');
+    Route::get('admins/students', [StudentController::class, 'index'])->name('students.index');
+    Route::get('admins/teachers', [TeacherController::class, 'index'])->name('teachers.index');
     // Admin Route
     Route::get('admins', [AdminController::class, 'index'])->name('admins.index');
     Route::get('admins/create', [AdminController::class, 'create'])->name('admins.create');
