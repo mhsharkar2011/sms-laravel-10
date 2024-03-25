@@ -18,7 +18,7 @@ class AdminController extends Controller
     public function index()
     {
         $data['header_title'] = 'Admin List';
-        $data['getAdmin'] = User::getAdmin();
+        $data['getUser'] = User::getUser();
         return view('admin.admin-list', $data);
     }
 

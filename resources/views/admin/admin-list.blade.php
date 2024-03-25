@@ -9,8 +9,8 @@
                 <div class="col-12">
                   <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Admin List</h3>
-                      <a href="{{ url('admins/create') }}" class="card-title float-right btn btn-sm btn-primary">Add New Admin</a>
+                      <h3 class="card-title">User List</h3>
+                      <a href="{{ url('admins/create') }}" class="card-title float-right btn btn-sm btn-primary">Add New User</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -21,21 +21,40 @@
                           <th>Name</th>
                           <th>Photo</th>
                           <th>Email</th>
-                          <th>Proccessing</th>
-                          <th>Created At</th>
+                          <th>User Type</th>
                           <th>Status</th>
+                          <th>Created By</th>
+                          <th>Created Date</th>
                           <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                            @foreach ($getAdmin as $value )
+                            @foreach ($getUser as $value )
                             <tr>
                                 <td>{{ $value->id }}</td>
                                 <td>{{ $value->name }}</td>
                                 <td><x-avatar :avatar="$value->avatar" width="48" height="48" class="rounded-circle" />
                                 <td>{{$value->email }}</td>
-                                <td>{{$value->created_at }}</td>
-                                <td>Status</td>
+                                <td>
+                                  @if ($value->user_type == 1)
+                                    Admin
+                                  @elseif ($value->user_type == 2)
+                                    Teacher
+                                    @elseif ($value->user_type == 3)
+                                    Student
+                                    @elseif ($value->user_type == 4)
+                                    Parent
+                                  @endif
+                                </td>
+                                <td>
+                                  @if ($value->is_deleted == 0)
+                                  Active
+                                @else
+                                  Inactive
+                                @endif
+                                </td>
+                                <td>{{ $value->created_by_name }}</td>
+                                <td>{{date('d-m-Y H:i:A', strtotime($value->created_at)) }}</td>
                                 <td class="project-actions text-start">
                                     <a class="btn btn-primary btn-sm" href="{{ url('admins/profile', $value->id) }}"><i class="fas fa-eye"></i></a>
                                     <a class="btn btn-info btn-sm" href="{{ url('admins/profile/edit',$value->id) }}"><i class="fas fa-pencil-alt"></i></a>
@@ -46,14 +65,15 @@
                         </tbody>
                         <tfoot>
                         <tr>
-                            <th>SL No.</th>
-                            <th>Name</th>
-                            <th>Photo</th>
-                            <th>Email</th>
-                            <th>Proccessing</th>
-                            <th>Created At</th>
-                            <th>Status</th>
-                            <th>Action</th>
+                          <th>SL No.</th>
+                          <th>Name</th>
+                          <th>Photo</th>
+                          <th>Email</th>
+                          <th>User Type</th>
+                          <th>Status</th>
+                          <th>Created By</th>
+                          <th>Created Date</th>
+                          <th>Action</th>
                         </tr>
                         </tfoot>
                       </table>

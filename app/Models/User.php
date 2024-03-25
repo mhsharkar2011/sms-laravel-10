@@ -41,11 +41,9 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    static public function getAdmin()
+    static public function getUser()
     {
         return self::select('users.*')
-            ->where('user_type', '=', '1')
-            ->where('is_delete', '=', '0')
             ->orderBy('id', 'desc')
             ->get();
     }
