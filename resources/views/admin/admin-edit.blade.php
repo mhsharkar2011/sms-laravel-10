@@ -35,7 +35,7 @@
                                     <div class="text-red">{{ $errors->first('password') }}</div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="avatar"><x-avatar :user="$user->avatar" width="80px" height="80px" class="rounded-circle"/></label>
+                                    <label for="avatar"><x-avatar :avatar="$user->avatar" width="80px" height="80px" class="rounded-circle"/></label>
                                     
                                     <div class="input-group">
                                         <div class="custom-file">

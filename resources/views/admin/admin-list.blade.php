@@ -47,10 +47,10 @@
                                   @endif
                                 </td>
                                 <td>
-                                  @if ($value->is_deleted == 0)
+                                  @if ($value->is_delete == 0)
                                   Active
                                 @else
-                                  Inactive
+                                  <span class="text-danger">Inactive</span>
                                 @endif
                                 </td>
                                 <td>{{ $value->created_by_name }}</td>
