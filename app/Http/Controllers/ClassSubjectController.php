@@ -10,16 +10,20 @@ use Illuminate\Support\Facades\Auth;
 
 class ClassSubjectController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->input('search');
         $data['header_title'] = 'Subject Assignment';
+        if($search){
         $data['assignSubjects'] = ClassSubject::select('class_subjects.*','classes.name as class_name','subjects.name as subject_name','users.name as created_by_name')
                                                 ->join('subjects', 'subjects.id','=', 'class_subjects.subject_id')
                                                 ->join('classes', 'classes.id','=', 'class_subjects.class_id')
                                                 ->join('users', 'users.id','=', 'class_subjects.created_by')
                                                 ->where('class_subjects.is_deleted',0)
+                                                ->where('class_subjects.class_name','LIKE',"%{$search}%")
                                                 ->orderBy('class_subjects.id', 'desc')
                                                 ->get();
+        }
         return view('admin.assign_subject.list', $data);
     }
 
