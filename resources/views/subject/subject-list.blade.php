@@ -10,7 +10,7 @@
                   <div class="card">
                     <div class="card-header">
                       <h3 class="card-title">Subject List</h3>
-                      <a href="{{ url('subjects/create') }}" class="card-title float-right btn btn-sm btn-primary">New Subject Add</a>
+                      <a href="{{ url('admins/subjects/create') }}" class="card-title float-right btn btn-sm btn-primary">New Subject Add</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">

@@ -15,7 +15,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{ route('subjects.store') }}" method="POST">
+                        <form action="{{ route('admins.subjects.store') }}" method="POST">
                             @csrf
                             <div class="card-body">
                                 @include('_message')

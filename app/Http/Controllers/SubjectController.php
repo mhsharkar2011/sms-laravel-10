@@ -52,7 +52,7 @@ class SubjectController extends Controller
     public function update(Request $request, Subject $subject)
     {
         $subject->update($request->all());
-        return redirect()->route('subject.index')->with('success', 'Subject has been updated');
+        return redirect()->route('admins.subjects')->with('success', 'Subject has been updated');
     }
 
     public function destroy(Subject $subject)
