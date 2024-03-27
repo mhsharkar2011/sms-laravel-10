@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('class_subjects', function (Blueprint $table) {
             $table->id();
-            
+            $table->integer('class_id');
+            $table->integer('subject_id');
+            $table->integer('created_by');
+            $table->integer('is_deleted')->default(0);
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

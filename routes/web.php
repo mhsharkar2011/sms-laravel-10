@@ -56,7 +56,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('assign_subjects', [ClassSubjectController::class, 'store'])->name('assign_subjects.store');
     Route::get('assign_subjects/edit/{id}', [ClassSubjectController::class, 'edit'])->name('assign_subjects.edit');
     Route::put('assign_subjects/update/{id}', [ClassSubjectController::class, 'update'])->name('assign_subjects.update');
-    Route::get('assign_subjects/delete/{id}', [ClassSubjectController::class, 'destroy'])->name('assign_subjects.delete');
+    Route::get('assign_subjects/delete/{assignSubject}', [ClassSubjectController::class, 'destroy'])->name('assign_subjects.delete');
 
 });
 

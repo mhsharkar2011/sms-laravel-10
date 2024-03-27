@@ -9,4 +9,10 @@ class ClassSubject extends Model
 {
     use HasFactory;
     protected  $table = 'class_subjects';
+
+    protected $guarded = [
+        'id',
+    ];
+
+    
 }

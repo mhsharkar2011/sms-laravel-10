@@ -22,9 +22,14 @@ class ClassModel extends Model
     static public function getClass(){
         $return  = self::select('classes.*','users.name as created_by_name')
             ->join('users', 'users.id','classes.created_by')
-            ->where('is_deleted','=',0)
+            ->where('classes.is_deleted','=',0)
             ->orderBy('classes.id', 'desc')
             ->get();
         return $return;
+    }
+
+    public function subjects()
+    {
+        return $this->belongsTo(Subject::class);
     }
 }

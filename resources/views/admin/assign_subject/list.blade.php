@@ -10,7 +10,7 @@
                   <div class="card">
                     <div class="card-header">
                       <h3 class="card-title">Assign Subject List</h3>
-                      <a href="{{ url('assign_subject/create') }}" class="card-title float-right btn btn-sm btn-primary">New Assign Subject</a>
+                      <a href="{{ url('assign_subjects/create') }}" class="card-title float-right btn btn-sm btn-primary">New Assign Subject</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -18,7 +18,8 @@
                         <thead>
                         <tr>
                           <th>SL No.</th>
-                          <th>Name</th>
+                          <th>Class Name</th>
+                          <th>Subject Name</th>
                           <th>Status</th>
                           <th>Created By</th>
                           <th>Created At</th>
@@ -26,10 +27,11 @@
                         </tr>
                         </thead>
                         <tbody>
-                            {{-- @foreach ($getClass as $value )
+                            @foreach ($assignSubjects as $value )
                             <tr>
                                 <td>{{ $value->id }}</td>
-                                <td>{{ $value->name }}</td>
+                                <td>{{ $value->class_name }}</td>
+                                <td>{{ $value->subject_name }}</td>
                                 <td>
                                   @if ($value->status == 0)
                                     Active
@@ -40,16 +42,17 @@
                                 <td>{{ $value->created_by_name }}</td>
                                 <td>{{date('d-m-Y H:i:A', strtotime($value->created_at)) }}</td>
                                 <td class="project-actions text-start">
-                                    <a class="btn btn-info btn-sm" href="{{ url('classes/edit',$value->id) }}"><i class="fas fa-pencil-alt"></i></a>
-                                    <a class="btn btn-danger btn-sm" href="{{ url('classes/delete',$value->id) }}"><i class="fas fa-trash"></i></a>
+                                    <a class="btn btn-info btn-sm" href="{{ url('assign_subjects/edit',$value->id) }}"><i class="fas fa-pencil-alt"></i></a>
+                                    <a class="btn btn-danger btn-sm" href="{{ url('assign_subjects/delete',$value->id) }}"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
-                            @endforeach --}}
+                            @endforeach
                         </tbody>
                         <tfoot>
                         <tr>
                           <th>SL No.</th>
-                          <th>Name</th>
+                          <th>Class Name</th>
+                          <th>Subject Name</th>
                           <th>Status</th>
                           <th>Created By</th>
                           <th>Created At</th>

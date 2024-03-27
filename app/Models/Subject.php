@@ -22,4 +22,9 @@ class Subject extends Model
             ->get();
         return $return;
     }
+
+    public function classes()
+    {
+        return $this->belongsTo(ClassModel::class);
+    }
 }
