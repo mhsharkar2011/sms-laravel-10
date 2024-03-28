@@ -60,12 +60,9 @@ class ClassController extends Controller
      */
     public function update(Request $request, ClassModel $class)
     {
-        
         $validatedData = $request->validate([
             'name' => 'required|unique:classes,name,' . $class->id . 'id|min:3',
         ]);
-
-        // $classData = $validatedData;
         $class->update($validatedData);
         return redirect()->route('classes.index')->with('Class Updated Successfully');
     }

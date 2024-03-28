@@ -14,29 +14,7 @@
                     </div>
 
                     {{-- Search And Filtering --}}
-                    <form action="" method="get">
-                      <div class="card-body">
-                        <div class="row">
-                    <div class="form-group col-md-3">
-                      <label for="class_name">Class Name</label>
-                      <input type="text" class="form-control" value="{{ Request::get('name') }}" name="class_name" placeholder="Class Name">
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label for="subject_name">Subject Name</label>
-                      <input type="text" class="form-control" value="{{ Request::get('name') }}" name="subject_name" placeholder="Subject Name">
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label for="date">Date</label>
-                      <input type="date" class="form-control" value="{{ Request::get('date') }}" name="date" placeholder="Date">
-                    </div>
-
-                    <div class="form-group col-md-3">
-                      <button  class="btn btn-primary" style="margin-top: 33px" type="submit">Search</button>
-                      <a href="{{ url('admins/class/list') }}"  style="margin-top: 33px" class="btn btn-warning">Reset</a>
-                    </div>
-                  </div>
-                </div>
-              </form>
+                    <x-search-form />
                     <!-- /.card-header -->
                     <div class="card-body">
                       <table id="example1" class="table table-bordered table-striped">
