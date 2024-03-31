@@ -24,28 +24,37 @@
                                     <label for="status">Class Name</label>
                                     <select name="class_id" id="" class="form-control">
                                         <option value="">Select Class</option>
-                                        @foreach ($classes as $class )
-                                        <option value="{{ $class->id }}">{{ $class->name }}</option>
+                                        @foreach ($getClass as $class )
+                                        <option {{ ($assignSubject->class_id == $class->id) ? 'selected' : ''  }} value="{{ $class->id }}">{{ $class->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="status">Subject Name</label>
-                                    
-                                        @foreach ($subjects as $subject )
+                                        @foreach ($getSubject as $subject )
+                                            @php
+                                            $checked = "";
+                                            @endphp
+                                            
+                                            @foreach ($getAssignSubjectId as $assignSubject)
+                                                @if ($assignSubject->class_id == $subject->id)
+                                                @php
+                                                $checked = "checked";
+                                                @endphp
+                                                @endif
+                                            @endforeach
                                         <div>
                                             <label for="">
-                                                <input type="checkbox" value="{{ $subject->id }}" name="subject_id[]"> {{ $subject->name }}
+                                                <input {{ $checked }} type="checkbox" value="{{ $subject->id }}" name="subject_id[]"> {{ $subject->name }}
                                             </label>
                                         </div>
                                         @endforeach
-                                   
                                 </div>
                                 <div class="form-group">
                                     <label for="status">Status</label>
                                     <select name="status" id="" class="form-control">
-                                        <option value="0">Active</option>
-                                        <option value="1">Inactive</option>
+                                        <option {{ ($assignSubject->status == 0) ? 'selected' : ''  }} value="0">Active</option>
+                                        <option {{ ($assignSubject->status == 1) ? 'selected' : ''  }} value="1">Inactive</option>
                                     </select>
                                 </div>
                                 <!-- /.card-body -->

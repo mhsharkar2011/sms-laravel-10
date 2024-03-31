@@ -69,17 +69,14 @@ class ClassSubjectController extends Controller
 
     public function edit(ClassSubject $assignSubject)
     {
-        $data['assignSubject'] = $assignSubject;
-        if(!empty($assignSubject)){
         $data['header_title'] = 'Edit Assignment Subject';
-        $data['subjects'] = Subject::where('subjects.is_deleted', '=', 0)
-                                    ->where('subjects.status', '=', 0)
-                                    ->orderBy('subjects.name', 'asc')
-                                    ->get();
-        $data['classes'] = ClassModel::where('classes.is_deleted', '=', 0)
-                                    ->where('classes.status', '=', 0)
-                                    ->orderBy('classes.name', 'asc')
-                                    ->get();
+
+        if(!empty($assignSubject)){
+        $data['assignSubject'] = $assignSubject;
+        $assignSubject = $assignSubject;
+        $data['getAssignSubjectId'] = ClassSubject::getAssignSubjectId($assignSubject->class_id);
+        $data['getClass'] = ClassModel::getClass();
+        $data['getSubject'] = Subject::getSubject();
         return view('admin.assign_subject.edit', $data);
     }else{
         abort(404);
@@ -88,9 +85,6 @@ class ClassSubjectController extends Controller
 
     public function update(Request $request, ClassSubject $assignSubject)
     {
-        
-
-        // $classData = $validatedData;
         $assignSubject->update($request->all());
         return redirect()->route('assign_subjects')->with('Class Updated Successfully');
        
