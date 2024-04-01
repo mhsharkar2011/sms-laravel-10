@@ -17,4 +17,8 @@ class ClassSubject extends Model
     static function getAssignSubjectId($class_id){
         return self::where('class_id', '=', $class_id)->where('is_deleted','=',0)->get();
     }
+
+    static function deleteSubject($class_id){
+        return self::where('class_id', '=', $class_id)->delete();
+    }
 }

@@ -36,7 +36,6 @@ class ClassController extends Controller
             'name' => 'required|unique:classes,name,' . $class->id . 'id|min:3',
         ]);
 
-    //    $class = new ClassModel;
        $class->name = $validatedData['name'];
        $class->status = $request->status;
        $class->created_by = Auth::user()->id;
@@ -44,10 +43,6 @@ class ClassController extends Controller
         return back()->with('success', 'Class added successfully');
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(ClassModel $class)
     {
         $data['header_titles'] = 'Class Edit';
@@ -62,6 +57,7 @@ class ClassController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|unique:classes,name,' . $class->id . 'id|min:3',
+            'status' =>''
         ]);
         $class->update($validatedData);
         return redirect()->route('classes.index')->with('Class Updated Successfully');

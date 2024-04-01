@@ -37,7 +37,7 @@
                                             @endphp
                                             
                                             @foreach ($getAssignSubjectId as $assignSubject)
-                                                @if ($assignSubject->class_id == $subject->id)
+                                                @if ($assignSubject->subject_id == $subject->id)
                                                 @php
                                                 $checked = "checked";
                                                 @endphp
@@ -59,8 +59,7 @@
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer text-center">
-                                    <button type="reset" class="btn btn-warning">Clear</button>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-primary">Update</button>
                                 </div>
                             </div>
                         </form>
