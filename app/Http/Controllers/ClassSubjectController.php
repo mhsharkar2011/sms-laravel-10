@@ -63,6 +63,41 @@ class ClassSubjectController extends Controller
         }
     }
 
+    public function show(ClassSubject $assignSubject)
+    {
+        $data['header_title'] = 'Show Assigned Subject';
+
+        if (!empty($assignSubject)) {
+            $data['assignSubject'] = $assignSubject;
+            $data['getClass'] = ClassModel::getClass();
+            $data['getSubject'] = Subject::getSubject();
+            return view('admin.assign_subject.show', $data);
+        } else {
+            abort(404);
+        }
+    }
+
+    public function update_single(Request $request)
+    {
+
+        $existingRecord = ClassSubject::where('class_id', $request->class_id)
+            ->where('subject_id', $request->subject_id)
+            ->first();
+        if ($existingRecord) {
+            // If an existing record is found, update its status
+            $existingRecord->status = $request->status;
+            $existingRecord->save();
+        } else {
+            $input = new ClassSubject;
+            $input->class_id = $request->class_id;
+            $input->subject_id = $request->subject_id;
+            $input->status = $request->status;
+            $input->created_by = Auth::user()->id;
+            $input->save();
+        }
+        return redirect()->route('assign_subjects.index')->with('Class Updated Successfully');
+    }
+
     public function edit(ClassSubject $assignSubject)
     {
         $data['header_title'] = 'Edit Assignment Subject';
@@ -82,7 +117,7 @@ class ClassSubjectController extends Controller
     public function update(Request $request)
     {
         ClassSubject::deleteSubject($request->class_id);
-        
+
         foreach ($request->subject_id as $subject_id) {
             $existingRecord = ClassSubject::where('class_id', $request->class_id)
                 ->where('subject_id', $subject_id)
