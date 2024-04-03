@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\ClassSubjectController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
@@ -33,6 +34,10 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admins/profile/{user}', [AdminController::class, 'show'])->name('admins.show');
     Route::get('admins/profile/edit/{user}', [AdminController::class, 'edit'])->name('admins.edit');
     Route::put('admins/profile/update/{user}', [AdminController::class, 'update'])->name('admins.update');
+
+    Route::get('change_password', [ProfileController::class, 'change_password'])->name('admin.change_password');
+    Route::post('change_password', [ProfileController::class, 'update_password'])->name('update_password');
+
     Route::get('admins/delete/{user}', [AdminController::class, 'destroy'])->name('admins.destroy');
     // Class Route
     Route::get('classes', [ClassController::class, 'index'])->name('classes.index');
