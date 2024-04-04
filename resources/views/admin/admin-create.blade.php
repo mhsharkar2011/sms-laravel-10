@@ -20,9 +20,14 @@
                             <div class="card-body">
                                 @include('_message')
                                 <div class="form-group">
-                                    <label for="name">Full Name</label>
-                                    <input type="text" name="name" class="form-control" value="{{ old('name') }}" required placeholder="Enter Name">
-                                    <div class="text-red">{{ $errors->first('name') }}</div>
+                                    <label for="first_name">First Name</label>
+                                    <input type="text" name="first_name" class="form-control" value="{{ old('first_name') }}" required placeholder="Enter First Name">
+                                    <div class="text-red">{{ $errors->first('first_name') }}</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="last_name">Last Name</label>
+                                    <input type="text" name="last_name" class="form-control" value="{{ old('last_name') }}" required placeholder="Enter Last Name">
+                                    <div class="text-red">{{ $errors->first('last_name') }}</div>
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email Address</label>

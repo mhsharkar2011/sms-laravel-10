@@ -18,7 +18,7 @@
                         <thead>
                         <tr>
                           <th>SL No.</th>
-                          <th>Name</th>
+                          <th>Full Name</th>
                           <th>Photo</th>
                           <th>Email</th>
                           <th>User Type</th>
@@ -32,7 +32,7 @@
                             @foreach ($getUser as $value )
                             <tr>
                                 <td>{{ $value->id }}</td>
-                                <td>{{ $value->name }}</td>
+                                <td>{{ $value->first_name }} {{ $value->last_name }}</td>
                                 <td><x-avatar :avatar="$value->avatar" width="48" height="48" class="rounded-circle" />
                                 <td>{{$value->email }}</td>
                                 <td>

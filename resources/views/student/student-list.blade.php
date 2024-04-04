@@ -18,7 +18,7 @@
                         <thead>
                         <tr>
                           <th>SL No.</th>
-                          <th>Name</th>
+                          <th>Full Name</th>
                           <th>Photo</th>
                           <th>Email</th>
                           <th>Created At</th>
@@ -30,11 +30,11 @@
                             @foreach ($getStudent as $value )
                             <tr>
                                 <td>{{ $value->id }}</td>
-                                <td>{{ $value->name }}</td>
+                                <td>{{ $value->first_name }} {{ $value->last_name }}</td>
                                 <td><x-avatar :avatar="$value->avatar" width="48" height="48" class="rounded-circle" />
                                 <td>{{$value->email }}</td>
                                 <td>{{$value->created_at }}</td>
-                                <td>Status</td>
+                                <td>{{$value->status}}</td>
                                 <td class="project-actions text-start">
                                     <a class="btn btn-primary btn-sm" href="{{ url('admins/profile', $value->id) }}"><i class="fas fa-eye"></i></a>
                                     <a class="btn btn-info btn-sm" href="{{ url('admins/profile/edit',$value->id) }}"><i class="fas fa-pencil-alt"></i></a>

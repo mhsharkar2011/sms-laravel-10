@@ -44,7 +44,7 @@ class ProfileController extends Controller
     {
         $data['header_title'] = "Change Password";
 
-        return view('profile.change_password');
+        return view('profile.change_password',$data);
     }
 
     public function update_password(Request $request, User $user) 
@@ -53,7 +53,8 @@ class ProfileController extends Controller
        if(Hash::check($request->old_password, $user->password)){
         $user->password = Hash::make($request->new_password);
         $user->save();
-        return redirect()->back()->with('success', 'Password has been changed');
+        Auth::logout();
+        return redirect()->to('/')->with('success', 'Password has been changed');
        }else
        {
             return redirect()->back()->with('error', 'Old Password is not match');
