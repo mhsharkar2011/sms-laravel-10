@@ -9,7 +9,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-3">
-                        <form action="{{ url('admins/profile', $user->id) }}" method="post">
+                        <form action="{{ url('parents/profile', $user->id) }}" method="post">
                             @csrf
                             <!-- Profile Image -->
                             <div class="card card-primary card-outline">
@@ -18,7 +18,7 @@
                                         <x-avatar :avatar="$user->avatar" width="48" height="48" class="rounded-circle" />
                                     </div>
 
-                                    <h3 class="profile-username text-center">{{ $user->first_name . $user->last_name }}</h3>
+                                    <h3 class="profile-username text-center">{{ $user->first_name }} {{ $user->last_name }} </h3>
 
                                     <p class="text-muted text-center">Software Engineer</p>
 

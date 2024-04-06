@@ -14,7 +14,7 @@ class ClassSubjectController extends Controller
     {
 
         $data['header_title'] = 'Subject Assignment';
-        $data['assignSubjects'] = ClassSubject::select('class_subjects.*', 'classes.name as class_name', 'subjects.name as subject_name', 'users.name as created_by_name')
+        $data['assignSubjects'] = ClassSubject::select('class_subjects.*', 'classes.name as class_name', 'subjects.name as subject_name', 'users.first_name as created_by_name')
             ->join('subjects', 'subjects.id', '=', 'class_subjects.subject_id')
             ->join('classes', 'classes.id', '=', 'class_subjects.class_id')
             ->join('users', 'users.id', '=', 'class_subjects.created_by')

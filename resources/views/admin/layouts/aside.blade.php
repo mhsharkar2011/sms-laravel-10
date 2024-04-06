@@ -11,9 +11,23 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <x-avatar :avatar="Auth::user()->avatar" width="48" height="48" class="rounded-circle" />
+                @if (Auth::user()->user_type == 1)
             <div class="info">
-                <a href="{{ route('admins.show', Auth::user()->id) }}" class="d-block">{{ Auth::user()->name }}</a>
+                <a href="{{ route('profile.show', Auth::user()->id) }}" class="d-block">{{ Auth::user()->first_name }}</a>
             </div>
+            @elseif (Auth::user()->user_type == 2)
+            <div class="info">
+                <a href="{{ route('profile.show', Auth::user()->id) }}" class="d-block">{{ Auth::user()->first_name }}</a>
+            </div>
+            @elseif (Auth::user()->user_type == 3)
+            <div class="info">
+                <a href="{{ route('profile.show', Auth::user()->id) }}" class="d-block">{{ Auth::user()->first_name }}</a>
+            </div>
+            @elseif (Auth::user()->user_type == 4)
+            <div class="info">
+                <a href="{{ route('parents.profile', Auth::user()->id) }}" class="d-block">{{ Auth::user()->first_name }}</a>
+            </div>
+            @endif
         </div>
 
         <!-- Sidebar Menu -->
@@ -141,10 +155,18 @@
                 {{-- Parent Dashboard --}}
                 @elseif (Auth::user()->user_type == 4)
                 <li class="nav-item">
-                    <a href="{{ url('parent/parent-dashboard') }}" class="nav-link @if (Request::segment(2) == 'dashboard') active @endif">
+                    <a href="{{ url('parents/parent-dashboard') }}" class="nav-link @if (Request::segment(2) == 'dashboard') active @endif">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                            Dashboard
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('students') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            My Student
                         </p>
                     </a>
                 </li>

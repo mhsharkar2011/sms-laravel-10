@@ -27,7 +27,7 @@ class AuthController extends Controller
             } else if (Auth::user()->user_type == 3) {
                 return redirect('student/student-dashboard');
             } else if (Auth::user()->user_type == 4) {
-                return redirect('parent/parent-dashboard');
+                return redirect('parents/parent-dashboard');
             }
         }
         return view('auth.login', $data);
@@ -44,7 +44,7 @@ class AuthController extends Controller
             } else if (Auth::user()->user_type == 3) {
                 return redirect('student/student-dashboard');
             } else if (Auth::user()->user_type == 4) {
-                return redirect('parent/parent-dashboard');
+                return redirect('parents/parent-dashboard');
             }
         } else {
             return redirect()->back()->with('error', 'Please enter correct email and password');

@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\ClassSubjectController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ParentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
@@ -34,9 +35,13 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admins/profile/{user}', [AdminController::class, 'show'])->name('admins.show');
     Route::get('admins/profile/edit/{user}', [AdminController::class, 'edit'])->name('admins.edit');
     Route::put('admins/profile/update/{user}', [AdminController::class, 'update'])->name('admins.update');
+// User Profile
+    Route::get('admin/profile/show/{user}', [ProfileController::class, 'show'])->name('profile.show');
+    Route::post('profile/update/{user}', [ProfileController::class, 'Update'])->name('profile.update');
 
-    Route::get('change_password', [ProfileController::class, 'change_password'])->name('admin.change_password');
+    Route::get('change_password', [ProfileController::class, 'change_password'])->name('change_password');
     Route::post('change_password', [ProfileController::class, 'update_password'])->name('update_password');
+    
 
     Route::get('admins/delete/{user}', [AdminController::class, 'destroy'])->name('admins.destroy');
     // Class Route
@@ -72,6 +77,8 @@ Route::group(['middleware' => 'teacher'], function () {
     Route::get('teacher/teacher-dashboard', [DashboardController::class, 'dashboard']);
     Route::get('teachers', [TeacherController::class, 'index'])->name('teachers.index');
 
+    Route::get('teachers/profile/show/{user}', [ProfileController::class, 'teacherProfile'])->name('profile.show');
+
 });
 
 // Student Middleware =================================================================
@@ -82,7 +89,9 @@ Route::group(['middleware' => 'student'], function () {
     Route::get('students/teachers', [TeacherController::class, 'index'])->name('teachers.index');
     Route::get('students/create', [StudentController::class, 'create'])->name('students.create');
     Route::post('students', [StudentController::class, 'store'])->name('students.store');
-    Route::get('students/profile/{user}', [StudentController::class, 'show'])->name('students.show');
+
+    Route::get('students/profile/{user}', [ProfileController::class, 'studentProfile'])->name('students.profile');
+
     Route::get('students/profile/edit/{user}', [StudentController::class, 'edit'])->name('students.edit');
     Route::put('students/profile/update/{user}', [StudentController::class, 'update'])->name('students.update');
     Route::get('students/delete/{user}', [StudentController::class, 'destroy'])->name('students.destroy');
@@ -91,5 +100,16 @@ Route::group(['middleware' => 'student'], function () {
 
 // Parent Middleware =================================================================
 Route::group(['middleware' => 'parent'], function () {
-    Route::get('parent/parent-dashboard', [DashboardController::class, 'dashboard']);
+    Route::get('parents/parent-dashboard', [DashboardController::class, 'dashboard']);
+    Route::get('parents', [ParentController::class, 'index'])->name('parents.index');
+    Route::get('parents/student', [StudentController::class, 'index'])->name('students.index');
+    Route::get('parents/profile/{user}', [ParentController::class, 'show'])->name('parents.show');
+    Route::get('parents/profile/edit/{user}', [ParentController::class, 'edit'])->name('parents.edit');
+    Route::put('parents/profile/update/{user}', [ParentController::class, 'update'])->name('parents.update');
+    Route::get('parents/delete/{user}', [ParentController::class, 'destroy'])->name('parents.destroy');
+
+    Route::get('parents/profile/{user}', [ProfileController::class, 'parentProfile'])->name('parents.profile');
+
+    Route::get('students', [StudentController::class, 'index'])->name('students.index');
+
 });

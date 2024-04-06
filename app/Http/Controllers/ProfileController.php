@@ -16,13 +16,32 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): View
+    public function adminProfile(User $user): View
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        $data['header_title'] = "Admin Profile";
+        $data['user'] = $user;
+        return view('admin.profile', $data);
     }
 
+    public function teacherProfile(User $user)
+    {
+        $data['header_title'] = "Teacher Profile";
+        $data['user'] = $user;
+        return view('teacher.profile', $data);
+    }
+    public function studentProfile(User $user)
+    {
+        $data['header_title'] = "Student Profile";
+        $data['user'] = $user;
+        return view('student.profile', $data);
+    }
+
+    public function parentProfile(User $user)
+    {
+        $data['header_title'] = "Parent Profile";
+        $data['user'] = $user;
+        return view('parent.profile', $data);
+    }
     /**
      * Update the user's profile information.
      */
