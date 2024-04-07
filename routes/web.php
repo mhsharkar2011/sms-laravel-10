@@ -21,6 +21,8 @@ Route::get('reset/{token}', [AuthController::class, 'resetPassword']);
 Route::post('reset/{token}', [AuthController::class, 'postResetPassword']);
 Route::get('destroy', [AuthController::class, 'destroy']);
 
+Route::get('parents/profile/{user}', [ProfileController::class, 'parentProfile'])->name('parents.profile');
+
 
 
 // Admin Middleware =================================================================
@@ -36,7 +38,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admins/profile/edit/{user}', [AdminController::class, 'edit'])->name('admins.edit');
     Route::put('admins/profile/update/{user}', [AdminController::class, 'update'])->name('admins.update');
 // User Profile
-    Route::get('admin/profile/show/{user}', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('admins/profile/{user}', [ProfileController::class, 'adminProfile'])->name('admins.profile');
     Route::post('profile/update/{user}', [ProfileController::class, 'Update'])->name('profile.update');
 
     Route::get('change_password', [ProfileController::class, 'change_password'])->name('change_password');
@@ -77,7 +79,7 @@ Route::group(['middleware' => 'teacher'], function () {
     Route::get('teacher/teacher-dashboard', [DashboardController::class, 'dashboard']);
     Route::get('teachers', [TeacherController::class, 'index'])->name('teachers.index');
 
-    Route::get('teachers/profile/show/{user}', [ProfileController::class, 'teacherProfile'])->name('profile.show');
+    Route::get('teachers/profile/{user}', [ProfileController::class, 'teacherProfile'])->name('teachers.profile');
 
 });
 
@@ -91,9 +93,9 @@ Route::group(['middleware' => 'student'], function () {
     Route::post('students', [StudentController::class, 'store'])->name('students.store');
 
     Route::get('students/profile/{user}', [ProfileController::class, 'studentProfile'])->name('students.profile');
-
     Route::get('students/profile/edit/{user}', [StudentController::class, 'edit'])->name('students.edit');
-    Route::put('students/profile/update/{user}', [StudentController::class, 'update'])->name('students.update');
+    Route::post('students/profile/update/{user}', [StudentController::class, 'update'])->name('students.update');
+
     Route::get('students/delete/{user}', [StudentController::class, 'destroy'])->name('students.destroy');
 
 });

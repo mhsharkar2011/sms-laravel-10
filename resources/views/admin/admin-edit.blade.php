@@ -20,9 +20,14 @@
                             @method('PUT')
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="name">Full Name</label>
-                                    <input type="text" name="name" class="form-control" value="{{ $user->name }}">
-                                    <div class="text-red">{{ $errors->first('name') }}</div>
+                                    <label for="first_name">First Name</label>
+                                    <input type="text" name="first_name" class="form-control" value="{{ $user->first_name }}">
+                                    <div class="text-red">{{ $errors->first('first_name') }}</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="last_name">Last Name</label>
+                                    <input type="text" name="last_name" class="form-control" value="{{ $user->last_name }}">
+                                    <div class="text-red">{{ $errors->first('last_name') }}</div>
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email Address</label>
