@@ -42,6 +42,13 @@ class ProfileController extends Controller
         $data['user'] = $user;
         return view('parent.profile', $data);
     }
+
+    public function edit(User $user)
+    {
+        $data['header_title'] = "Update Profile";
+        $data['user'] = $user;
+        return view('profile.edit', $data);
+    }
     /**
      * Update the user's profile information.
      */

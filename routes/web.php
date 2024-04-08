@@ -21,26 +21,32 @@ Route::get('reset/{token}', [AuthController::class, 'resetPassword']);
 Route::post('reset/{token}', [AuthController::class, 'postResetPassword']);
 Route::get('destroy', [AuthController::class, 'destroy']);
 
+Route::get('profile/edit/{user}', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::post('profile/update/{user}', [ProfileController::class, 'update'])->name('profile.update');
+
+Route::get('change_password', [ProfileController::class, 'change_password'])->name('change_password');
+Route::post('change_password', [ProfileController::class, 'update_password'])->name('update_password');
+
 
 
 // Admin Middleware =================================================================
 Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/admin-dashboard', [DashboardController::class, 'dashboard']);
-    Route::get('admins/students', [StudentController::class, 'index'])->name('students.index');
     Route::get('admins/teachers', [TeacherController::class, 'index'])->name('teachers.index');
+    Route::get('admins/students', [StudentController::class, 'index'])->name('students.index');
+    Route::get('admins/parents', [ParentController::class, 'index'])->name('parents.index');
     // Admin Route
-    Route::get('admins', [AdminController::class, 'index'])->name('admins.index');
+    Route::get('admins/list', [AdminController::class, 'index'])->name('admins.index');
     Route::get('admins/create', [AdminController::class, 'create'])->name('admins.create');
-    Route::post('admins', [AdminController::class, 'store'])->name('admins.store');
+    Route::post('admins/store', [AdminController::class, 'store'])->name('admins.store');
     Route::get('admins/profile/{user}', [AdminController::class, 'show'])->name('admins.show');
     Route::get('admins/profile/edit/{user}', [AdminController::class, 'edit'])->name('admins.edit');
     Route::put('admins/profile/update/{user}', [AdminController::class, 'update'])->name('admins.update');
 // User Profile
     Route::get('admin/profile/show/{user}', [ProfileController::class, 'show'])->name('profile.show');
-    Route::post('profile/update/{user}', [ProfileController::class, 'Update'])->name('profile.update');
+    // Route::post('profile/update/{user}', [ProfileController::class, 'update'])->name('profile.update');
 
-    Route::get('change_password', [ProfileController::class, 'change_password'])->name('change_password');
-    Route::post('change_password', [ProfileController::class, 'update_password'])->name('update_password');
+    
     
 
     Route::get('admins/delete/{user}', [AdminController::class, 'destroy'])->name('admins.destroy');
@@ -61,14 +67,14 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admins/subjects/delete/{subject}', [SubjectController::class, 'destroy'])->name('admins.subjects.delete');
 
     // assign_subjects
-    Route::get('assign_subjects', [ClassSubjectController::class, 'index'])->name('assign_subjects.index');
-    Route::get('assign_subjects/create', [ClassSubjectController::class, 'create'])->name('assign_subjects.create');
-    Route::post('assign_subjects', [ClassSubjectController::class, 'store'])->name('assign_subjects.store');
-    Route::get('assign_subjects/show/{assignSubject}', [ClassSubjectController::class, 'show'])->name('assign_subjects.show');
-    Route::put('assign_subjects/single_update/{update_single}', [ClassSubjectController::class, 'update_single'])->name('assign_subjects.update_single');
-    Route::get('assign_subjects/edit/{assignSubject}', [ClassSubjectController::class, 'edit'])->name('assign_subjects.edit');
-    Route::put('assign_subjects/update/{assignSubject}', [ClassSubjectController::class, 'update'])->name('assign_subjects.update');
-    Route::get('assign_subjects/delete/{assignSubject}', [ClassSubjectController::class, 'destroy'])->name('assign_subjects.delete');
+    Route::get('admins/assign_subjects', [ClassSubjectController::class, 'index'])->name('assign_subjects.index');
+    Route::get('admins/assign_subjects/create', [ClassSubjectController::class, 'create'])->name('assign_subjects.create');
+    Route::post('admins/assign_subjects/store', [ClassSubjectController::class, 'store'])->name('assign_subjects.store');
+    Route::get('admins/assign_subjects/show/{assignSubject}', [ClassSubjectController::class, 'show'])->name('assign_subjects.show');
+    Route::put('admins/assign_subjects/single_update/{update_single}', [ClassSubjectController::class, 'update_single'])->name('assign_subjects.update_single');
+    Route::get('admins/assign_subjects/edit/{assignSubject}', [ClassSubjectController::class, 'edit'])->name('assign_subjects.edit');
+    Route::put('admins/assign_subjects/update/{assignSubject}', [ClassSubjectController::class, 'update'])->name('assign_subjects.update');
+    Route::get('admins/assign_subjects/delete/{assignSubject}', [ClassSubjectController::class, 'destroy'])->name('assign_subjects.delete');
 
 });
 
