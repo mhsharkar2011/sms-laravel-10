@@ -15,8 +15,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        @auth
-                        <form action="{{ route('profile.update',$user->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('admins.profile.update',$user->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="card-body">
@@ -57,7 +56,6 @@
                                 </div>
                             </div>
                         </form>
-                        @endauth
                     </div>
                     <!-- /.card -->
                 </div>

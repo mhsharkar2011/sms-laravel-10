@@ -13,17 +13,17 @@
             <x-avatar :avatar="Auth::user()->avatar" width="48" height="48" class="rounded-circle" />
             @if (Auth::user()->user_type == 1)
                 <div class="info">
-                    <a href="{{ route('profile.show', Auth::user()->id) }}"
+                    <a href="{{ route('admins.profile.show', Auth::user()->id) }}"
                         class="d-block">{{ Auth::user()->first_name }}</a>
                 </div>
             @elseif (Auth::user()->user_type == 2)
                 <div class="info">
-                    <a href="{{ route('profile.show', Auth::user()->id) }}"
+                    <a href="{{ route('teachers.profile.show', Auth::user()->id) }}"
                         class="d-block">{{ Auth::user()->first_name }}</a>
                 </div>
             @elseif (Auth::user()->user_type == 3)
                 <div class="info">
-                    <a href="{{ route('profile.show', Auth::user()->id) }}"
+                    <a href="{{ route('students.profile.show', Auth::user()->id) }}"
                         class="d-block">{{ Auth::user()->first_name }}</a>
                 </div>
             @elseif (Auth::user()->user_type == 4)

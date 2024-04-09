@@ -9,8 +9,8 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-3">
-                        <form action="{{ url('profile/update', $user->id) }}" method="post">
-                            @csrf
+                        <form action="" method="post">
+                           
                             <!-- Profile Image -->
                             <div class="card card-primary card-outline">
                                 <div class="card-body box-profile">

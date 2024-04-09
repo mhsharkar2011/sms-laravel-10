@@ -11,11 +11,11 @@
                     <!-- general form elements -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">New Admin Create</h3>
+                            <h3 class="card-title">Profile Update</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{ route('admins.update',$user->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('teachers.profile.update',$user->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="card-body">
