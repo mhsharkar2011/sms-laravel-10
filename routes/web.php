@@ -38,7 +38,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admins/store', [AdminController::class, 'store'])->name('admins.store');
 
 
-    Route::get('admins/profile/show/{user}', [ProfileController::class, 'show'])->name('admins.profile.show');
+    Route::get('admins/profile/show/{user}', [ProfileController::class, 'adminProfile'])->name('admins.profile.show');
     Route::get('profile/edit/{user}', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('profile/update/{user}', [ProfileController::class, 'update'])->name('profile.update');
 
