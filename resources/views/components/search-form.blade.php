@@ -16,7 +16,7 @@
           </div>
           <div class="form-group col-md-3">
               <button class="btn btn-primary" style="margin-top: 33px" type="submit">Search</button>
-              <a href="{{ route('assign_subjects.index') }}" style="margin-top: 33px" class="btn btn-warning">Reset</a>
+              <a href="{{ route('admins.assign_subjects.index') }}" style="margin-top: 33px" class="btn btn-warning">Clear</a>
           </div>
       </div>
   </div>

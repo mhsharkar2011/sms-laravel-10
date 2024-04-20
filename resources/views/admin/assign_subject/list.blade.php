@@ -10,7 +10,7 @@
                   <div class="card">
                     <div class="card-header">
                       <h3 class="card-title">Assign Subject List</h3>
-                      <a href="{{ url('assign_subjects/create') }}" class="card-title float-right btn btn-sm btn-primary">New Assign Subject</a>
+                      <a href="{{ route('admins.assign_subjects.create') }}" class="card-title float-right btn btn-sm btn-primary">New Assign Subject</a>
                     </div>
 
                     {{-- Search And Filtering --}}
@@ -45,9 +45,9 @@
                                 <td>{{ $value->created_by_name }}</td>
                                 <td>{{date('d-m-Y H:i:A', strtotime($value->created_at)) }}</td>
                                 <td class="project-actions text-start">
-                                    <a class="btn btn-info btn-sm" href="{{ url('assign_subjects/show',$value->id) }}"><i class="fas fa-eye"></i></a>
-                                    <a class="btn btn-info btn-sm" href="{{ url('assign_subjects/edit',$value->id) }}"><i class="fas fa-pencil-alt"></i></a>
-                                    <a class="btn btn-danger btn-sm" href="{{ url('assign_subjects/delete',$value->id) }}"><i class="fas fa-trash"></i></a>
+                                    {{-- <a class="btn btn-info btn-sm" href="{{ route('admins.assign_subjects.show',$value->id) }}"><i class="fas fa-eye"></i></a> --}}
+                                    <a class="btn btn-info btn-sm" href="{{ route('admins.assign_subjects.edit',$value->id) }}"><i class="fas fa-pencil-alt"></i></a>
+                                    <a class="btn btn-danger btn-sm" href="{{ url('admins/assign_subjects',$value->id) }}"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
                             @endforeach

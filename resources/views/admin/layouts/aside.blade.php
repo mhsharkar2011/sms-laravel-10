@@ -102,7 +102,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('assign_subjects.index') }}"
+                        <a href="{{ route('admins.assign_subjects.index') }}"
                             class="nav-link @if (Request::segment(2) == 'assign_subjects') active @endif">
                             <i class="nav-icon fas fa-user"></i>
                             <p>

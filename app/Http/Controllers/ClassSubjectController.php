@@ -57,7 +57,7 @@ class ClassSubjectController extends Controller
                 $input->created_by = Auth::user()->id;
                 $input->save();
             }
-            return redirect()->route('assign_subjects.index')->with('success', 'Subject assign to class successfully');
+            return redirect()->route('admins.assign_subjects.index')->with('success', 'Subject assign to class successfully');
         } else {
             return redirect()->back()->with('error', 'Invalid');
         }
@@ -95,7 +95,7 @@ class ClassSubjectController extends Controller
             $input->created_by = Auth::user()->id;
             $input->save();
         }
-        return redirect()->route('assign_subjects.index')->with('Class Updated Successfully');
+        return redirect()->route('admins.assign_subjects.index')->with('Class Updated Successfully');
     }
 
     public function edit(ClassSubject $assignSubject)
@@ -135,13 +135,13 @@ class ClassSubjectController extends Controller
                 $input->save();
             }
         }
-        return redirect()->route('assign_subjects.index')->with('Class Updated Successfully');
+        return redirect()->route('admins.assign_subjects.index')->with('Class Updated Successfully');
     }
 
-    public function destroy(ClassSubject $assignSubject)
+    public function destroy(ClassSubject $id)
     {
-        $assignSubject->is_deleted = 1;
-        $assignSubject->save();
-        return redirect()->route('assign_subjects.index')->with('success', 'Assigned Subject Deleted successfully');
+        $id->is_deleted = 1;
+        $id->save();
+        return redirect()->route('admins.assign_subjects.index')->with('success', 'Assigned Subject Deleted successfully');
     }
 }
