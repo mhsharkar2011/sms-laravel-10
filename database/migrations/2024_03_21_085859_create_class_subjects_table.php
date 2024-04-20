@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('class_subjects', function (Blueprint $table) {
             $table->id();
-            $table->integer('class_id');
-            $table->integer('subject_id');
-            $table->integer('created_by');
+            $table->integer('class_id')->nullable();
+            $table->integer('subject_id')->nullable();
+            $table->integer('created_by')->nullable();
             $table->integer('is_deleted')->default(0);
             $table->integer('status')->default(0);
             $table->timestamps();

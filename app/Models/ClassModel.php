@@ -12,7 +12,7 @@ class ClassModel extends Model
 
     protected $table = 'classes';
 
-    protected $fillable = [
+    protected $guarded = [
         'name',
         'status',
         'is_deleted',

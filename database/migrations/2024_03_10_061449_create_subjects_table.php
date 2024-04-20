@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name')->unique()->nullable();
             $table->string('status')->default(0);
-            $table->string('created_by');
+            $table->string('created_by')->nullable();
             $table->string('is_deleted')->default(0);
             $table->timestamps();
         });

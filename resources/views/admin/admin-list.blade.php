@@ -55,10 +55,12 @@
                                 </td>
                                 <td>{{ $value->created_by_name }}</td>
                                 <td>{{date('d-m-Y H:i:A', strtotime($value->created_at)) }}</td>
-                                <td class="project-actions text-start">
-                                    <a class="btn btn-primary btn-sm" href="{{ url('admins/profile', $value->id) }}"><i class="fas fa-eye"></i></a>
-                                    <a class="btn btn-info btn-sm" href="{{ url('admins/profile/edit',$value->id) }}"><i class="fas fa-pencil-alt"></i></a>
-                                    <a class="btn btn-danger btn-sm" href="{{ url('admins/delete',$value->id) }}"><i class="fas fa-trash"></i></a>
+                                <td class="project-actions text-nowrap">
+                                    <a class="btn btn-primary btn-sm" href="{{ url('admins/profile', $value->id) }}"><i class="far fa-eye"></i></a>
+                                    <a class="btn btn-info btn-sm" href="{{ url('profile/edit',$value->id) }}"><i class="fas fa-pen"></i></a>
+                                    <a class="btn btn-danger btn-sm" href="{{ url('admins/delete',$value->id) }}"><i class="fas fa-user-minus"></i></a>
+                                    <a class="btn btn-warning btn-sm" href="{{ url('admins/restore',$value->id) }}"><i class="fas fa-user-plus"></i></a>
+                                    
                                 </td>
                             </tr>
                             @endforeach

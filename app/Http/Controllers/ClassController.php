@@ -60,16 +60,17 @@ class ClassController extends Controller
             'status' =>''
         ]);
         $class->update($validatedData);
-        return redirect()->route('classes.index')->with('Class Updated Successfully');
+        return redirect()->route('admins.classes.index')->with('Class Updated Successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ClassModel $class)
+    public function destroy(ClassModel $classModel)
     {
-        $class->is_deleted = 1;
-        $class->save();
-        return redirect()->route('classes.index')->with('success','Class Deleted successfully');
+        dd($classModel);
+        $classModel->is_deleted = 1;
+        $classModel->save();
+        return redirect()->route('admins.classes.index')->with('success','Class Deleted successfully');
     }
 }

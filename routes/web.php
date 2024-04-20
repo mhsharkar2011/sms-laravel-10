@@ -37,19 +37,19 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admins/create', [AdminController::class, 'create'])->name('admins.create');
     Route::post('admins/store', [AdminController::class, 'store'])->name('admins.store');
 
-
     Route::get('admins/profile/show/{user}', [ProfileController::class, 'adminProfile'])->name('admins.profile.show');
     Route::get('profile/edit/{user}', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('profile/update/{user}', [ProfileController::class, 'update'])->name('profile.update');
-
     Route::get('admins/delete/{user}', [AdminController::class, 'destroy'])->name('admins.destroy');
+    Route::get('admins/restore/{user}', [AdminController::class, 'restore'])->name('admins.restore');
+    
     // Class Route
-    Route::get('classes', [ClassController::class, 'index'])->name('classes.index');
-    Route::get('classes/create', [ClassController::class, 'create'])->name('classes.create');
-    Route::post('classes', [ClassController::class, 'store'])->name('classes.store');
-    Route::get('classes/edit/{class}', [ClassController::class, 'edit'])->name('classes.edit');
-    Route::put('classes/update/{class}', [ClassController::class, 'update'])->name('classes.update');
-    Route::get('classes/delete/{id}', [ClassController::class, 'destroy'])->name('classes.delete');
+    Route::get('admins/classes', [ClassController::class, 'index'])->name('admins.classes.index');
+    Route::get('admins/classes/create', [ClassController::class, 'create'])->name('admins.classes.create');
+    Route::post('admins/classes', [ClassController::class, 'store'])->name('admins.classes.store');
+    Route::get('admins/classes/edit/{class}', [ClassController::class, 'edit'])->name('admins.classes.edit');
+    Route::put('admins/classes/update/{class}', [ClassController::class, 'update'])->name('admins.classes.update');
+    Route::get('admins/classes/delete/{id}', [ClassController::class, 'destroy'])->name('admins.classes.delete');
 
     // Subject Route
     Route::get('admins/subjects', [SubjectController::class, 'index'])->name('admins.subjects');

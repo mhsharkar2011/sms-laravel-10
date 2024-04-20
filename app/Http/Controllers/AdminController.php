@@ -69,7 +69,7 @@ class AdminController extends Controller
     {
         $data['header_title'] = 'Profile Edit';
         $data['user'] = $user;
-        return view('admin.admin-edit', $data);
+        return view('profile.edit', $data);
     }
 
     /**
@@ -115,4 +115,13 @@ class AdminController extends Controller
         $user->save();
         return redirect()->route('admins.index')->with('success', 'User deleted successfully');
     }
+
+    public function restore(User $user)
+    {
+        $user->is_delete = 0;
+        $user->save();
+        return redirect()->route('admins.index')->with('success', 'User activated successfully');
+    }
+
+    
 }

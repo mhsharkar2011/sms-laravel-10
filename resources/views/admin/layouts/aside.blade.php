@@ -57,15 +57,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('admins/students') }}"
-                            class="nav-link @if (Request::segment(2) == 'students') active @endif">
-                            <i class="nav-icon fas fa-user"></i>
-                            <p>
-                                Students
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a href="{{ url('admins/teachers') }}"
                             class="nav-link @if (Request::segment(2) == 'teachers') active @endif">
                             <i class="nav-icon fas fa-user"></i>
@@ -75,7 +66,25 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('classes') }}"
+                        <a href="{{ url('admins/students') }}"
+                            class="nav-link @if (Request::segment(2) == 'students') active @endif">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>
+                                Students
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('admins/parents') }}"
+                            class="nav-link @if (Request::segment(2) == 'parents') active @endif">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>
+                                Parents
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('admins/classes') }}"
                             class="nav-link @if (Request::segment(1) == 'classes') active @endif">
                             <i class="nav-icon fas fa-user"></i>
                             <p>
@@ -101,15 +110,7 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ url('admins/parents') }}"
-                            class="nav-link @if (Request::segment(2) == 'parents') active @endif">
-                            <i class="nav-icon fas fa-user"></i>
-                            <p>
-                                Parents
-                            </p>
-                        </a>
-                    </li>
+                    
                     {{-- Teacher Dashboard --}}
                 @elseif (Auth::user()->user_type == 2)
                     <li class="nav-item">

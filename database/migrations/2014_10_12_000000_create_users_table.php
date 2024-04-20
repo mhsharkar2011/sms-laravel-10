@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->integer('class_id')->nullable();
             $table->integer('subject_id')->nullable();
-            $table->integer('parent_id')->nullable();
-            $table->integer('teacher_id')->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('email')->unique();
@@ -31,7 +29,7 @@ return new class extends Migration
             $table->string('blood_group',10)->nullable();
             $table->string('weight',10)->nullable();
             $table->string('height',10)->nullable();
-            $table->tinyInteger('status')->default(0)->nullable();
+            $table->tinyInteger('status')->default(0);
             $table->string('user_type')->nullable();
             $table->string('is_delete')->default(0);
             $table->timestamp('email_verified_at')->nullable();
