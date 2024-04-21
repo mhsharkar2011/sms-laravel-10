@@ -10,7 +10,7 @@
                   <div class="card">
                     <div class="card-header">
                       <h3 class="card-title">Student List</h3>
-                      <a href="{{ url('admins/create') }}" class="card-title float-right btn btn-sm btn-primary">Add New Student</a>
+                      <a href="{{ route('admins.students.create') }}" class="card-title float-right btn btn-sm btn-primary">Add New Student</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -21,7 +21,7 @@
                           <th>Full Name</th>
                           <th>Photo</th>
                           <th>Email</th>
-                          <th>Created At</th>
+                          <th>Created By</th>
                           <th>Status</th>
                           <th>Action</th>
                         </tr>
@@ -32,13 +32,19 @@
                                 <td>{{ $value->id }}</td>
                                 <td>{{ $value->first_name }} {{ $value->last_name }}</td>
                                 <td><x-avatar :avatar="$value->avatar" width="48" height="48" class="rounded-circle" />
-                                <td>{{$value->email }}</td>
-                                <td>{{$value->created_at }}</td>
-                                <td>{{$value->status}}</td>
+                                <td>{{$value->email }}</td>                                
+                                <td>
+                                  @if ($value->is_delete == 0)
+                                  Active
+                                @else
+                                  <span class="text-danger">Inactive</span>
+                                @endif
+                                </td>
+                                <td>{{$value->created_by_name }}</td>
                                 <td class="project-actions text-start">
-                                    <a class="btn btn-primary btn-sm" href="{{ url('admins/profile', $value->id) }}"><i class="fas fa-eye"></i></a>
-                                    <a class="btn btn-info btn-sm" href="{{ url('admins/profile/edit',$value->id) }}"><i class="fas fa-pencil-alt"></i></a>
-                                    <a class="btn btn-danger btn-sm" href="{{ url('admins/delete',$value->id) }}"><i class="fas fa-trash"></i></a>
+                                    <a class="btn btn-primary btn-sm" href="{{ route('admins.students.show', $value->id) }}"><i class="fas fa-eye"></i></a>
+                                    <a class="btn btn-info btn-sm" href="{{ route('admins.students.edit',$value->id) }}"><i class="fas fa-pencil-alt"></i></a>
+                                    <a class="btn btn-danger btn-sm" href="{{ route('admins.students.destroy',$value->id) }}"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
                             @endforeach
@@ -46,10 +52,10 @@
                         <tfoot>
                         <tr>
                             <th>SL No.</th>
-                            <th>Name</th>
+                            <th>Full Name</th>
                             <th>Photo</th>
                             <th>Email</th>
-                            <th>Created At</th>
+                            <th>Created By</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>

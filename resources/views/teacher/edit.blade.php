@@ -15,23 +15,23 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{ route('teachers.profile.update',$user->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="" method="POST" enctype="multipart/form-data">
                             @csrf
-                            @method('PUT')
+                            
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="first_name">First Name</label>
-                                    <input type="text" name="first_name" class="form-control" value="{{ $user->first_name }}">
+                                    <input type="text" name="first_name" class="form-control" value="{{ old('first_name',$user->first_name) }}">
                                     <div class="text-red">{{ $errors->first('first_name') }}</div>
                                 </div>
                                 <div class="form-group">
                                     <label for="last_name">Last Name</label>
-                                    <input type="text" name="last_name" class="form-control" value="{{ $user->last_name }}">
+                                    <input type="text" name="last_name" class="form-control" value="{{ old('last_name',$user->last_name) }}">
                                     <div class="text-red">{{ $errors->first('last_name') }}</div>
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email Address</label>
-                                    <input type="email" name="email" class="form-control" value="{{ $user->email }}">
+                                    <input type="email" name="email" class="form-control" value="{{ old('email', $user->email) }}" required placeholder="Email">
                                     <div class="text-red">{{ $errors->first('email') }}</div>
                                 </div>
                                 <div class="form-group">

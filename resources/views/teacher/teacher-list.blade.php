@@ -9,9 +9,9 @@
                 <div class="col-12">
                   <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Admin List</h3>
+                      <h3 class="card-title">Teacher List</h3>
                       @if (Auth::user()->user_type == 1)
-                      <a href="{{ url('admins/create') }}" class="card-title float-right btn btn-sm btn-primary">Add New User</a>
+                      <a href="{{ route('admins.teachers.create') }}" class="card-title float-right btn btn-sm btn-primary">Add New Teacher</a>
                       @endif
                     </div>
                     <!-- /.card-header -->
@@ -20,12 +20,11 @@
                         <thead>
                         <tr>
                           <th>SL No.</th>
-                          <th>Name</th>
+                          <th>Full Name</th>
                           <th>Photo</th>
                           <th>Email</th>
-                          <th>Proccessing</th>
-                          <th>Created At</th>
                           <th>Status</th>
+                          <th>Created By</th>
                           <th>Action</th>
                         </tr>
                         </thead>
@@ -33,30 +32,35 @@
                             @foreach ($getTeacher as $value )
                             <tr>
                                 <td>{{ $value->id }}</td>
-                                <td>{{ $value->name }}</td>
+                                <td>{{ $value->first_name }} {{ $value->last_name }}</td>
                                 <td><x-avatar :avatar="$value->avatar" width="48" height="48" class="rounded-circle" />
                                 <td>{{$value->email }}</td>
-                                <td>{{$value->created_at }}</td>
-                                <td>Status</td>
+                                <td>
+                                  @if ($value->is_delete == 0)
+                                  Active
+                                @else
+                                  <span class="text-danger">Inactive</span>
+                                @endif
+                                </td>
+                                <td>{{$value->created_by_name }}</td>
                                 <td class="project-actions text-start">
-                                    <a class="btn btn-primary btn-sm" href="{{ url('admins/profile', $value->id) }}"><i class="fas fa-eye"></i></a>
-                                    <a class="btn btn-info btn-sm" href="{{ url('admins/profile/edit',$value->id) }}"><i class="fas fa-pencil-alt"></i></a>
-                                    <a class="btn btn-danger btn-sm" href="{{ url('admins/delete',$value->id) }}"><i class="fas fa-trash"></i></a>
+                                    <a class="btn btn-primary btn-sm" href="{{ route('admins.teachers.show', $value->id) }}"><i class="fas fa-eye"></i></a>
+                                    <a class="btn btn-info btn-sm" href="{{ route('admins.teachers.edit',$value->id) }}"><i class="fas fa-pencil-alt"></i></a>
+                                    <a class="btn btn-danger btn-sm" href="{{ route('admins.teachers.destroy',$value->id) }}"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
                         <tfoot>
-                        <tr>
+                          <tr>
                             <th>SL No.</th>
-                            <th>Name</th>
+                            <th>Full Name</th>
                             <th>Photo</th>
                             <th>Email</th>
-                            <th>Proccessing</th>
-                            <th>Created At</th>
                             <th>Status</th>
+                            <th>Created By</th>
                             <th>Action</th>
-                        </tr>
+                          </tr>
                         </tfoot>
                       </table>
                     </div>

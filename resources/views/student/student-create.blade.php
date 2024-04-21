@@ -11,11 +11,11 @@
                     <!-- general form elements -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">New Teacher Add</h3>
+                            <h3 class="card-title">New Student Add</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{ route('admins.store') }}" method="POST">
+                        <form action="{{ route('admins.students.store') }}" method="POST">
                             @csrf
                             <div class="card-body">
                                 @include('_message')
@@ -42,7 +42,7 @@
                                 <div class="form-group">
                                     <label for="user_type">User Type</label>
                                     <select name="user_type" id="" class="form-control">
-                                        <option value="2">Teacher</option>
+                                        <option value="3">Student</option>
                                     </select>
                                 </div>
                                 <!-- /.card-body -->

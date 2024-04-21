@@ -49,7 +49,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('admins/list') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
+                        <a href="{{ route('admins.index') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
                             <i class="nav-icon fas fa-user"></i>
                             <p>
                                 Admins
@@ -57,7 +57,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('admins/teachers') }}"
+                        <a href="{{ route('admins.teachers.index') }}"
                             class="nav-link @if (Request::segment(2) == 'teachers') active @endif">
                             <i class="nav-icon fas fa-user"></i>
                             <p>
@@ -66,7 +66,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('admins/students') }}"
+                        <a href="{{ route('admins.students.index') }}"
                             class="nav-link @if (Request::segment(2) == 'students') active @endif">
                             <i class="nav-icon fas fa-user"></i>
                             <p>

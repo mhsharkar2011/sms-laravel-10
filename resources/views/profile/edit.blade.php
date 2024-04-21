@@ -16,9 +16,8 @@
                         <!-- /.card-header -->
                         <!-- form start -->
                         @auth
-                        <form action="{{ route('profile.update',$user->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="" method="POST" enctype="multipart/form-data">
                             @csrf
-                            @method('PUT')
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="first_name">First Name</label>

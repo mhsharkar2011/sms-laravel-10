@@ -57,7 +57,7 @@ class User extends Authenticatable
 
     static public function getTeacher()
     {
-        return self::select('users.*')
+        return self::select('users.*',DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"))
             ->where('user_type', '=', '2')
             ->where('is_delete', '=', '0')
             ->orderBy('id', 'desc')
@@ -66,7 +66,7 @@ class User extends Authenticatable
 
     static public function getStudent()
     {
-        return self::select('users.*')
+        return self::select('users.*', DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"))
             ->where('user_type', '=', '3')
             ->where('is_delete', '=', '0')
             ->orderBy('id', 'desc')
