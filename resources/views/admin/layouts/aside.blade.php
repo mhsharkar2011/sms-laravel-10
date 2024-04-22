@@ -13,7 +13,7 @@
             <x-avatar :avatar="Auth::user()->avatar" width="48" height="48" class="rounded-circle" />
             @if (Auth::user()->user_type == 1)
                 <div class="info">
-                    <a href="{{ route('admins.profile.show', Auth::user()->id) }}"
+                    <a href="{{ route('profile.show', Auth::user()->id) }}"
                         class="d-block">{{ Auth::user()->first_name }}</a>
                 </div>
             @elseif (Auth::user()->user_type == 2)
@@ -36,11 +36,12 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                data-accordion="false">
                 {{-- Admin Dashboard --}}
                 @if (Auth::user()->user_type == 1)
                     <li class="nav-item">
-                        <a href="{{ url('admin/admin-dashboard') }}"
+                        <a href="{{ route('admins.dashboard') }}"
                             class="nav-link @if (Request::segment(2) == 'admin-dashboard') active @endif">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
@@ -49,7 +50,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admins.index') }}" class="nav-link @if (Request::segment(2) == 'list') active @endif">
+                        <a href="{{ route('admins.index') }}"
+                            class="nav-link @if (Request::segment(2) == 'list') active @endif">
                             <i class="nav-icon fas fa-user"></i>
                             <p>
                                 Admins
@@ -92,6 +94,37 @@
                             </p>
                         </a>
                     </li>
+                    {{-- Attendance Menu --}}
+                    <li class="nav-item menu">
+                        <a href="" class="nav-link @if (Request::segment(1) == '*') active @endif">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                Attendance
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('admins.attendance.index') }}"
+                                    class="nav-link @if (Request::segment(3) == Auth::user()->id) active @endif">
+                                    <i class="nav-icon fas fa-user"></i>
+                                    <p>
+                                        Student Attendance
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admins.attendance.index') }}"
+                                    class="nav-link @if (Request::segment(1) == 'change_password') active @endif">
+                                    <i class="nav-icon fas fa-user"></i>
+                                    <p>
+                                        Teacher Attendance
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
                     <li class="nav-item">
                         <a href="{{ route('admins.subjects') }}"
                             class="nav-link @if (Request::segment(2) == 'subjects') active @endif">
@@ -110,7 +143,7 @@
                             </p>
                         </a>
                     </li>
-                    
+
                     {{-- Teacher Dashboard --}}
                 @elseif (Auth::user()->user_type == 2)
                     <li class="nav-item">
@@ -209,7 +242,8 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ url('profile/edit',Auth::user()->id) }}" class="nav-link @if (Request::segment(3) == Auth::user()->id) active @endif">
+                            <a href="{{ route('profile.edit', Auth::user()->id) }}"
+                                class="nav-link @if (Request::segment(3) == Auth::user()->id) active @endif">
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>
                                     Profile Update
@@ -217,7 +251,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('change_password') }}" class="nav-link @if (Request::segment(1) == 'change_password') active @endif">
+                            <a href="{{ url('change_password') }}"
+                                class="nav-link @if (Request::segment(1) == 'change_password') active @endif">
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>
                                     Change Password
@@ -225,7 +260,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('destroy') }}" class="nav-link">
+                            <a href="{{ url('logout') }}" class="nav-link">
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>
                                     Logout

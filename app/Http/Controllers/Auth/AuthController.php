@@ -19,15 +19,14 @@ class AuthController extends Controller
         // dd(Hash::make(12345678));
         $data['header_title'] = 'Login';
         if (!empty(Auth::check())) {
-
             if (Auth::user()->user_type == 1) {
-                return redirect('admin/admin-dashboard');
+                return redirect()->route('admins.dashboard')->with('success', 'Hello!' . Auth::user()->first_name . 'Welcome to School Management System');
             } else if (Auth::user()->user_type == 2) {
-                return redirect('teacher/teacher-dashboard');
+                return redirect()->route('students.dashboard')->with('success', 'Hello!' . Auth::user()->first_name . 'Welcome to School Management System');
             } else if (Auth::user()->user_type == 3) {
-                return redirect('student/student-dashboard');
+                return redirect()->route('admins.dashboard')->with('success', 'Welcome to School Management System');
             } else if (Auth::user()->user_type == 4) {
-                return redirect('parents/parent-dashboard');
+                return redirect()->route('admins.dashboard')->with('success', 'Welcome to School Management System');
             }
         }
         return view('auth.login', $data);
@@ -38,13 +37,13 @@ class AuthController extends Controller
         $remember = !empty($request->remember) ? true : false;
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)) {
             if (Auth::user()->user_type == 1) {
-                return redirect('admin/admin-dashboard');
+                return redirect()->route('admins.dashboard')->with('success', 'Hello! ' . Auth::user()->first_name . ' Welcome to School Management System');
             } else if (Auth::user()->user_type == 2) {
-                return redirect('teacher/teacher-dashboard');
+                return redirect()->route('students.dashboard')->with('success', 'Hello! ' . Auth::user()->first_name . ' Welcome to School Management System');
             } else if (Auth::user()->user_type == 3) {
-                return redirect('student/student-dashboard');
+                return redirect()->route('admins.dashboard')->with('success', 'Hello! ' . Auth::user()->first_name . ' Welcome to School Management System');
             } else if (Auth::user()->user_type == 4) {
-                return redirect('parents/parent-dashboard');
+                return redirect()->route('admins.dashboard')->with('success', 'Hello! ' . Auth::user()->first_name . ' Welcome to School Management System');
             }
         } else {
             return redirect()->back()->with('error', 'Please enter correct email and password');
@@ -94,21 +93,11 @@ class AuthController extends Controller
         }
     }
 
-    public function destroy(Request $request): RedirectResponse
+    public function logout(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
-
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
-
         return redirect('/');
     }
-
-    // // Logout
-    // public function logout()
-    // {
-    //     Auth::logout();
-    //     return redirect(url(''));
-    // }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\ClassSubjectController;
@@ -19,12 +20,16 @@ Route::get('forgot-password', [AuthController::class, 'forgotPassword']);
 Route::post('forgot-password', [AuthController::class, 'postForgotPassword']);
 Route::get('reset/{token}', [AuthController::class, 'resetPassword']);
 Route::post('reset/{token}', [AuthController::class, 'postResetPassword']);
-Route::get('destroy', [AuthController::class, 'destroy']);
+Route::get('logout', [AuthController::class, 'logout']);
 
+
+
+// Profile Route 
+Route::get('profile/show/{user}', [ProfileController::class, 'show'])->name('profile.show');
+Route::get('profile/edit/{user}', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::post('profile/edit/{user}', [ProfileController::class, 'update'])->name('profile.update');
 Route::get('change_password', [ProfileController::class, 'change_password'])->name('change_password');
 Route::post('change_password', [ProfileController::class, 'update_password'])->name('update_password');
-
-
 
 // Admin Middleware =================================================================
 Route::group(['middleware' => 'admin'], function () {
@@ -39,9 +44,6 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('list', [AdminController::class, 'index'])->name('index');
         Route::get('create', [AdminController::class, 'create'])->name('create');
         Route::post('store', [AdminController::class, 'store'])->name('store');
-        Route::get('profile/show/{user}', [AdminController::class, 'adminProfile'])->name('profile.show');
-        Route::get('profile/edit/{user}', [AdminController::class, 'edit'])->name('profile.edit');
-        Route::post('profile/edit/{user}', [AdminController::class, 'update'])->name('profile.update');
         Route::get('profile/delete/{user}', [AdminController::class, 'destroy'])->name('profile.destroy');
         Route::get('profile/restore/{user}', [AdminController::class, 'restore'])->name('profile.restore');
         // Teachers Route
@@ -60,9 +62,12 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('students/profile/edit/{user}', [StudentController::class, 'edit'])->name('students.edit');
         Route::post('students/profile/edit/{user}', [StudentController::class, 'update'])->name('students.update');
         Route::get('students/delete/{user}', [StudentController::class, 'destroy'])->name('students.destroy');
-
+        // Parent Route
         Route::get('parents', [ParentController::class, 'index'])->name('parents.index');
-
+        // Attendance Route
+        Route::get('attendance', [AttendanceController::class, 'index'])->name('attendance.index');
+        Route::get('attendance/students/{id}', [AttendanceController::class, 'studentAttendance'])->name('attendance.student');
+        Route::get('attendance/teachers/{id}', [AttendanceController::class, 'teacherAttendance'])->name('attendance.teacher');
         // Class Route
         Route::get('classes', [ClassController::class, 'index'])->name('classes.index');
         Route::get('classes/create', [ClassController::class, 'create'])->name('classes.create');
@@ -116,8 +121,7 @@ Route::group(['middleware' => 'parent'], function () {
     Route::get('parents/profile/edit/{user}', [ParentController::class, 'edit'])->name('parents.edit');
     Route::put('parents/profile/update/{user}', [ParentController::class, 'update'])->name('parents.update');
     Route::get('parents/delete/{user}', [ParentController::class, 'destroy'])->name('parents.destroy');
-
     Route::get('parents/profile/{user}', [ProfileController::class, 'parentProfile'])->name('parents.profile');
-
     Route::get('students', [StudentController::class, 'index'])->name('students.index');
 });
+

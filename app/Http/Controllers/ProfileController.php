@@ -16,7 +16,7 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function adminProfile(User $user)
+    public function show(User $user)
     {
         $data['header_title'] = "Admin Profile";
         $data['user'] = $user;

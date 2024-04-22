@@ -4,6 +4,7 @@
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
+    @include('_message')
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
