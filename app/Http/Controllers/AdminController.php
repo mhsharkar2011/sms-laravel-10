@@ -15,10 +15,21 @@ class AdminController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $data['header_title'] = 'Admin List';
-        $data['getUser'] = User::getUser();
+        $data['getUser'] = User::select('first_name','last_name');
+        $adminSearch = $data['getUser'];
+        if (!empty($request->first_name)) {
+            $adminSearch = $adminSearch->where('users.first_name', 'LIKE', '%' . $request->first_name . '%');
+        }
+        if (!empty($request->last_name)) {
+            $adminSearch = $adminSearch->where('users.last_name', 'LIKE', '%' . $request->last_name . '%');
+        }
+        if (!empty($request->date)) {
+            $adminSearch = $adminSearch->whereDate('users.created_at', '=', $request->date);
+        }
+        $adminSearch = $adminSearch->get();
         return view('admin.admin-list', $data);
     }
 
