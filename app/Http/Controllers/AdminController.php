@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -18,18 +19,22 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         $data['header_title'] = 'Admin List';
-        $data['getUser'] = User::select('first_name','last_name');
-        $adminSearch = $data['getUser'];
+        $data['getUser'] = User::select('users.*', DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"))
+                                ->where('users.is_delete', 0);
+        
         if (!empty($request->first_name)) {
-            $adminSearch = $adminSearch->where('users.first_name', 'LIKE', '%' . $request->first_name . '%');
+            $data['getUser'] = $data['getUser']->where('users.first_name', 'LIKE', '%' . $request->first_name . '%');
         }
         if (!empty($request->last_name)) {
-            $adminSearch = $adminSearch->where('users.last_name', 'LIKE', '%' . $request->last_name . '%');
+            $data['getUser'] = $data['getUser']->where('users.last_name', 'LIKE', '%' . $request->last_name . '%');
+        }
+         if (!empty($request->email)) {
+            $data['getUser'] = $data['getUser']->where('users.email', 'LIKE', '%' . $request->email . '%');
         }
         if (!empty($request->date)) {
-            $adminSearch = $adminSearch->whereDate('users.created_at', '=', $request->date);
+            $data['getUser'] = $data['getUser']->whereDate('users.created_at', '=', $request->date);
         }
-        $adminSearch = $adminSearch->get();
+        $data['getUser'] = $data['getUser']->get();
         return view('admin.admin-list', $data);
     }
 

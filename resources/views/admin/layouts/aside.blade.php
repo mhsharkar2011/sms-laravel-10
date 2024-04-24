@@ -77,7 +77,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('admins/parents') }}"
+                        <a href="{{ route('admins.parents.index') }}"
                             class="nav-link @if (Request::segment(2) == 'parents') active @endif">
                             <i class="nav-icon fas fa-user"></i>
                             <p>

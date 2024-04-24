@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -57,29 +58,69 @@ class User extends Authenticatable
 
     static public function getTeacher()
     {
-        return self::select('users.*',DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"))
+        $return = self::select('users.*',DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"))
             ->where('user_type', '=', '2')
             ->where('is_delete', '=', '0')
-            ->orderBy('id', 'desc')
-            ->get();
+            ->orderBy('id', 'desc');
+            if (!empty(Request::get('first_name'))) {
+                $return = $return->where('users.first_name', 'LIKE', '%' . Request::get('first_name') . '%');
+            }
+            if (!empty(Request::get('last_name'))) {
+                $return = $return->where('users.last_name', 'LIKE', '%' . Request::get('last_name') . '%');
+            }
+             if (!empty(Request::get('email'))) {
+                $return = $return->where('users.email', 'LIKE', '%' . Request::get('email') . '%');
+            }
+            if (!empty(Request::get('date'))) {
+                $return = $return->whereDate('users.created_at', '=', Request::get('date'));
+            }
+            $return = $return->get();
+            return $return;
     }
 
     static public function getStudent()
     {
-        return self::select('users.*', DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"))
+        $return = self::select('users.*', DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"))
             ->where('user_type', '=', '3')
             ->where('is_delete', '=', '0')
-            ->orderBy('id', 'desc')
-            ->get();
+            ->orderBy('id', 'desc');
+
+            if (!empty(Request::get('first_name'))) {
+                $return = $return->where('users.first_name', 'LIKE', '%' . Request::get('first_name') . '%');
+            }
+            if (!empty(Request::get('last_name'))) {
+                $return = $return->where('users.last_name', 'LIKE', '%' . Request::get('last_name') . '%');
+            }
+             if (!empty(Request::get('email'))) {
+                $return = $return->where('users.email', 'LIKE', '%' . Request::get('email') . '%');
+            }
+            if (!empty(Request::get('date'))) {
+                $return = $return->whereDate('users.created_at', '=', Request::get('date'));
+            }
+            $return = $return->get();
+            return $return;
+
     }
 
     static public function getParent()
     {
-        return self::select('users.*')
+        $return = self::select('users.*', DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"))
             ->where('user_type', '=', '4')
-            ->where('is_delete', '=', '0')
-            ->orderBy('id', 'desc')
-            ->get();
+            ->where('is_delete', '=', '0');
+            if (!empty(Request::get('first_name'))) {
+                $return = $return->where('users.first_name', 'LIKE', '%' . Request::get('first_name') . '%');
+            }
+            if (!empty(Request::get('last_name'))) {
+                $return = $return->where('users.last_name', 'LIKE', '%' . Request::get('last_name') . '%');
+            }
+             if (!empty(Request::get('email'))) {
+                $return = $return->where('users.email', 'LIKE', '%' . Request::get('email') . '%');
+            }
+            if (!empty(Request::get('date'))) {
+                $return = $return->whereDate('users.created_at', '=', Request::get('date'));
+            }
+            $return = $return->get();
+            return $return;
     }
     static function getSingleEmail($email)
     {

@@ -63,7 +63,13 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('students/profile/edit/{user}', [StudentController::class, 'update'])->name('students.update');
         Route::get('students/delete/{user}', [StudentController::class, 'destroy'])->name('students.destroy');
         // Parent Route
-        Route::get('parents', [ParentController::class, 'index'])->name('parents.index');
+        Route::get('parents/list', [ParentController::class, 'index'])->name('parents.index');
+        Route::get('parents/create', [ParentController::class, 'create'])->name('parents.create');
+        Route::post('parents/store', [ParentController::class, 'store'])->name('parents.store');
+        Route::get('parents/show/{user}', [ParentController::class, 'show'])->name('parents.show');
+        Route::get('parents/profile/edit/{user}', [ParentController::class, 'edit'])->name('parents.edit');
+        Route::post('parents/profile/edit/{user}', [ParentController::class, 'update'])->name('parents.update');
+        Route::get('parents/delete/{user}', [ParentController::class, 'destroy'])->name('parents.destroy');
         // Attendance Route
         Route::get('attendance', [AttendanceController::class, 'index'])->name('attendance.index');
         Route::get('attendance/students/{id}', [AttendanceController::class, 'studentAttendance'])->name('attendance.student');
