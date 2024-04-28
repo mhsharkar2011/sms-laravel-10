@@ -126,7 +126,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('admins.subjects') }}"
+                        <a href="{{ route('admins.subjects.index') }}"
                             class="nav-link @if (Request::segment(2) == 'subjects') active @endif">
                             <i class="nav-icon fas fa-user"></i>
                             <p>

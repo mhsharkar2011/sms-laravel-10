@@ -9,7 +9,7 @@
                 <div class="col-12">
                   <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">User List</h3>
+                      <h3 class="card-title">Admin List (Total: {{ $getAdmin->count() }})</h3>
                       <a href="{{ url('admins/create') }}" class="card-title float-right btn btn-sm btn-primary">Add New User</a>
                     </div>
                   {{-- Search And Filtering Form--}}
@@ -46,7 +46,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                            @foreach ($getUser as $value )
+                            @foreach ($getAdmin as $value )
                             <tr>
                                 <td>{{ $value->id }}</td>
                                 <td>{{ $value->first_name }} {{ $value->last_name }}</td>

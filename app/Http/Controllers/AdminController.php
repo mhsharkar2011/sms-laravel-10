@@ -19,22 +19,7 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         $data['header_title'] = 'Admin List';
-        $data['getUser'] = User::select('users.*', DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"))
-                                ->where('users.is_delete', 0);
-        
-        if (!empty($request->first_name)) {
-            $data['getUser'] = $data['getUser']->where('users.first_name', 'LIKE', '%' . $request->first_name . '%');
-        }
-        if (!empty($request->last_name)) {
-            $data['getUser'] = $data['getUser']->where('users.last_name', 'LIKE', '%' . $request->last_name . '%');
-        }
-         if (!empty($request->email)) {
-            $data['getUser'] = $data['getUser']->where('users.email', 'LIKE', '%' . $request->email . '%');
-        }
-        if (!empty($request->date)) {
-            $data['getUser'] = $data['getUser']->whereDate('users.created_at', '=', $request->date);
-        }
-        $data['getUser'] = $data['getUser']->get();
+        $data['getAdmin'] = User::getAdmin();
         return view('admin.admin-list', $data);
     }
 
@@ -74,8 +59,9 @@ class AdminController extends Controller
      */
     public function show(User $user)
     {
-        $header_title = 'Profile';
-        return view('profile.edit', compact('header_title', 'user'));
+        $data['header_title'] = 'Profile Show';
+        $data['user'] = $user; 
+        return view('profile.edit', $data);
     }
 
     /**
@@ -122,9 +108,7 @@ class AdminController extends Controller
         return redirect()->route('admins.index')->with('success', 'User Info Updated Successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+   
     public function destroy(User $user)
     {
         $user->is_delete = 1;
@@ -136,7 +120,7 @@ class AdminController extends Controller
     {
         $user->is_delete = 0;
         $user->save();
-        return redirect()->route('admins.index')->with('success', 'User activated successfully');
+        return redirect()->route('admins.index')->with('success', 'User Restored successfully');
     }
 
     

@@ -14,32 +14,15 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $guarded = [
         'id'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
@@ -54,6 +37,30 @@ class User extends Authenticatable
         return self::select('users.*', DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"))
             ->orderBy('id', 'desc')
             ->get();
+    }
+
+    static public function getAdmin()
+    {
+        $return = self::select('users.*', DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"))
+            ->orderBy('id', 'desc')
+            ->where('user_type', '=', '1')
+            ->where('is_delete', '=', '0')
+            ->orderBy('id', 'desc');
+            if (!empty(Request::get('first_name'))) {
+                $return = $return->where('users.first_name', 'LIKE', '%' . Request::get('first_name') . '%');
+            }
+            if (!empty(Request::get('last_name'))) {
+                $return = $return->where('users.last_name', 'LIKE', '%' . Request::get('last_name') . '%');
+            }
+             if (!empty(Request::get('email'))) {
+                $return = $return->where('users.email', 'LIKE', '%' . Request::get('email') . '%');
+            }
+            if (!empty(Request::get('date'))) {
+                $return = $return->whereDate('users.created_at', '=', Request::get('date'));
+            }
+            $return = $return->get();
+
+            return $return;
     }
 
     static public function getTeacher()
@@ -84,7 +91,6 @@ class User extends Authenticatable
             ->where('user_type', '=', '3')
             ->where('is_delete', '=', '0')
             ->orderBy('id', 'desc');
-
             if (!empty(Request::get('first_name'))) {
                 $return = $return->where('users.first_name', 'LIKE', '%' . Request::get('first_name') . '%');
             }
@@ -106,7 +112,8 @@ class User extends Authenticatable
     {
         $return = self::select('users.*', DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"))
             ->where('user_type', '=', '4')
-            ->where('is_delete', '=', '0');
+            ->where('is_delete', '=', '0')
+            ->orderBy('id', 'desc');
             if (!empty(Request::get('first_name'))) {
                 $return = $return->where('users.first_name', 'LIKE', '%' . Request::get('first_name') . '%');
             }
