@@ -138,6 +138,15 @@ class StudentController extends Controller
             $user->is_delete = 1;
             $user->save();
         }
-        return redirect()->route('admins.students.index')->with('success', 'Students deleted successfully');
+        return redirect()->route('admins.students.index')->with('success', 'Student deleted successfully');
+    }
+
+    public function restore(User $user)
+    {
+        if(Auth::user()->user_type == 1){
+        $user->is_delete = 0;
+        $user->save();
+        }
+        return redirect()->route('admins.students.index')->with('success', 'Student Restored successfully');
     }
 }

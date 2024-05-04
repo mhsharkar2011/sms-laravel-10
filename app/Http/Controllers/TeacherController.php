@@ -20,7 +20,6 @@ class TeacherController extends Controller
     {
         $data['header_title'] = 'Teachers List';
         $data['getTeacher'] = User::select('users.*', DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"))
-                                ->where('users.is_delete', 0)
                                 ->where('users.user_type',2);
         
         if (!empty($request->first_name)) {
@@ -76,9 +75,11 @@ class TeacherController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Teacher $teacher)
+    public function show(User $user)
     {
-        
+        $data['header_title'] = 'Teacher Show';
+        $data['user'] = $user; 
+        return view('teacher.show', $data);
     }
 
     /**
@@ -139,5 +140,14 @@ class TeacherController extends Controller
             $user->save();
         }
         return redirect()->route('admins.teachers.index')->with('success', 'Teacher deleted successfully');
+    }
+
+    public function restore(User $user)
+    {
+        if(Auth::user()->user_type == 1){
+        $user->is_delete = 0;
+        $user->save();
+        }
+        return redirect()->route('admins.teachers.index')->with('success', 'Teacher Restored successfully');
     }
 }

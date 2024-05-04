@@ -6,9 +6,11 @@ use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -49,21 +51,154 @@ class ProfileController extends Controller
         $data['user'] = $user;
         return view('profile.edit', $data);
     }
+    public function teacherEdit(User $user)
+    {
+        $data['header_title'] = "Update Profile";
+        $data['user'] = $user;
+        return view('profile.edit', $data);
+    }
+    public function studentEdit(User $user)
+    {
+        $data['header_title'] = "Update Profile";
+        $data['user'] = $user;
+        return view('profile.edit', $data);
+    }
+    public function parentEdit(User $user)
+    {
+        $data['header_title'] = "Update Profile";
+        $data['user'] = $user;
+        return view('profile.edit', $data);
+    }
+
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request)
+    public function update(Request $request, User $user)
     {
-        $request->user()->fill($request->validated());
+        $validatedData = $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'password' => 'required|string|min:8',
+            'email' => 'required|email|unique:users|max:255'.$user->id,
+        ]);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $input = Arr::except($validatedData, 'avatar');
+
+        if ($user->avatar && $request->hasFile('avatar')) {
+            Storage::delete('public/avatars/' . $user->avatar);
+            $user->avatar = null;
+        }
+        if (!empty($request->password)) {
+            $user->password = Hash::make($request->password);
+            $user->save();
+        }
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+            $filename = $user->id . '-' . $user->name . '-' . date('Ymd_Hsi') . '.' . $avatar->getClientOriginalExtension();
+            $avatar->storeAs('public/avatars', $filename);
+            $user->avatar = $filename;
+            $user->save();
         }
 
-        $request->user()->save();
-
-        return redirect()->route('admins.index')->with('success', 'Profile has been updated');
+        $user->update($input);
+        return redirect()->route('admins.index')->with('success', 'User Info Updated Successfully');
     }
+
+    public function teacherUpdate(Request $request, User $user)
+    {
+        $validatedData = $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'password' => 'required|string|min:8',
+            'email' => 'required|email|unique:users|max:255'.$user->id,
+        ]);
+
+        $input = Arr::except($validatedData, 'avatar');
+
+        if ($user->avatar && $request->hasFile('avatar')) {
+            Storage::delete('public/avatars/' . $user->avatar);
+            $user->avatar = null;
+        }
+        if (!empty($request->password)) {
+            $user->password = Hash::make($request->password);
+            $user->save();
+        }
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+            $filename = $user->id . '-' . $user->name . '-' . date('Ymd_Hsi') . '.' . $avatar->getClientOriginalExtension();
+            $avatar->storeAs('public/avatars', $filename);
+            $user->avatar = $filename;
+            $user->save();
+        }
+
+        $user->update($input);
+        return redirect()->route('admins.teachers.index')->with('success', 'Teacher Info Updated Successfully');
+    }
+
+    public function studentUpdate(Request $request, User $user)
+    {
+        $validatedData = $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'password' => 'required|string|min:8',
+            'email' => 'required|email|unique:users|max:255'.$user->id,
+        ]);
+
+        $input = Arr::except($validatedData, 'avatar');
+
+        if ($user->avatar && $request->hasFile('avatar')) {
+            Storage::delete('public/avatars/' . $user->avatar);
+            $user->avatar = null;
+        }
+        if (!empty($request->password)) {
+            $user->password = Hash::make($request->password);
+            $user->save();
+        }
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+            $filename = $user->id . '-' . $user->name . '-' . date('Ymd_Hsi') . '.' . $avatar->getClientOriginalExtension();
+            $avatar->storeAs('public/avatars', $filename);
+            $user->avatar = $filename;
+            $user->save();
+        }
+
+        $user->update($input);
+        return redirect()->route('admins.students.index')->with('success', 'Student Info Updated Successfully');
+    }
+
+    public function ParentUpdate(Request $request, User $user)
+    {
+        $validatedData = $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'password' => 'required|string|min:8',
+            'email' => 'required|email|unique:users|max:255'.$user->id,
+        ]);
+
+        $input = Arr::except($validatedData, 'avatar');
+
+        if ($user->avatar && $request->hasFile('avatar')) {
+            Storage::delete('public/avatars/' . $user->avatar);
+            $user->avatar = null;
+        }
+        if (!empty($request->password)) {
+            $user->password = Hash::make($request->password);
+            $user->save();
+        }
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+            $filename = $user->id . '-' . $user->name . '-' . date('Ymd_Hsi') . '.' . $avatar->getClientOriginalExtension();
+            $avatar->storeAs('public/avatars', $filename);
+            $user->avatar = $filename;
+            $user->save();
+        }
+
+        $user->update($input);
+        return redirect()->route('admins.parents.index')->with('success', 'Parent Info Updated Successfully');
+    }
+
+
+
 
 
     public function change_password()
