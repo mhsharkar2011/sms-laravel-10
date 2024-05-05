@@ -18,6 +18,9 @@ return new class extends Migration
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('email')->unique();
+            $table->string('std_nid')->unique()->nullable();
+            $table->string('parent_nid')->unique()->nullable();
+            $table->string('teacher_nid')->unique()->nullable();
             $table->string('gender',50)->nullable();
             $table->date('dob')->nullable();
             $table->string('caste',50)->nullable();
