@@ -41,7 +41,7 @@
                                 <td>{{$subject->created_at }}</td>
                                 <td class="project-actions text-start">
                                     <a class="btn btn-info btn-sm" href="{{ route('admins.subjects.edit',$subject->id) }}"><i class="fas fa-pencil-alt"></i></a>
-                                    <a class="btn btn-danger btn-sm" href="{{ route('admins.subjects.delete',$subject->id) }}"><i class="fas fa-trash"></i></a>
+                                    <a class="btn btn-danger btn-sm" href="{{ route('admins.subjects.destroy',$subject->id) }}"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
                             @endforeach

@@ -66,11 +66,11 @@ class ClassController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ClassModel $classModel)
+    public function destroy(ClassModel $class)
     {
-        dd($classModel);
-        $classModel->is_deleted = 1;
-        $classModel->save();
+       
+        $class->is_deleted = 1;
+        $class->save();
         return redirect()->route('admins.classes.index')->with('success','Class Deleted successfully');
     }
 }

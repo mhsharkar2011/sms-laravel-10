@@ -92,22 +92,22 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('attendance/teachers/{id}', [AttendanceController::class, 'teacherAttendance'])->name('attendance.teacher');
 
         // Class Route
-        Route::resource('classes',ClassController::class);
+        Route::resource('classes',ClassController::class)->except('show');
+        Route::get('classes/delete/{class}', [ClassController::class, 'destroy'])->name('classes.destroy');
         // Route::get('classes', [ClassController::class, 'index'])->name('classes.index');
         // Route::get('classes/create', [ClassController::class, 'create'])->name('classes.create');
         // Route::post('classes', [ClassController::class, 'store'])->name('classes.store');
         // Route::get('classes/edit/{class}', [ClassController::class, 'edit'])->name('classes.edit');
         // Route::put('classes/update/{class}', [ClassController::class, 'update'])->name('classes.update');
-        // Route::get('classes/delete/{id}', [ClassController::class, 'destroy'])->name('classes.delete');
 
         // Subject Route
-        Route::resource('subjects',SubjectController::class);
+        Route::resource('subjects',SubjectController::class)->except('show');
+        Route::get('subjects/delete/{subject}', [SubjectController::class, 'destroy'])->name('subjects.destroy');
         // Route::get('subjects', [SubjectController::class, 'index'])->name('subjects');
         // Route::get('subjects/create', [SubjectController::class, 'create'])->name('subjects.create');
         // Route::post('subjects', [SubjectController::class, 'store'])->name('subjects.store');
         // Route::get('subjects/edit/{subject}', [SubjectController::class, 'edit'])->name('subjects.edit');
         // Route::put('subjects/update/{subject}', [SubjectController::class, 'update'])->name('subjects.update');
-        // Route::get('subjects/delete/{subject}', [SubjectController::class, 'destroy'])->name('subjects.delete');
 
         // Assign Subject to Class Route
         Route::resource('assign_subjects', ClassSubjectController::class)->except('show');

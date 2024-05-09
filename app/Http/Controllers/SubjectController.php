@@ -24,7 +24,7 @@ class SubjectController extends Controller
      */
     public function create()
     {
-        $data['header_title'] = 'Class Create';
+        $data['header_title'] = 'Subject Create';
         return view('subject.subject-create',$data);
     }
 
@@ -32,15 +32,20 @@ class SubjectController extends Controller
      * Store a newly created resource in storage.
      */
 
-    public function store(Request $request)
+    public function store(Request $request, Subject $subject)
     {
+        $validatedData = $request->validate([
+            'name' => 'required|unique:subjects,name,' . $subject->id . 'id|min:3',
+        ]);
+
        $subject = new Subject;
-       $subject->name = $request->name;
+       $subject->name = $validatedData['name'];
        $subject->status = $request->status;
        $subject->created_by = Auth::user()->id;
         $subject->save();
         return back()->with('success', 'Subject Created successfully');
     }
+
 
     public function edit(Subject $subject)
     {
@@ -59,6 +64,6 @@ class SubjectController extends Controller
     {
         $subject->is_deleted = 1;
         $subject->save();
-        return redirect()->route('admins.subjects')->with('success','Subject Deleted successfully');
+        return redirect()->route('admins.subjects.index')->with('success','Subject Deleted successfully');
     }
 }
