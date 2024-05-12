@@ -22,11 +22,11 @@ class AuthController extends Controller
             if (Auth::user()->user_type == 1) {
                 return redirect()->route('admins.dashboard')->with('success', 'Hello!' . Auth::user()->first_name . 'Welcome to School Management System');
             } else if (Auth::user()->user_type == 2) {
-                return redirect()->route('students.dashboard')->with('success', 'Hello!' . Auth::user()->first_name . 'Welcome to School Management System');
+                return redirect()->route('admins.dashboard')->with('success', 'Hello!' . Auth::user()->first_name . 'Welcome to School Management System');
             } else if (Auth::user()->user_type == 3) {
-                return redirect()->route('admins.dashboard')->with('success', 'Welcome to School Management System');
+                return redirect()->route('admins.dashboard')->with('success', 'Hello!' .  Auth::user()->first_name . 'Welcome to School Management System');
             } else if (Auth::user()->user_type == 4) {
-                return redirect()->route('admins.dashboard')->with('success', 'Welcome to School Management System');
+                return redirect()->route('admins.dashboard')->with('success', 'Hello!' .  Auth::user()->first_name . 'Welcome to School Management System');
             }
         }
         return view('auth.login', $data);
@@ -34,12 +34,13 @@ class AuthController extends Controller
 
     public function AuthLogin(Request $request)
     {
+        $data['header_title'] = 'Auth Login';
         $remember = !empty($request->remember) ? true : false;
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)) {
             if (Auth::user()->user_type == 1) {
                 return redirect()->route('admins.dashboard')->with('success', 'Hello! ' . Auth::user()->first_name . ' Welcome to School Management System');
             } else if (Auth::user()->user_type == 2) {
-                return redirect()->route('students.dashboard')->with('success', 'Hello! ' . Auth::user()->first_name . ' Welcome to School Management System');
+                return redirect()->route('admins.dashboard')->with('success', 'Hello! ' . Auth::user()->first_name . ' Welcome to School Management System');
             } else if (Auth::user()->user_type == 3) {
                 return redirect()->route('admins.dashboard')->with('success', 'Hello! ' . Auth::user()->first_name . ' Welcome to School Management System');
             } else if (Auth::user()->user_type == 4) {
