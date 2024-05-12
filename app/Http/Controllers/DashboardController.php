@@ -28,13 +28,13 @@ class DashboardController extends Controller
             $data['admins'] = User::all();
             return view('admin.admin-dashboard', $data);
         } else if (Auth::user()->user_type == 2) {
-            $data['admins'] = User::all();
+            $data['teachers'] = User::all();
             return view('teacher.teacher-dashboard', $data);
         } else if (Auth::user()->user_type == 3) {
-            $data['admins'] = User::all();
+            $data['students'] = User::all();
             return view('student.student-dashboard', $data);
         } else if (Auth::user()->user_type == 4) {
-            $data['admins'] = User::all();
+            $data['parents'] = User::all();
             return view('parent.parent-dashboard', $data);
         }
     }

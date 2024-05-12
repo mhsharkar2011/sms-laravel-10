@@ -119,7 +119,7 @@ Route::group(['middleware' => 'admin'], function () {
 
 // Teachers Middleware =================================================================
 Route::group(['middleware' => 'teacher'], function () {
-    
+    Route::prefix('teachers')->name('teachers.')->group(function () {
     Route::get('teacher-dashboard', [DashboardController::class, 'dashboard']);
 
     Route::resource('teachers', TeacherController::class);
@@ -127,7 +127,7 @@ Route::group(['middleware' => 'teacher'], function () {
     // Route::get('profile/edit/{user}', [TeacherController::class, 'edit'])->name('teachers.profile.edit');
     // Route::put('profile/update/{user}', [TeacherController::class, 'update'])->name('teachers.profile.update');
 });
-
+});
 
 // Students Middleware =================================================================
 Route::group(['middleware' => 'student'], function () {
