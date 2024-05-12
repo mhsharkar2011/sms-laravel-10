@@ -79,7 +79,7 @@ class TeacherController extends Controller
     {
         $data['header_title'] = 'Teacher Show';
         $data['user'] = $user; 
-        return view('teacher.show', $data);
+        return view('profile.show', $data);
     }
 
     /**

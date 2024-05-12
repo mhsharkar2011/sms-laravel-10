@@ -77,8 +77,8 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        $header_title = 'Profile';
-        return view('student.profile',compact('header_title','user'));
+        $header_title = 'Student Profile';
+        return view('profile.show',compact('header_title','user'));
     }
 
     /**
@@ -86,7 +86,7 @@ class StudentController extends Controller
      */
     public function edit(User $user)
     {
-        $data['header_title'] = 'Teacher Profile Edit';
+        $data['header_title'] = 'Student Profile Edit';
         $data['user'] = $user;
         return view('student.student-edit', $data);
     }

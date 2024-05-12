@@ -56,9 +56,11 @@ class ParentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $user)
     {
-        //
+        $data['header_title'] = 'Parent Profile Show';
+        $data['user'] = $user; 
+        return view('profile.show', $data);
     }
 
     /**

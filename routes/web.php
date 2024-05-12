@@ -49,6 +49,8 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('list', [AdminController::class, 'index'])->name('index');
         Route::get('create', [AdminController::class, 'create'])->name('create');
         Route::post('store', [AdminController::class, 'store'])->name('store');
+        Route::get('profile/show/{user}', [ProfileController::class, 'show'])->name('profile.show');
+        Route::get('profile/edit/{user}', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::get('profile/delete/{user}', [AdminController::class, 'destroy'])->name('profile.destroy');
         Route::get('profile/restore/{user}', [AdminController::class, 'restore'])->name('profile.restore');
 
@@ -119,28 +121,27 @@ Route::group(['middleware' => 'admin'], function () {
 
 // Teachers Middleware =================================================================
 Route::group(['middleware' => 'teacher'], function () {
-    Route::prefix('teachers')->name('teachers.')->group(function () {
-    Route::get('teacher-dashboard', [DashboardController::class, 'dashboard']);
-
     Route::resource('teachers', TeacherController::class);
-    // Route::get('profile/show/{user}', [TeacherController::class, 'show'])->name('teachers.profile.show');
-    // Route::get('profile/edit/{user}', [TeacherController::class, 'edit'])->name('teachers.profile.edit');
-    // Route::put('profile/update/{user}', [TeacherController::class, 'update'])->name('teachers.profile.update');
+    Route::prefix('teachers')->name('teachers.')->group(function () {
+    Route::get('teacher-dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('profile/show/{user}', [TeacherController::class, 'show'])->name('profile.show');
+    Route::get('profile/edit/{user}', [TeacherController::class, 'edit'])->name('profile.edit');
+    Route::put('profile/update/{user}', [TeacherController::class, 'update'])->name('teachers.profile.update');
 });
 });
 
 // Students Middleware =================================================================
 Route::group(['middleware' => 'student'], function () {
-    Route::get('student/student-dashboard', [DashboardController::class, 'dashboard']);
+    Route::get('student-dashboard', [DashboardController::class,'dashboard'])->name('students.dashboard');
     Route::resource('students', StudentController::class);
 
     // Route::get('students', [StudentController::class, 'index'])->name('students.index');
     // Route::get('students/create', [StudentController::class, 'create'])->name('students.create');
     // Route::post('students', [StudentController::class, 'store'])->name('students.store');
-    // Route::get('students/profile/show/{user}', [ProfileController::class, 'show'])->name('students.profile.show');
-    // Route::get('students/profile/edit/{user}', [ProfileController::class, 'edit'])->name('students.profile.edit');
-    // Route::put('students/profile/update/{user}', [ProfileController::class, 'update'])->name('students.profile.update');
-    // Route::get('students/delete/{user}', [StudentController::class, 'destroy'])->name('students.destroy');
+    Route::get('students/profile/show/{user}', [ProfileController::class, 'show'])->name('students.profile.show');
+    Route::get('students/profile/edit/{user}', [ProfileController::class, 'edit'])->name('students.profile.edit');
+    Route::put('students/profile/update/{user}', [ProfileController::class, 'update'])->name('students.profile.update');
+    Route::get('students/delete/{user}', [StudentController::class, 'destroy'])->name('students.destroy');
 
     // Students Teachers Route
     Route::get('students/teachers', [StudentController::class, 'studentTeacher'])->name('students.teachers.list');
@@ -148,7 +149,7 @@ Route::group(['middleware' => 'student'], function () {
 
 // Parent Middleware =================================================================
 Route::group(['middleware' => 'parent'], function () {
-    Route::get('parents/parent-dashboard', [DashboardController::class, 'dashboard']);
+    Route::get('parent-dashboard', [DashboardController::class, 'dashboard'])->name('parents.dashboard');
     Route::resource('parents',ParentController::class);
 
     // Route::get('parents', [ParentController::class, 'index'])->name('parents.index');

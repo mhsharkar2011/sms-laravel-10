@@ -59,9 +59,9 @@ class AdminController extends Controller
      */
     public function show(User $user)
     {
-        $data['header_title'] = 'Profile Show';
+        $data['header_title'] = 'Admin Profile Show';
         $data['user'] = $user; 
-        return view('profile.edit', $data);
+        return view('profile.show', $data);
     }
 
     /**

@@ -13,7 +13,7 @@
             <x-avatar :avatar="Auth::user()->avatar" width="48" height="48" class="rounded-circle" />
             @if (Auth::user()->user_type == 1)
                 <div class="info">
-                    <a href="{{ route('profile.show', Auth::user()->id) }}"
+                    <a href="{{ route('admins.profile.show', Auth::user()->id) }}"
                         class="d-block">{{ Auth::user()->first_name }}</a>
                 </div>
             @elseif (Auth::user()->user_type == 2)
@@ -147,7 +147,7 @@
                     {{-- Teacher Dashboard --}}
                 @elseif (Auth::user()->user_type == 2)
                     <li class="nav-item">
-                        <a href="{{ url('teacher/teacher-dashboard') }}"
+                        <a href="{{ route('teachers.dashboard') }}"
                             class="nav-link @if (Request::segment(2) == 'dashboard') active @endif">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
