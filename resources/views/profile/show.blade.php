@@ -15,12 +15,12 @@
                             <div class="card card-primary card-outline">
                                 <div class="card-body box-profile">
                                     <div class="text-center">
-                                        <x-avatar :avatar="$user->avatar" width="48" height="48" class="rounded-circle" />
+                                        <x-avatar :avatar="$students->avatar" width="48" height="48" class="rounded-circle" />
                                     </div>
 
-                                    <h3 class="profile-username text-center">{{ $user->full_name }}</h3>
+                                    <h3 class="profile-username text-center">{{ Auth::user()->full_name }}</h3>
 
-                                    <p class="text-muted text-center">Software Engineer</p>
+                                   
 
                                     <ul class="list-group list-group-unbordered mb-3">
                                         <li class="list-group-item">

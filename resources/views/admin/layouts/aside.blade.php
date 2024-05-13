@@ -19,7 +19,7 @@
             @elseif (Auth::user()->user_type == 2)
                 <div class="info">
                     <a href="{{ route('teachers.profile.show', Auth::user()->id) }}"
-                        class="d-block">{{ Auth::user()->first_name }}</a>
+                        class="d-block">{{ Auth::user()->full_name }}</a>
                 </div>
             @elseif (Auth::user()->user_type == 3)
                 <div class="info">
@@ -185,7 +185,7 @@
                     {{-- Student Dashboard --}}
                 @elseif (Auth::user()->user_type == 3)
                     <li class="nav-item">
-                        <a href="{{ url('student/student-dashboard') }}"
+                        <a href="{{ route('students.dashboard') }}"
                             class="nav-link @if (Request::segment(2) == 'dashboard') active @endif">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
@@ -194,7 +194,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('students/teachers') }}"
+                        <a href="{{ route('students.teachers') }}"
                             class="nav-link @if (Request::segment(2) == 'list') active @endif">
                             <i class="nav-icon fas fa-user"></i>
                             <p>

@@ -55,7 +55,7 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('profile/restore/{user}', [AdminController::class, 'restore'])->name('profile.restore');
 
         // Teachers Route
-        Route::resource('teachers',TeacherController::class);
+        Route::resource('teachers', TeacherController::class);
         Route::get('teachers/delete/{user}', [TeacherController::class, 'destroy'])->name('teachers.destroy');
         Route::get('teachers/restore/{user}', [TeacherController::class, 'restore'])->name('teachers.restore');
         // Route::get('teachers/list', [TeacherController::class, 'index'])->name('teachers.index');
@@ -67,7 +67,7 @@ Route::group(['middleware' => 'admin'], function () {
         // Route::get('teachers/delete/{user}', [TeacherController::class, 'destroy'])->name('teachers.destroy');
 
         // Students Route
-        Route::resource('students',StudentController::class);
+        Route::resource('students', StudentController::class);
         Route::get('students/delete/{user}', [StudentController::class, 'destroy'])->name('students.destroy');
         Route::get('students/restore/{user}', [StudentController::class, 'restore'])->name('students.restore');
         // Route::get('students/list', [StudentController::class, 'index'])->name('students.index');
@@ -79,7 +79,7 @@ Route::group(['middleware' => 'admin'], function () {
         // Route::get('students/delete/{user}', [StudentController::class, 'destroy'])->name('students.destroy');
 
         // Parents Route
-        Route::resource('parents',ParentController::class);
+        Route::resource('parents', ParentController::class);
         // Route::get('parents/list', [ParentController::class, 'index'])->name('parents.index');
         // Route::get('parents/create', [ParentController::class, 'create'])->name('parents.create');
         // Route::post('parents/store', [ParentController::class, 'store'])->name('parents.store');
@@ -94,8 +94,9 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('attendance/teachers/{id}', [AttendanceController::class, 'teacherAttendance'])->name('attendance.teacher');
 
         // Class Route
-        Route::resource('classes',ClassController::class)->except('show');
+        Route::resource('classes', ClassController::class)->except(['show', 'destroy']);
         Route::get('classes/delete/{class}', [ClassController::class, 'destroy'])->name('classes.destroy');
+        Route::get('classes/restore/{class}', [ClassController::class, 'restore'])->name('classes.restore');
         // Route::get('classes', [ClassController::class, 'index'])->name('classes.index');
         // Route::get('classes/create', [ClassController::class, 'create'])->name('classes.create');
         // Route::post('classes', [ClassController::class, 'store'])->name('classes.store');
@@ -103,7 +104,7 @@ Route::group(['middleware' => 'admin'], function () {
         // Route::put('classes/update/{class}', [ClassController::class, 'update'])->name('classes.update');
 
         // Subject Route
-        Route::resource('subjects',SubjectController::class)->except('show');
+        Route::resource('subjects', SubjectController::class)->except('show');
         Route::get('subjects/delete/{subject}', [SubjectController::class, 'destroy'])->name('subjects.destroy');
         // Route::get('subjects', [SubjectController::class, 'index'])->name('subjects');
         // Route::get('subjects/create', [SubjectController::class, 'create'])->name('subjects.create');
@@ -123,34 +124,30 @@ Route::group(['middleware' => 'admin'], function () {
 Route::group(['middleware' => 'teacher'], function () {
     Route::resource('teachers', TeacherController::class);
     Route::prefix('teachers')->name('teachers.')->group(function () {
-    Route::get('teacher-dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
-    Route::get('profile/show/{user}', [TeacherController::class, 'show'])->name('profile.show');
-    Route::get('profile/edit/{user}', [TeacherController::class, 'edit'])->name('profile.edit');
-    Route::put('profile/update/{user}', [TeacherController::class, 'update'])->name('teachers.profile.update');
-});
+        Route::get('teacher-dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+        Route::get('profile/show/{user}', [TeacherController::class, 'show'])->name('profile.show');
+        Route::get('profile/edit/{user}', [TeacherController::class, 'edit'])->name('profile.edit');
+        Route::put('profile/update/{user}', [TeacherController::class, 'update'])->name('teachers.profile.update');
+    });
 });
 
 // Students Middleware =================================================================
 Route::group(['middleware' => 'student'], function () {
-    Route::get('student-dashboard', [DashboardController::class,'dashboard'])->name('students.dashboard');
-    Route::resource('students', StudentController::class);
-
-    // Route::get('students', [StudentController::class, 'index'])->name('students.index');
-    // Route::get('students/create', [StudentController::class, 'create'])->name('students.create');
-    // Route::post('students', [StudentController::class, 'store'])->name('students.store');
-    Route::get('students/profile/show/{user}', [ProfileController::class, 'show'])->name('students.profile.show');
-    Route::get('students/profile/edit/{user}', [ProfileController::class, 'edit'])->name('students.profile.edit');
-    Route::put('students/profile/update/{user}', [ProfileController::class, 'update'])->name('students.profile.update');
-    Route::get('students/delete/{user}', [StudentController::class, 'destroy'])->name('students.destroy');
-
-    // Students Teachers Route
-    Route::get('students/teachers', [StudentController::class, 'studentTeacher'])->name('students.teachers.list');
+    Route::resource('students', StudentController::class)->except('show');
+    Route::prefix('students')->name('students.')->group(function () {
+        Route::get('student-dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+        Route::get('profile/show/{user}', [ProfileController::class, 'studentProfile'])->name('profile.show');
+        Route::get('profile/edit/{user}', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::put('profile/update/{user}', [ProfileController::class, 'update'])->name('profile.update');
+        Route::get('delete/{user}', [StudentController::class, 'destroy'])->name('destroy');
+        Route::get('teachers', [StudentController::class, 'studentTeacher'])->name('teachers');
+    });
 });
 
 // Parent Middleware =================================================================
 Route::group(['middleware' => 'parent'], function () {
     Route::get('parent-dashboard', [DashboardController::class, 'dashboard'])->name('parents.dashboard');
-    Route::resource('parents',ParentController::class);
+    Route::resource('parents', ParentController::class);
 
     // Route::get('parents', [ParentController::class, 'index'])->name('parents.index');
     // Route::get('parents/profile/{user}', [ParentController::class, 'show'])->name('parents.show');
@@ -159,4 +156,9 @@ Route::group(['middleware' => 'parent'], function () {
     // Route::get('parents/delete/{user}', [ParentController::class, 'destroy'])->name('parents.destroy');
     Route::get('parents/profile/{user}', [ProfileController::class, 'parentProfile'])->name('parents.profile');
     Route::get('students', [StudentController::class, 'index'])->name('students.index');
+});
+
+
+Route::fallback(function () {
+    return "<h1>Page Not Found</h1>";
 });

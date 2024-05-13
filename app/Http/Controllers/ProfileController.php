@@ -31,10 +31,10 @@ class ProfileController extends Controller
         $data['user'] = $user;
         return view('profile.show', $data);
     }
-    public function studentProfile(User $user)
+    public function studentProfile(User $student)
     {
         $data['header_title'] = "Student Profile";
-        $data['user'] = $user;
+        $data['students'] = $student;
         return view('profile.show', $data);
     }
 

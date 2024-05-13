@@ -30,9 +30,9 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>{{ $totalAdmin }}</h3>
+                <h3>{{ $totalStudent }}</h3>
 
-                <p>Total Exam</p>
+                <p>Total Student</p>
               </div>
               <div class="icon">
                 <i class="nav-icon fas fa-user"></i>

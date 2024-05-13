@@ -70,7 +70,16 @@ class ClassController extends Controller
     {
        
         $class->is_deleted = 1;
+        $class->status = 1;
         $class->save();
         return redirect()->route('admins.classes.index')->with('success','Class Deleted successfully');
+    }
+
+    public function restore(ClassModel $class)
+    {
+        $class->is_deleted = 0;
+        $class->status = 0;
+        $class->save();
+        return redirect()->route('admins.classes.index')->with('success', 'Class Restored successfully');
     }
 }

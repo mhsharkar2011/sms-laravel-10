@@ -75,11 +75,12 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Student $student)
-    {
-        $header_title = 'Student Profile';
-        return view('profile.show',compact('header_title','user'));
-    }
+    // public function show(User $user)
+    // {
+    //     $data['header_title'] = 'Student Profile';
+    //     // $data['user'] = $user;
+    //     return view('profile.show',$data);
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -129,6 +130,11 @@ class StudentController extends Controller
         return redirect()->route('admins.students.index')->with('success', 'Student Info Updated Successfully');
     }
 
+    public function studentTeacher(){
+        $data['header_title'] = 'Student Assigned Teachers';
+        $data['getStudentTeachers'] = User::getStudentTeachers(); 
+        return view('student.student-teacher', $data);
+    }
     /**
      * Remove the specified resource from storage.
      */

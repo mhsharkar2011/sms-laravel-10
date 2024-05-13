@@ -10,7 +10,7 @@
                   <div class="card">
                     <div class="card-header">
                       <h3 class="card-title">Class List</h3>
-                      <a href="{{ url('classes/create') }}" class="card-title float-right btn btn-sm btn-primary">New Class Add</a>
+                      <a href="{{ route('admins.classes.create') }}" class="card-title float-right btn btn-sm btn-primary">New Class Add</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -30,11 +30,11 @@
                             <tr>
                                 <td>{{ $value->id }}</td>
                                 <td>{{ $value->name }}</td>
-                                <td>
+                                <td >
                                   @if ($value->status == 0)
-                                    Active
+                                    <span class="text-success">Active</span>
                                   @else
-                                    Inactive
+                                    <span class="text-danger">Inactive</span>
                                   @endif
                                 </td>
                                 <td>{{ $value->created_by_name }}</td>
@@ -42,6 +42,7 @@
                                 <td class="project-actions text-start">
                                     <a class="btn btn-info btn-sm" href="{{ url('admins/classes/edit',$value->id) }}"><i class="fas fa-pencil-alt"></i></a>
                                     <a class="btn btn-danger btn-sm" href="{{ route('admins.classes.destroy',$value->id) }}"><i class="fas fa-trash"></i></a>
+                                    <a class="btn btn-warning btn-sm" href="{{ route('admins.classes.restore',$value->id) }}"><i class="fa fa-window-restore" aria-hidden="true"></i></a>
                                 </td>
                             </tr>
                             @endforeach
