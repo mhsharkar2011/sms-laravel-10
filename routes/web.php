@@ -25,10 +25,6 @@ Route::get('logout', [AuthController::class, 'logout']);
 
 
 // Profile Route 
-Route::get('profile/show/{user}', [ProfileController::class, 'show'])->name('profile.show');
-Route::get('teacher/profile/show/{user}', [ProfileController::class, 'teacherProfile'])->name('teacher.profile.show');
-Route::get('student/profile/show/{user}', [ProfileController::class, 'studentProfile'])->name('student.profile.show');
-Route::get('parent/profile/show/{user}', [ProfileController::class, 'parentProfile'])->name('parent.profile.show');
 Route::get('profile/edit/{user}', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::get('teacher/profile/edit/{user}', [ProfileController::class, 'teacherEdit'])->name('teacher.profile.edit');
 Route::get('student/profile/edit/{user}', [ProfileController::class, 'studentEdit'])->name('student.profile.edit');
@@ -49,7 +45,7 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('list', [AdminController::class, 'index'])->name('index');
         Route::get('create', [AdminController::class, 'create'])->name('create');
         Route::post('store', [AdminController::class, 'store'])->name('store');
-        Route::get('profile/show/{user}', [ProfileController::class, 'show'])->name('profile.show');
+        Route::get('profile/show/{user}', [ProfileController::class, 'profile'])->name('profile.show');
         Route::get('profile/edit/{user}', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::get('profile/delete/{user}', [AdminController::class, 'destroy'])->name('profile.destroy');
         Route::get('profile/restore/{user}', [AdminController::class, 'restore'])->name('profile.restore');
@@ -58,35 +54,22 @@ Route::group(['middleware' => 'admin'], function () {
         Route::resource('teachers', TeacherController::class);
         Route::get('teachers/delete/{user}', [TeacherController::class, 'destroy'])->name('teachers.destroy');
         Route::get('teachers/restore/{user}', [TeacherController::class, 'restore'])->name('teachers.restore');
-        // Route::get('teachers/list', [TeacherController::class, 'index'])->name('teachers.index');
-        // Route::get('teachers/create', [TeacherController::class, 'create'])->name('teachers.create');
-        // Route::post('teachers/store', [TeacherController::class, 'store'])->name('teachers.store');
-        // Route::get('teachers/show/{user}', [TeacherController::class, 'show'])->name('teachers.show');
-        // Route::get('teachers/profile/edit/{user}', [TeacherController::class, 'edit'])->name('teachers.edit');
-        // Route::post('teachers/profile/edit/{user}', [TeacherController::class, 'update'])->name('teachers.update');
-        // Route::get('teachers/delete/{user}', [TeacherController::class, 'destroy'])->name('teachers.destroy');
+
+
+        // Assign Subject to Class Route
+        Route::resource('assign_subjects', ClassSubjectController::class)->except('show');
+        Route::get('assign_subjects/{id}', [ClassSubjectController::class, 'destroy'])->name('assign_subjects.destroy');
+        Route::put('assign_subjects/single_update/{update_single}', [ClassSubjectController::class, 'update_single'])->name('assign_subjects.update_single');
 
         // Students Route
         Route::resource('students', StudentController::class);
         Route::get('students/delete/{user}', [StudentController::class, 'destroy'])->name('students.destroy');
         Route::get('students/restore/{user}', [StudentController::class, 'restore'])->name('students.restore');
-        // Route::get('students/list', [StudentController::class, 'index'])->name('students.index');
-        // Route::get('students/create', [StudentController::class, 'create'])->name('students.create');
-        // Route::post('students/store', [StudentController::class, 'store'])->name('students.store');
-        // Route::get('students/show/{user}', [StudentController::class, 'show'])->name('students.show');
-        // Route::get('students/profile/edit/{user}', [StudentController::class, 'edit'])->name('students.edit');
-        // Route::post('students/profile/edit/{user}', [StudentController::class, 'update'])->name('students.update');
-        // Route::get('students/delete/{user}', [StudentController::class, 'destroy'])->name('students.destroy');
+        
 
         // Parents Route
         Route::resource('parents', ParentController::class);
-        // Route::get('parents/list', [ParentController::class, 'index'])->name('parents.index');
-        // Route::get('parents/create', [ParentController::class, 'create'])->name('parents.create');
-        // Route::post('parents/store', [ParentController::class, 'store'])->name('parents.store');
-        // Route::get('parents/show/{user}', [ParentController::class, 'show'])->name('parents.show');
-        // Route::get('parents/profile/edit/{user}', [ParentController::class, 'edit'])->name('parents.edit');
-        // Route::post('parents/profile/edit/{user}', [ParentController::class, 'update'])->name('parents.update');
-        // Route::get('parents/delete/{user}', [ParentController::class, 'destroy'])->name('parents.destroy');
+       
 
         // Attendance Route
         Route::get('attendance', [AttendanceController::class, 'index'])->name('attendance.index');
@@ -97,20 +80,11 @@ Route::group(['middleware' => 'admin'], function () {
         Route::resource('classes', ClassController::class)->except(['show', 'destroy']);
         Route::get('classes/delete/{class}', [ClassController::class, 'destroy'])->name('classes.destroy');
         Route::get('classes/restore/{class}', [ClassController::class, 'restore'])->name('classes.restore');
-        // Route::get('classes', [ClassController::class, 'index'])->name('classes.index');
-        // Route::get('classes/create', [ClassController::class, 'create'])->name('classes.create');
-        // Route::post('classes', [ClassController::class, 'store'])->name('classes.store');
-        // Route::get('classes/edit/{class}', [ClassController::class, 'edit'])->name('classes.edit');
-        // Route::put('classes/update/{class}', [ClassController::class, 'update'])->name('classes.update');
-
+        
         // Subject Route
         Route::resource('subjects', SubjectController::class)->except('show');
         Route::get('subjects/delete/{subject}', [SubjectController::class, 'destroy'])->name('subjects.destroy');
-        // Route::get('subjects', [SubjectController::class, 'index'])->name('subjects');
-        // Route::get('subjects/create', [SubjectController::class, 'create'])->name('subjects.create');
-        // Route::post('subjects', [SubjectController::class, 'store'])->name('subjects.store');
-        // Route::get('subjects/edit/{subject}', [SubjectController::class, 'edit'])->name('subjects.edit');
-        // Route::put('subjects/update/{subject}', [SubjectController::class, 'update'])->name('subjects.update');
+       
 
         // Assign Subject to Class Route
         Route::resource('assign_subjects', ClassSubjectController::class)->except('show');
@@ -125,7 +99,7 @@ Route::group(['middleware' => 'teacher'], function () {
     Route::resource('teachers', TeacherController::class);
     Route::prefix('teachers')->name('teachers.')->group(function () {
         Route::get('teacher-dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
-        Route::get('profile/show/{user}', [TeacherController::class, 'show'])->name('profile.show');
+        Route::get('profile/show/{id}', [ProfileController::class, 'profile'])->name('profile.show');
         Route::get('profile/edit/{user}', [TeacherController::class, 'edit'])->name('profile.edit');
         Route::put('profile/update/{user}', [TeacherController::class, 'update'])->name('teachers.profile.update');
     });
@@ -136,11 +110,12 @@ Route::group(['middleware' => 'student'], function () {
     Route::resource('students', StudentController::class)->except('show');
     Route::prefix('students')->name('students.')->group(function () {
         Route::get('student-dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
-        Route::get('profile/show/{user}', [ProfileController::class, 'studentProfile'])->name('profile.show');
+        Route::get('profile/show/{user}', [ProfileController::class, 'profile'])->name('profile.show');
         Route::get('profile/edit/{user}', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::put('profile/update/{user}', [ProfileController::class, 'update'])->name('profile.update');
         Route::get('delete/{user}', [StudentController::class, 'destroy'])->name('destroy');
-        Route::get('teachers', [StudentController::class, 'studentTeacher'])->name('teachers');
+        Route::get('student-teachers', [StudentController::class, 'studentTeacher'])->name('teachers');
+        Route::get('teachers/profile/show/{user}', [ProfileController::class, 'profile'])->name('teacher.profile.show');
     });
 });
 
@@ -149,12 +124,7 @@ Route::group(['middleware' => 'parent'], function () {
     Route::get('parent-dashboard', [DashboardController::class, 'dashboard'])->name('parents.dashboard');
     Route::resource('parents', ParentController::class);
 
-    // Route::get('parents', [ParentController::class, 'index'])->name('parents.index');
-    // Route::get('parents/profile/{user}', [ParentController::class, 'show'])->name('parents.show');
-    // Route::get('parents/profile/edit/{user}', [ParentController::class, 'edit'])->name('parents.edit');
-    // Route::put('parents/profile/update/{user}', [ParentController::class, 'update'])->name('parents.update');
-    // Route::get('parents/delete/{user}', [ParentController::class, 'destroy'])->name('parents.destroy');
-    Route::get('parents/profile/{user}', [ProfileController::class, 'parentProfile'])->name('parents.profile');
+    Route::get('profile/show/{user}', [ProfileController::class, 'profile'])->name('profile.show');
     Route::get('students', [StudentController::class, 'index'])->name('students.index');
 });
 

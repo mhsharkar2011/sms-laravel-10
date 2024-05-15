@@ -151,6 +151,11 @@ class User extends Authenticatable
             $return = $return->get();
             return $return;
     }
+    static function getSingleUser($id)
+    {
+        return self::where('id', '=', $id)->first();
+    }
+
     static function getSingleEmail($email)
     {
         return self::where('email', '=', $email)->first();

@@ -63,7 +63,7 @@
                                 <td>{{$value->created_by_name }}</td>
                                 <td>{{$value->created_at }}</td>
                                 <td class="project-actions text-start">
-                                    <a class="btn btn-primary btn-sm" href="{{ url('admins/profile', $value->id) }}"><i class="fas fa-eye"></i></a>
+                                    <a class="btn btn-primary btn-sm" href="{{ route('admins.profile.show', $value->id) }}"><i class="fas fa-eye"></i></a>
                                     <a class="btn btn-info btn-sm" href="{{ url('admins/profile/edit',$value->id) }}"><i class="fas fa-pencil-alt"></i></a>
                                     <a class="btn btn-danger btn-sm" href="{{ url('admins/delete',$value->id) }}"><i class="fas fa-trash"></i></a>
                                 </td>

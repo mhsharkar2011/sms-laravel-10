@@ -76,8 +76,7 @@
                                     <a class="btn btn-primary btn-sm" href="{{ route('admins.profile.show', $value->id) }}"><i class="far fa-eye"></i></a>
                                     <a class="btn btn-info btn-sm" href="{{ route('admins.profile.edit',$value->id) }}"><i class="fas fa-pen"></i></a>
                                     <a class="btn btn-danger btn-sm" href="{{ route('admins.profile.destroy',$value->id) }}"><i class="fas fa-user-minus"></i></a>
-                                    <a class="btn btn-warning btn-sm" href="{{ route('admins.profile.restore',$value->id) }}"><i class="fas fa-user-plus"></i></a>
-                                    
+                                    <a class="btn btn-warning btn-sm" href="{{ route('admins.profile.restore',$value->id) }}"><i class="fa fa-window-restore" aria-hidden="true"></i></a>                                    
                                 </td>
                             </tr>
                             @endforeach

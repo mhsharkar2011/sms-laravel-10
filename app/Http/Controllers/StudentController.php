@@ -129,12 +129,6 @@ class StudentController extends Controller
         $user->update($input);
         return redirect()->route('admins.students.index')->with('success', 'Student Info Updated Successfully');
     }
-
-    public function studentTeacher(){
-        $data['header_title'] = 'Student Assigned Teachers';
-        $data['getStudentTeachers'] = User::getStudentTeachers(); 
-        return view('student.student-teacher', $data);
-    }
     /**
      * Remove the specified resource from storage.
      */
@@ -154,5 +148,12 @@ class StudentController extends Controller
         $user->save();
         }
         return redirect()->route('admins.students.index')->with('success', 'Student Restored successfully');
+    }
+
+    
+    public function studentTeacher(){
+        $data['header_title'] = 'Student Assigned Teachers';
+        $data['getStudentTeachers'] = User::getStudentTeachers(); 
+        return view('student.student-teacher', $data);
     }
 }

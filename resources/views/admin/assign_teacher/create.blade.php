@@ -73,7 +73,7 @@
                                 <td>{{ $value->created_by_name }}</td>
                                 <td>{{date('d-m-Y H:i:A', strtotime($value->created_at)) }}</td>
                                 <td class="project-actions text-nowrap">
-                                    <a class="btn btn-primary btn-sm" href="{{ route('admins.profile.show', $value->id) }}"><i class="far fa-eye"></i></a>
+                                    <a class="btn btn-primary btn-sm" href="{{ route('teacher.profile.show', $value->id) }}"><i class="far fa-eye"></i></a>
                                     <a class="btn btn-info btn-sm" href="{{ route('teacher.profile.edit',$value->id) }}"><i class="fas fa-pen"></i></a>
                                     <a class="btn btn-danger btn-sm" href="{{ route('admins.teachers.destroy',$value->id) }}"><i class="fas fa-user-minus"></i></a>
                                     <a class="btn btn-warning btn-sm" href="{{ route('admins.teachers.restore',$value->id) }}"><i class="fas fa-user-plus"></i></a>

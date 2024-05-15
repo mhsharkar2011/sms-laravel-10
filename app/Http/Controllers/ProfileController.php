@@ -25,25 +25,13 @@ class ProfileController extends Controller
         return view('profile.show', $data);
     }
 
-    public function teacherProfile(User $user)
+    public function profile($id)
     {
-        $data['header_title'] = "Teacher Profile";
-        $data['user'] = $user;
-        return view('profile.show', $data);
-    }
-    public function studentProfile(User $student)
-    {
-        $data['header_title'] = "Student Profile";
-        $data['students'] = $student;
+        $data['header_title'] = "Profile";
+        $data['user'] = User::getSingleUser($id);
         return view('profile.show', $data);
     }
 
-    public function parentProfile(User $user)
-    {
-        $data['header_title'] = "Parent Profile";
-        $data['user'] = $user;
-        return view('parent.profile', $data);
-    }
 
     public function edit(User $user)
     {

@@ -9,8 +9,7 @@
                 <div class="col-12">
                   <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Student Teacher List (Total: {{ $getStudentTeachers->count() }} )</h3>
-                      <a href="{{ url('admins/teachers/create') }}" class="card-title float-right btn btn-sm btn-primary">Add New Teacher</a>
+                      <h3 class="card-title">Teacher List (Total: {{ $getStudentTeachers->count() }})</h3>
                     </div>
                   {{-- Search And Filtering Form--}}
                   <form action="" method="get">
@@ -38,9 +37,11 @@
                           <th>Full Name</th>
                           <th>Photo</th>
                           <th>Email</th>
+                          <th>User Type</th>
                           <th>Status</th>
-                          <th>Assigned By</th>
-                          <th>Assigned Date</th>
+                          <th>Created By</th>
+                          <th>Created Date</th>
+                          <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -51,6 +52,17 @@
                                 <td><x-avatar :avatar="$value->avatar" width="48" height="48" class="rounded-circle" />
                                 <td>{{$value->email }}</td>
                                 <td>
+                                  @if ($value->user_type == 1)
+                                    Admin
+                                  @elseif ($value->user_type == 2)
+                                    Teacher
+                                    @elseif ($value->user_type == 3)
+                                    Student
+                                    @elseif ($value->user_type == 4)
+                                    Parent
+                                  @endif
+                                </td>
+                                <td>
                                   @if ($value->is_delete == 0)
                                   Active
                                 @else
@@ -59,6 +71,9 @@
                                 </td>
                                 <td>{{ $value->created_by_name }}</td>
                                 <td>{{date('d-m-Y H:i:A', strtotime($value->created_at)) }}</td>
+                                <td class="project-actions text-nowrap">
+                                    <a class="btn btn-primary btn-sm" href="{{ route('students.teacher.profile.show', $value->id) }}"><i class="far fa-eye"></i></a>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -68,9 +83,11 @@
                           <th>Name</th>
                           <th>Photo</th>
                           <th>Email</th>
+                          <th>User Type</th>
                           <th>Status</th>
-                          <th>Assigned By</th>
-                          <th>Assigned Date</th>
+                          <th>Created By</th>
+                          <th>Created Date</th>
+                          <th>Action</th>
                         </tr>
                         </tfoot>
                       </table>
