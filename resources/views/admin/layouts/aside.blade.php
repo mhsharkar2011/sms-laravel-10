@@ -58,14 +58,25 @@
                             </p>
                         </a>
                     </li>
+                    <li class="nav-item menu">
+                        <a href="" class="nav-link @if (Request::segment(1) == '*') active @endif">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                Teacher
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                    <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ route('admins.teachers.index') }}"
+                        <a href="{{ route('admins.assign_class_teachers.index') }}"
                             class="nav-link @if (Request::segment(2) == 'teachers') active @endif">
                             <i class="nav-icon fas fa-user"></i>
                             <p>
-                                Teachers
+                                Assign Class
                             </p>
                         </a>
+                    </li>
+                    </ul>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('admins.students.index') }}"
