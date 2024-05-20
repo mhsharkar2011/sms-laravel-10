@@ -11,7 +11,7 @@
                     <!-- general form elements -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Edit Assign Subject</h3>
+                            <h3 class="card-title">Edit Assign Student</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->

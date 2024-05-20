@@ -18,7 +18,7 @@ class Subject extends Model
     {
         $return  = self::select('subjects.*', DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"))
             ->join('users', 'users.id', 'subjects.created_by')
-            ->where('is_deleted', '=', 0)
+            ->where('subjects.is_deleted', '=', 0)
             ->orderBy('subjects.id', 'desc')
             ->get();
         return $return;

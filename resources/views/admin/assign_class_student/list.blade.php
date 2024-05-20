@@ -8,20 +8,20 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Assign Subject List</h3>
-                <a href="{{ route('admins.assign_subjects.create') }}" class="card-title float-right btn btn-sm btn-primary">New Assign Subject</a>
+                <h3 class="card-title">Assign Students</h3>
+                <a href="{{ route('admins.assign_class_students.create') }}" class="card-title float-right btn btn-sm btn-primary">New Assign Student</a>
               </div>
               {{-- Search And Filtering Form--}}
               <form action="" method="get">
                 <div class="card-body">
                   <div class="row">
                     <x-input-text col="md-3" label="Class Name" type="text" name="class_name" id="class_name" value="{{ Request::get('class_name') }}" placeholder="Class Name" class="form-control" />
-                    <x-input-text col="md-3" label="Subject Name" type="text" name="subject_name" id="subject_name" value="{{ Request::get('subject_name') }}" placeholder="subject Name" class="form-control" />
+                    <x-input-text col="md-3" label="Student Name" type="text" name="student_name" id="student_name" value="{{ Request::get('student_name') }}" placeholder="Student Name" class="form-control" />
                     <x-input-text col="md-3" label="Date" type="date" name="date" id="date" value="{{ Request::get('date') }}" palceholder="" class="form-control" />
                     <div class="form-group col-md-3 ">
                       <div class="row" style="margin-top:32px">
                         <x-form-button col="" class="btn-primary">Submit</x-form-button>
-                        <x-link-button col="" class="btn-warning ml-2"  route="{{ route('admins.assign_subjects.index') }}" icon="">Reset</x-link-button>
+                        <x-link-button col="" class="btn-warning ml-2"  route="{{ route('admins.assign_class_teachers.index') }}" icon="">Reset</x-link-button>
                       </div>  
                     </div>
                   </div>
@@ -34,7 +34,7 @@
                         <tr>
                             <th>SL No.</th>
                             <th>Class Name</th>
-                            <th>Subject Name</th>
+                            <th>Student Name</th>
                             <th>Status</th>
                             <th>Created By</th>
                             <th>Created At</th>
@@ -42,11 +42,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($assignSubjects as $value)
+                        @foreach ($assignStudents as $value)
                             <tr>
                                 <td>{{ $value->id }}</td>
                                 <td>{{ $value->class_name }}</td>
-                                <td>{{ $value->subject_name }}</td>
+                                <td>{{ $value->student_name }}</td>
                                 <td>
                                     @if ($value->status == 0)
                                         Active
@@ -59,10 +59,10 @@
                                 <td class="project-actions text-start">
                                     {{-- <a class="btn btn-info btn-sm" href="{{ route('admins.assign_subjects.show',$value->id) }}"><i class="fas fa-eye"></i></a> --}}
                                     <a class="btn btn-info btn-sm"
-                                        href="{{ route('admins.assign_subjects.edit', $value->id) }}"><i
+                                        href="{{ route('admins.assign_class_students.edit', $value->id) }}"><i
                                             class="fas fa-pencil-alt"></i></a>
                                     <a class="btn btn-danger btn-sm"
-                                        href="{{ url('admins/assign_subjects', $value->id) }}"><i
+                                        href="{{ url('admins/assign_calss_students', $value->id) }}"><i
                                             class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
@@ -72,7 +72,7 @@
                         <tr>
                             <th>SL No.</th>
                             <th>Class Name</th>
-                            <th>Subject Name</th>
+                            <th>Student Name</th>
                             <th>Status</th>
                             <th>Created By</th>
                             <th>Created At</th>

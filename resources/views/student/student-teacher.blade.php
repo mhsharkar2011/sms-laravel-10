@@ -63,7 +63,7 @@
                                   @endif
                                 </td>
                                 <td>
-                                  @if ($value->is_delete == 0)
+                                  @if ($value->is_deleted == 0)
                                   Active
                                 @else
                                   <span class="text-danger">Inactive</span>

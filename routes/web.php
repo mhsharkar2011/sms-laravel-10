@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\ClassController;
+use App\Http\Controllers\ClassStudentController;
 use App\Http\Controllers\ClassSubjectController;
 use App\Http\Controllers\ClassTeacherController;
 use App\Http\Controllers\DashboardController;
@@ -71,6 +72,11 @@ Route::group(['middleware' => 'admin'], function () {
         Route::resource('students', StudentController::class);
         Route::get('students/delete/{user}', [StudentController::class, 'destroy'])->name('students.destroy');
         Route::get('students/restore/{user}', [StudentController::class, 'restore'])->name('students.restore');
+
+        // Assign Class to Student Route
+        Route::resource('assign_class_students', ClassStudentController::class)->except('show');
+        Route::get('assign_class_students/{id}', [ClassStudentController::class, 'destroy'])->name('assign_class_students.destroy');
+        Route::put('assign_class_students/single_update/{update_single}', [ClassStudentController::class, 'update_single'])->name('assign_class_students.update_single');
         
 
         // Parents Route

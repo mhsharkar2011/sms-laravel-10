@@ -136,7 +136,7 @@ class TeacherController extends Controller
     public function destroy(User $user)
     {
         if(Auth::user()->user_type == 1){
-            $user->is_delete = 1;
+            $user->is_deleted = 1;
             $user->save();
         }
         return redirect()->route('admins.teachers.index')->with('success', 'Teacher deleted successfully');
@@ -145,7 +145,7 @@ class TeacherController extends Controller
     public function restore(User $user)
     {
         if(Auth::user()->user_type == 1){
-        $user->is_delete = 0;
+        $user->is_deleted = 0;
         $user->save();
         }
         return redirect()->route('admins.teachers.index')->with('success', 'Teacher Restored successfully');

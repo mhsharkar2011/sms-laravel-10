@@ -17,7 +17,7 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if (!empty(Auth::check())) {
-            if (Auth::user()->user_type == 1 && Auth::user()->is_delete == 0) {
+            if (Auth::user()->user_type == 1 && Auth::user()->is_deleted == 0) {
                 return $next($request);
             } else {
                 Auth::logout();

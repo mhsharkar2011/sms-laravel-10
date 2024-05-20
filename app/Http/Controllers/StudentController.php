@@ -20,7 +20,7 @@ class StudentController extends Controller
     {
         $data['header_title'] = 'Student List';
         $data['getStudent'] = User::select('users.*', DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"))
-                                ->where('users.is_delete', 0)
+                                ->where('users.is_deleted', 0)
                                 ->where('users.user_type',3);
         
         if (!empty($request->first_name)) {
@@ -135,7 +135,7 @@ class StudentController extends Controller
     public function destroy(User $user)
     {
         if(Auth::user()->user_type == 1){
-            $user->is_delete = 1;
+            $user->is_deleted = 1;
             $user->save();
         }
         return redirect()->route('admins.students.index')->with('success', 'Student deleted successfully');
@@ -144,7 +144,7 @@ class StudentController extends Controller
     public function restore(User $user)
     {
         if(Auth::user()->user_type == 1){
-        $user->is_delete = 0;
+        $user->is_deleted = 0;
         $user->save();
         }
         return redirect()->route('admins.students.index')->with('success', 'Student Restored successfully');

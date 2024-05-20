@@ -12,16 +12,16 @@ class DashboardController extends Controller
     {
         $data['header_title'] = 'Dashboard';
         $data['totalAdmin'] = User::where('user_type', 1)
-            ->where('is_delete', 0)
+            ->where('is_deleted', 0)
             ->count();
         $data['totalTeacher'] = User::where('user_type', 2)
-            ->where('is_delete', 0)
+            ->where('is_deleted', 0)
             ->count();
         $data['totalStudent'] = User::where('user_type', 3)
-            ->where('is_delete', 0)
+            ->where('is_deleted', 0)
             ->count();
         $data['totalParent'] = User::where('user_type', 4)
-            ->where('is_delete', 0)
+            ->where('is_deleted', 0)
             ->count();
 
         if (Auth::user()->user_type == 1) {

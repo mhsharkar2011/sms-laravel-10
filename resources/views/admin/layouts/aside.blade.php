@@ -66,27 +66,59 @@
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-                    <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="{{ route('admins.assign_class_teachers.index') }}"
-                            class="nav-link @if (Request::segment(2) == 'teachers') active @endif">
-                            <i class="nav-icon fas fa-user"></i>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('admins.teachers.index') }}"
+                                    class="nav-link @if (Request::segment(2) == 'teachers') active @endif">
+                                    <i class="nav-icon fas fa-user"></i>
+                                    <p>
+                                        All Teachers
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admins.assign_class_teachers.index') }}"
+                                    class="nav-link @if (Request::segment(2) == 'assign_class_teachers') active @endif">
+                                    <i class="nav-icon fas fa-user"></i>
+                                    <p>
+                                        Assign Class
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {{-- Student --}}
+                    <li class="nav-item">   
+                    <li class="nav-item menu">
+                        <a href="" class="nav-link @if (Request::segment(1) == '*') active @endif">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
-                                Assign Class
+                                Student
+                                <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('admins.students.index') }}"
+                                    class="nav-link @if (Request::segment(2) == 'students') active @endif">
+                                    <i class="nav-icon fas fa-user"></i>
+                                    <p>
+                                        All Students
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admins.assign_class_students.index') }}"
+                                    class="nav-link @if (Request::segment(2) == 'assign_class_students') active @endif">
+                                    <i class="nav-icon fas fa-user"></i>
+                                    <p>
+                                        Assign Class
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
-                    </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('admins.students.index') }}"
-                            class="nav-link @if (Request::segment(2) == 'students') active @endif">
-                            <i class="nav-icon fas fa-user"></i>
-                            <p>
-                                Students
-                            </p>
-                        </a>
-                    </li>
+
                     <li class="nav-item">
                         <a href="{{ route('admins.parents.index') }}"
                             class="nav-link @if (Request::segment(2) == 'parents') active @endif">
@@ -270,15 +302,15 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ url('logout') }}" class="nav-link">
-                                <i class="nav-icon fas fa-user"></i>
-                                <p>
-                                    Logout
-                                </p>
-                            </a>
-                        </li>
                     </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('logout') }}" class="nav-link">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            Logout
+                        </p>
+                    </a>
                 </li>
             </ul>
         </nav>
