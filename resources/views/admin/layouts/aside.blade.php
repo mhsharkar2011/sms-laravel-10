@@ -28,8 +28,7 @@
                 </div>
             @elseif (Auth::user()->user_type == 4)
                 <div class="info">
-                    <a href="{{ route('profile', Auth::user()->id) }}"
-                        class="d-block">{{ Auth::user()->full_name }}</a>
+                    <a href="{{ route('profile', Auth::user()->id) }}" class="d-block">{{ Auth::user()->full_name }}</a>
                 </div>
             @endif
         </div>
@@ -88,7 +87,7 @@
                         </ul>
                     </li>
                     {{-- Student --}}
-                    <li class="nav-item">   
+                    <li class="nav-item">
                     <li class="nav-item menu">
                         <a href="" class="nav-link @if (Request::segment(1) == '*') active @endif">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -137,6 +136,26 @@
                             </p>
                         </a>
                     </li>
+                    {{-- Admin Subject Section --}}
+                    <li class="nav-item">
+                        <a href="{{ route('admins.subjects.index') }}"
+                            class="nav-link @if (Request::segment(2) == 'subjects') active @endif">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>
+                                Subjects
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admins.assign_subjects.index') }}"
+                            class="nav-link @if (Request::segment(2) == 'assign_subjects') active @endif">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>
+                                Assign Subjects
+                            </p>
+                        </a>
+                    </li>
+
                     {{-- Attendance Menu --}}
                     <li class="nav-item menu">
                         <a href="" class="nav-link @if (Request::segment(1) == '*') active @endif">
@@ -168,25 +187,6 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item">
-                        <a href="{{ route('admins.subjects.index') }}"
-                            class="nav-link @if (Request::segment(2) == 'subjects') active @endif">
-                            <i class="nav-icon fas fa-user"></i>
-                            <p>
-                                Subjects
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('admins.assign_subjects.index') }}"
-                            class="nav-link @if (Request::segment(2) == 'assign_subjects') active @endif">
-                            <i class="nav-icon fas fa-user"></i>
-                            <p>
-                                Assign Subjects
-                            </p>
-                        </a>
-                    </li>
-
                     {{-- Teacher Dashboard --}}
                 @elseif (Auth::user()->user_type == 2)
                     <li class="nav-item">
@@ -199,11 +199,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('teachers.classes.show',1) }}"
+                        <a href="{{ route('teachers.classes.show', 1) }}"
                             class="nav-link @if (Request::segment(2) == 'list') active @endif">
                             <i class="nav-icon fas fa-user"></i>
                             <p>
-                                Classes
+                                My Classes & Subjects
                             </p>
                         </a>
                     </li>
@@ -212,7 +212,7 @@
                             class="nav-link @if (Request::segment(2) == 'list') active @endif">
                             <i class="nav-icon fas fa-user"></i>
                             <p>
-                                Students
+                                My Students
                             </p>
                         </a>
                     </li>
@@ -221,7 +221,7 @@
                             class="nav-link @if (Request::segment(2) == 'list') active @endif">
                             <i class="nav-icon fas fa-user"></i>
                             <p>
-                                Parents
+                                My Students Parents
                             </p>
                         </a>
                     </li>
@@ -241,7 +241,7 @@
                             class="nav-link @if (Request::segment(2) == 'list') active @endif">
                             <i class="nav-icon fas fa-user"></i>
                             <p>
-                                Teachers
+                                My Teachers
                             </p>
                         </a>
                     </li>
