@@ -9,8 +9,7 @@
                 <div class="col-12">
                   <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Student List (Total: {{ $getStudent->count() }})</h3>
-                      <a href="{{ route('admins.students.create') }}" class="card-title float-right btn btn-sm btn-primary">Add New Student</a>
+                      <h3 class="card-title">My Student List (Total: {{ $getRecord->count() }})</h3>
                     </div>
                   {{-- Search And Filtering Form--}}
                   <form action="" method="get">
@@ -23,7 +22,7 @@
                         <div class="form-group col-md-3 ">
                           <div class="row" style="margin-top:32px">
                             <x-form-button col="" class="btn-primary">Submit</x-form-button>
-                            <x-link-button col="" class="btn-warning ml-2"  route="{{ route('admins.students.index') }}" icon="">Reset</x-link-button>
+                            <x-link-button col="" class="btn-warning ml-2"  route="{{ route('admins.index') }}" icon="">Reset</x-link-button>
                           </div>  
                         </div>
                       </div>
@@ -37,48 +36,38 @@
                           <th>SL No.</th>
                           <th>Full Name</th>
                           <th>Photo</th>
-                          <th>Class</th>
                           <th>Email</th>
-                          <th>Status</th>
-                          <th>Created By</th>
-                          <th>Created Date</th>
-                          <th>Action</th>
+                          <th>Class</th>
+                          <th>Contact numnber</th>
+                          <th>Assigned Date</th>
                         </tr>
                         </thead>
                         <tbody>
-                            @foreach ($getStudent as $value )
+                            @foreach ($getRecord as $value )
                             <tr>
                                 <td>{{ $value->id }}</td>
-                                <td>{{ $value->first_name }} {{ $value->last_name }}</td>
+                                <td>{{ $value->full_name }}</td>
                                 <td><x-avatar :avatar="$value->avatar" width="48" height="48" class="rounded-circle" />
-                                <td>{{$value->class_name }}</td>
                                 <td>{{$value->email }}</td>
-                                <td>
-                                  @if ($value->is_deleted == 0)
-                                  <span class="text-success">Active</span>
+                                <td>{{$value->class_name }}</td>
+                                @if (!empty($value->contact_number))
+                                <td>{{$value->contact_number }}</td>
                                 @else
-                                  <span class="text-danger">Inactive</span>
+                                <td class="text-danger">{{ "NULL"}}</td>
                                 @endif
-                                </td>
-                                <td>{{ $value->created_by_name }}</td>
                                 <td>{{date('d-m-Y H:i:A', strtotime($value->created_at)) }}</td>
-                                <td class="project-actions text-nowrap">
-                                  <x-action-button :userId="$value->id"/>
-                                </td>
                             </tr>
                             @endforeach
                         </tbody>
                         <tfoot>
                         <tr>
                           <th>SL No.</th>
-                          <th>Name</th>
+                          <th>Full Name</th>
                           <th>Photo</th>
-                          <th>Class</th>
                           <th>Email</th>
-                          <th>Status</th>
-                          <th>Created By</th>
-                          <th>Created Date</th>
-                          <th>Action</th>
+                          <th>Class</th>
+                          <th>Contact numnber</th>
+                          <th>Assigned Date</th>
                         </tr>
                         </tfoot>
                       </table>

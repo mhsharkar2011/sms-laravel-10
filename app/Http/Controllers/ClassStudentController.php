@@ -57,6 +57,9 @@ class ClassStudentController extends Controller
                 $input->status = $request->status;
                 $input->created_by = Auth::user()->id;
                 $input->save();
+                $user = User::find($student_id);
+                $user->class_id = $input->class_id;
+                $user->save();
             }
             return redirect()->route('admins.assign_class_students.index')->with('success', 'student assign to class successfully');
         } else {

@@ -45,6 +45,15 @@
                                         <option value="3">Student</option>
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <label for="status">Class Name</label>
+                                    <select name="class_id" id="" class="form-control">
+                                        <option value="">Select Class</option>
+                                        @foreach ($classes as $class )
+                                        <option value="{{ $class->id }}">{{ $class->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer text-center">
                                     <button type="reset" class="btn btn-warning">Clear</button>

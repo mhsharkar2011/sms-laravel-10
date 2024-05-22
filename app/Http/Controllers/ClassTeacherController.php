@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\ClassModel;
+use App\Models\ClassSubject;
 use App\Models\ClassTeacher;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 
 class ClassTeacherController extends Controller
 {
@@ -112,5 +114,19 @@ class ClassTeacherController extends Controller
     public function destroy(ClassTeacher $classTeacher)
     {
         
+    }
+
+    public function myClassSubject()
+    {
+        $data['header_title'] = 'My Classes & Subjects';
+        $data['getRecord'] = ClassTeacher::getClassSubject(Auth::user()->id);
+        return view('teacher.my-class-subject',$data);
+    }
+
+    public function myStudent()
+    {
+        $data['header_title'] = 'My Students';
+        $data['getRecord'] = User::getTeacherStudent(Auth::user()->id);
+        return view('teacher.my-student',$data);
     }
 }

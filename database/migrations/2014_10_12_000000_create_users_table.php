@@ -41,6 +41,7 @@ return new class extends Migration
             $table->string('created_by')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->unique(['class_id', 'id']);
         });
     }
 

@@ -21,7 +21,7 @@ class ClassModel extends Model
 
 
     static public function getClass(){
-        $return  = self::select('classes.*', DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"))
+        $return  = self::select('classes.*', DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"),'classes.name as class_name')
             ->join('users', 'users.id','classes.created_by')
             ->orderBy('classes.id', 'asc')
             ->get();

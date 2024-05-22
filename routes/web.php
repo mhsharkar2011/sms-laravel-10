@@ -108,7 +108,8 @@ Route::group(['middleware' => 'teacher'], function () {
     Route::prefix('teachers')->name('teachers.')->group(function () {
         Route::get('teacher-dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
         Route::get('subjects',[SubjectController::class,'index'])->name('subjects.index');
-        Route::get('classes/show/{id}', [ClassTeacherController::class,'show'])->name('classes.show');
+        Route::get('my-class-subject', [ClassTeacherController::class,'myClassSubject'])->name('myClassSubject');
+        Route::get('my-students', [ClassTeacherController::class,'myStudent'])->name('myStudents');
     });
 });
 

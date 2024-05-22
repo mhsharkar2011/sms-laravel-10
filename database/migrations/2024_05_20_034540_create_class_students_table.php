@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('is_deleted')->default(0);
             $table->integer('status')->default(0);
             $table->timestamps();
+            $table->unique(['class_id', 'student_id']);
         });
     }
 

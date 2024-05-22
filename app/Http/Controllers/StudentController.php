@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClassModel;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,8 +20,8 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         $data['header_title'] = 'Student List';
-        $data['getStudent'] = User::select('users.*', DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"))
-                                ->where('users.is_deleted', 0)
+        $data['getStudent'] = User::select('users.*', DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"),'classes.name as class_name')
+                                ->join('classes','classes.id','=','users.class_id')
                                 ->where('users.user_type',3);
         
         if (!empty($request->first_name)) {
@@ -45,6 +46,10 @@ class StudentController extends Controller
     public function create()
     {
         $data['header_title'] = 'Student Create';
+        $data['classes'] = ClassModel::where('classes.is_deleted', '=', 0)
+            ->where('classes.status', '=', 0)
+            ->orderBy('classes.name', 'asc')
+            ->get();
         return view('student.student-create', $data);
     }
 
@@ -65,6 +70,7 @@ class StudentController extends Controller
             'last_name' => $validatedData['last_name'],
             'email' => $validatedData['email'],
             'user_type' =>3,
+            'class_id' => $request->class_id,
             'created_by' => Auth::user()->id,
             'password' => Hash::make($validatedData['password']),
         ]);

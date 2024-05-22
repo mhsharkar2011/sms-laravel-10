@@ -199,8 +199,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('teachers.classes.show', 1) }}"
-                            class="nav-link @if (Request::segment(2) == 'list') active @endif">
+                        <a href="{{ route('teachers.myClassSubject') }}"
+                            class="nav-link @if (Request::segment(2) == 'my-class-subject') active @endif">
                             <i class="nav-icon fas fa-user"></i>
                             <p>
                                 My Classes & Subjects
@@ -208,8 +208,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('students') }}"
-                            class="nav-link @if (Request::segment(2) == 'list') active @endif">
+                        <a href="{{ route('teachers.myStudents') }}"
+                            class="nav-link @if (Request::segment(2) == 'my-students') active @endif">
                             <i class="nav-icon fas fa-user"></i>
                             <p>
                                 My Students

@@ -108,11 +108,12 @@ class User extends Authenticatable
 
     }
 
-    static public function getStudentTeachers(){
-        $return = self::select('users.*', DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"))
-            ->where('user_type', '=', '2')
-            ->where('is_deleted', '=', '0')
-            ->orderBy('id', 'desc');
+    static public function getTeacherStudent(){
+        $return = self::select('users.*', DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"),'classes.name as class_name')
+            ->join('classes', 'classes.id', '=', 'users.class_id')
+            ->where('users.user_type', '=', '3')
+            ->where('users.is_deleted', '=', '0')
+            ->orderBy('users.id', 'desc');
             if (!empty(Request::get('first_name'))) {
                 $return = $return->where('users.first_name', 'LIKE', '%' . Request::get('first_name') . '%');
             }
