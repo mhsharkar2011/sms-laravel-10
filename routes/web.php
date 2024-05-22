@@ -26,13 +26,12 @@ Route::get('logout', [AuthController::class, 'logout']);
 
 
 
-// Profile Route 
-// Route::get('profile/edit/{user}', [ProfileController::class, 'edit'])->name('profile.edit');
-// Route::get('teacher/profile/edit/{user}', [ProfileController::class, 'teacherEdit'])->name('teacher.profile.edit');
-// Route::get('student/profile/edit/{user}', [ProfileController::class, 'studentEdit'])->name('student.profile.edit');
-// Route::post('profile/edit/{user}', [ProfileController::class, 'update'])->name('profile.update');
-// Route::post('teacher/profile/edit/{user}', [ProfileController::class, 'teacherUpdate'])->name('teacher.profile.update');
-// Route::post('student/profile/edit/{user}', [ProfileController::class, 'studentUpdate'])->name('student.profile.update');
+// Profile Route
+Route::get('profile/show/{user}', [ProfileController::class, 'showProfile'])->name('profile.show');
+Route::get('profile/edit/{user}', [ProfileController::class, 'editProfile'])->name('profile.edit');
+Route::post('profile/edit/{user}', [ProfileController::class, 'updateProfile'])->name('profile.update');
+Route::get('profile/destroy/{user}', [ProfileController::class, 'destroyProfile'])->name('profile.destroy');
+Route::get('profile/restore/{user}', [ProfileController::class, 'restoreProfile'])->name('profile.restore');
 
 Route::get('change_password', [ProfileController::class, 'change_password'])->name('change_password');
 Route::post('change_password', [ProfileController::class, 'update_password'])->name('update_password');
@@ -46,11 +45,13 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('list', [AdminController::class, 'index'])->name('index');
         Route::get('create', [AdminController::class, 'create'])->name('create');
         Route::post('store', [AdminController::class, 'store'])->name('store');
-        Route::get('profile/show/{user}', [ProfileController::class, 'showProfile'])->name('profile.show');
-        Route::get('profile/edit/{user}', [ProfileController::class, 'editProfile'])->name('profile.edit');
-        Route::post('profile/edit/{user}', [ProfileController::class, 'updateProfile'])->name('profile.update');
-        Route::get('profile/destroy/{user}', [AdminController::class, 'destroy'])->name('profile.destroy');
-        Route::get('profile/restore/{user}', [AdminController::class, 'restore'])->name('profile.restore');
+
+        // Profile Route
+        // Route::get('profile/show/{user}', [ProfileController::class, 'showProfile'])->name('profile.show');
+        // Route::get('profile/edit/{user}', [ProfileController::class, 'editProfile'])->name('profile.edit');
+        // Route::post('profile/edit/{user}', [ProfileController::class, 'updateProfile'])->name('profile.update');
+        // Route::get('profile/destroy/{user}', [ProfileController::class, 'destroyProfile'])->name('profile.destroy');
+        // Route::get('profile/restore/{user}', [ProfileController::class, 'restoreProfile'])->name('profile.restore');
 
         // Teachers Route
         Route::get('teachers', [TeacherController::class,'index'])->name('teachers.index');
@@ -115,9 +116,13 @@ Route::group(['middleware' => 'teacher'], function () {
     Route::resource('teachers', TeacherController::class);
     Route::prefix('teachers')->name('teachers.')->group(function () {
         Route::get('teacher-dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
-        Route::get('profile/show/{id}', [ProfileController::class, 'showProfile'])->name('profile.show');
-        Route::get('profile/edit/{user}', [TeacherController::class, 'editProfile'])->name('profile.edit');
-        Route::put('profile/update/{user}', [TeacherController::class, 'updateProfile'])->name('teachers.profile.update');
+        // Profile Route
+        // Route::get('profile/show/{user}', [ProfileController::class, 'showProfile'])->name('profile.show');
+        // Route::get('profile/edit/{user}', [ProfileController::class, 'editProfile'])->name('profile.edit');
+        // Route::post('profile/edit/{user}', [ProfileController::class, 'updateProfile'])->name('profile.update');
+        // Route::get('profile/destroy/{user}', [ProfileController::class, 'destroyProfile'])->name('profile.destroy');
+        // Route::get('profile/restore/{user}', [ProfileController::class, 'restoreProfile'])->name('profile.restore');
+
     });
 });
 
@@ -125,9 +130,13 @@ Route::group(['middleware' => 'teacher'], function () {
 Route::group(['middleware' => 'student'], function () {
     Route::prefix('students')->name('students.')->group(function () {
         Route::get('student-dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
-        Route::get('profile/show/{user}', [ProfileController::class, 'showProfile'])->name('profile.show');
-        Route::get('profile/edit/{user}', [ProfileController::class, 'editProfile'])->name('profile.edit');
-        Route::post('profile/update/{user}', [ProfileController::class, 'updateProfile'])->name('profile.update');
+        // Profile Route
+        // Route::get('profile/show/{user}', [ProfileController::class, 'showProfile'])->name('profile.show');
+        // Route::get('profile/edit/{user}', [ProfileController::class, 'editProfile'])->name('profile.edit');
+        // Route::post('profile/edit/{user}', [ProfileController::class, 'updateProfile'])->name('profile.update');
+        // Route::get('profile/destroy/{user}', [ProfileController::class, 'destroyProfile'])->name('profile.destroy');
+        // Route::get('profile/restore/{user}', [ProfileController::class, 'restoreProfile'])->name('profile.restore');
+
         Route::get('student-teachers', [StudentController::class, 'studentTeacher'])->name('teachers');
         Route::get('teachers/profile/show/{user}', [ProfileController::class, 'showProfile'])->name('teacher.profile.show');
     });
@@ -137,9 +146,13 @@ Route::group(['middleware' => 'student'], function () {
 Route::group(['middleware' => 'parent'], function () {
     Route::prefix('parents')->name('parents.')->group(function () {
         Route::get('parent-dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
-        Route::get('profile/show/{user}', [ProfileController::class, 'showProfile'])->name('profile.show');
-        Route::get('profile/edit/{user}', [ProfileController::class, 'editProfile'])->name('profile.edit');
-        Route::post('profile/update/{user}', [ProfileController::class, 'updateProfile'])->name('profile.update');
+        // Profile Route
+        // Route::get('profile/show/{user}', [ProfileController::class, 'showProfile'])->name('profile.show');
+        // Route::get('profile/edit/{user}', [ProfileController::class, 'editProfile'])->name('profile.edit');
+        // Route::post('profile/edit/{user}', [ProfileController::class, 'updateProfile'])->name('profile.update');
+        // Route::get('profile/destroy/{user}', [ProfileController::class, 'destroyProfile'])->name('profile.destroy');
+        // Route::get('profile/restore/{user}', [ProfileController::class, 'restoreProfile'])->name('profile.restore');
+
     });
 });
 

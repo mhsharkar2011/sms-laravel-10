@@ -13,22 +13,22 @@
             <x-avatar :avatar="Auth::user()->avatar" width="48" height="48" class="rounded-circle" />
             @if (Auth::user()->user_type == 1)
                 <div class="info">
-                    <a href="{{ route('admins.profile.show', Auth::user()->id) }}"
+                    <a href="{{ route('profile.show', Auth::user()->id) }}"
                         class="d-block">{{ Auth::user()->full_name }}</a>
                 </div>
             @elseif (Auth::user()->user_type == 2)
                 <div class="info">
-                    <a href="{{ route('teachers.profile.show', Auth::user()->id) }}"
+                    <a href="{{ route('profile.show', Auth::user()->id) }}"
                         class="d-block">{{ Auth::user()->full_name }}</a>
                 </div>
             @elseif (Auth::user()->user_type == 3)
                 <div class="info">
-                    <a href="{{ route('students.profile.show', Auth::user()->id) }}"
+                    <a href="{{ route('profile.show', Auth::user()->id) }}"
                         class="d-block">{{ Auth::user()->full_name }}</a>
                 </div>
             @elseif (Auth::user()->user_type == 4)
                 <div class="info">
-                    <a href="{{ route('parents.profile', Auth::user()->id) }}"
+                    <a href="{{ route('profile', Auth::user()->id) }}"
                         class="d-block">{{ Auth::user()->full_name }}</a>
                 </div>
             @endif
@@ -285,7 +285,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('admins.profile.edit', Auth::user()->id) }}"
+                            <a href="{{ route('profile.edit', Auth::user()->id) }}"
                                 class="nav-link @if (Request::segment(3) == Auth::user()->id) active @endif">
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>

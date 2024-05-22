@@ -94,4 +94,19 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
         return Redirect::to('/');
     }
+
+
+    public function destroyProfile(User $user)
+    {
+        $user->is_deleted = 1;
+        $user->save();
+        return redirect()->back()->with('success', 'User deleted successfully');
+    }
+
+    public function restoreProfile(User $user)
+    {
+        $user->is_deleted = 0;
+        $user->save();
+        return redirect()->back()->with('success', 'User Restored successfully');
+    }
 }
