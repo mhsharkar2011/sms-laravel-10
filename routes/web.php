@@ -24,17 +24,15 @@ Route::get('reset/{token}', [AuthController::class, 'resetPassword']);
 Route::post('reset/{token}', [AuthController::class, 'postResetPassword']);
 Route::get('logout', [AuthController::class, 'logout']);
 
-
-
 // Profile Route
 Route::get('profile/show/{user}', [ProfileController::class, 'showProfile'])->name('profile.show');
 Route::get('profile/edit/{user}', [ProfileController::class, 'editProfile'])->name('profile.edit');
 Route::post('profile/edit/{user}', [ProfileController::class, 'updateProfile'])->name('profile.update');
 Route::get('profile/destroy/{user}', [ProfileController::class, 'destroyProfile'])->name('profile.destroy');
 Route::get('profile/restore/{user}', [ProfileController::class, 'restoreProfile'])->name('profile.restore');
-
 Route::get('change_password', [ProfileController::class, 'change_password'])->name('change_password');
 Route::post('change_password', [ProfileController::class, 'update_password'])->name('update_password');
+
 
 // Admin Middleware =================================================================
 Route::group(['middleware' => 'admin'], function () {
@@ -45,13 +43,6 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('list', [AdminController::class, 'index'])->name('index');
         Route::get('create', [AdminController::class, 'create'])->name('create');
         Route::post('store', [AdminController::class, 'store'])->name('store');
-
-        // Profile Route
-        // Route::get('profile/show/{user}', [ProfileController::class, 'showProfile'])->name('profile.show');
-        // Route::get('profile/edit/{user}', [ProfileController::class, 'editProfile'])->name('profile.edit');
-        // Route::post('profile/edit/{user}', [ProfileController::class, 'updateProfile'])->name('profile.update');
-        // Route::get('profile/destroy/{user}', [ProfileController::class, 'destroyProfile'])->name('profile.destroy');
-        // Route::get('profile/restore/{user}', [ProfileController::class, 'restoreProfile'])->name('profile.restore');
 
         // Teachers Route
         Route::get('teachers', [TeacherController::class,'index'])->name('teachers.index');
@@ -113,16 +104,11 @@ Route::group(['middleware' => 'admin'], function () {
 
 // Teachers Middleware =================================================================
 Route::group(['middleware' => 'teacher'], function () {
-    Route::resource('teachers', TeacherController::class);
+    // Route::resource('teachers', TeacherController::class);
     Route::prefix('teachers')->name('teachers.')->group(function () {
         Route::get('teacher-dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
-        // Profile Route
-        // Route::get('profile/show/{user}', [ProfileController::class, 'showProfile'])->name('profile.show');
-        // Route::get('profile/edit/{user}', [ProfileController::class, 'editProfile'])->name('profile.edit');
-        // Route::post('profile/edit/{user}', [ProfileController::class, 'updateProfile'])->name('profile.update');
-        // Route::get('profile/destroy/{user}', [ProfileController::class, 'destroyProfile'])->name('profile.destroy');
-        // Route::get('profile/restore/{user}', [ProfileController::class, 'restoreProfile'])->name('profile.restore');
-
+        Route::get('subjects',[SubjectController::class,'index'])->name('subjects.index');
+        Route::get('classes/show/{id}', [ClassTeacherController::class,'show'])->name('classes.show');
     });
 });
 
@@ -130,13 +116,6 @@ Route::group(['middleware' => 'teacher'], function () {
 Route::group(['middleware' => 'student'], function () {
     Route::prefix('students')->name('students.')->group(function () {
         Route::get('student-dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
-        // Profile Route
-        // Route::get('profile/show/{user}', [ProfileController::class, 'showProfile'])->name('profile.show');
-        // Route::get('profile/edit/{user}', [ProfileController::class, 'editProfile'])->name('profile.edit');
-        // Route::post('profile/edit/{user}', [ProfileController::class, 'updateProfile'])->name('profile.update');
-        // Route::get('profile/destroy/{user}', [ProfileController::class, 'destroyProfile'])->name('profile.destroy');
-        // Route::get('profile/restore/{user}', [ProfileController::class, 'restoreProfile'])->name('profile.restore');
-
         Route::get('student-teachers', [StudentController::class, 'studentTeacher'])->name('teachers');
         Route::get('teachers/profile/show/{user}', [ProfileController::class, 'showProfile'])->name('teacher.profile.show');
     });
@@ -146,13 +125,6 @@ Route::group(['middleware' => 'student'], function () {
 Route::group(['middleware' => 'parent'], function () {
     Route::prefix('parents')->name('parents.')->group(function () {
         Route::get('parent-dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
-        // Profile Route
-        // Route::get('profile/show/{user}', [ProfileController::class, 'showProfile'])->name('profile.show');
-        // Route::get('profile/edit/{user}', [ProfileController::class, 'editProfile'])->name('profile.edit');
-        // Route::post('profile/edit/{user}', [ProfileController::class, 'updateProfile'])->name('profile.update');
-        // Route::get('profile/destroy/{user}', [ProfileController::class, 'destroyProfile'])->name('profile.destroy');
-        // Route::get('profile/restore/{user}', [ProfileController::class, 'restoreProfile'])->name('profile.restore');
-
     });
 });
 

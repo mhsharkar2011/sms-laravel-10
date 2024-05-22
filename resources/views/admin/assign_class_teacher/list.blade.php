@@ -8,7 +8,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Assign Subject List</h3>
+                <h3 class="card-title">Assign Class List</h3>
                 <a href="{{ route('admins.assign_class_teachers.create') }}" class="card-title float-right btn btn-sm btn-primary">New Assign Teachers</a>
               </div>
               {{-- Search And Filtering Form--}}

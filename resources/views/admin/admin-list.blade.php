@@ -10,7 +10,7 @@
                   <div class="card">
                     <div class="card-header">
                       <h3 class="card-title">Admin List (Total: {{ $getAdmin->count() }})</h3>
-                      <a href="{{ url('admins/create') }}" class="card-title float-right btn btn-sm btn-primary">Add New User</a>
+                      <a href="{{ route('admins.create') }}" class="card-title float-right btn btn-sm btn-primary">Add New User</a>
                     </div>
                   {{-- Search And Filtering Form--}}
                   <form action="" method="get">

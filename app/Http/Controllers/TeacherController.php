@@ -150,4 +150,29 @@ class TeacherController extends Controller
         }
         return redirect()->route('admins.teachers.index')->with('success', 'Teacher Restored successfully');
     }
+
+
+
+    public function teacherClasses(Request $request)
+    {
+        $data['header_title'] = 'Teachers Classes List';
+        $data['getClass'] = User::select('users.*', DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"))
+                                ->where('users.user_type',2);
+        
+        if (!empty($request->first_name)) {
+            $data['getClass'] = $data['getClass']->where('users.first_name', 'LIKE', '%' . $request->first_name . '%');
+        }
+        if (!empty($request->last_name)) {
+            $data['getClass'] = $data['getClass']->where('users.last_name', 'LIKE', '%' . $request->last_name . '%');
+        }
+         if (!empty($request->email)) {
+            $data['getClass'] = $data['getClass']->where('users.email', 'LIKE', '%' . $request->email . '%');
+        }
+        if (!empty($request->date)) {
+            $data['getClass'] = $data['getClass']->whereDate('users.created_at', '=', $request->date);
+        }
+        $data['getClass'] = $data['getClass']->get();
+        return view('teacher.teacher-list',$data);
+
+    }
 }

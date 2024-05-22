@@ -80,11 +80,11 @@ class ClassTeacherController extends Controller
     {
         $data['header_title'] = 'Show Assigned Teacher';
 
-        if (!empty($assignSubject)) {
-            $data['assignSubject'] = $assignSubject;
+        if (!empty($classTeacher)) {
+            $data['classTeacher'] = $classTeacher;
             $data['getClass'] = ClassModel::getClass();
             $data['getTeacher'] = User::getTeacher();
-            return view('admin.assign_class_teacher.show', $data);
+            return view('teacher.assign-class', $data);
         } else {
             abort(404);
         }

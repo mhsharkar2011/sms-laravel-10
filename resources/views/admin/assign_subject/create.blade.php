@@ -18,7 +18,7 @@
                         <form action="{{ route('admins.assign_subjects.store') }}" method="POST">
                             @csrf
                             <div class="card-body">
-                                @include('_message')
+                                @include('_message') <!-- Error Message need to show for unique class and subject assign-->
                                 <div class="form-group">
                                     <label for="status">Class Name</label>
                                     <select name="class_id" id="" class="form-control">

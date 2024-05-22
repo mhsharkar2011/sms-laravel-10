@@ -42,7 +42,7 @@ class ClassSubjectController extends Controller
             ->get();
         $data['classes'] = ClassModel::where('classes.is_deleted', '=', 0)
             ->where('classes.status', '=', 0)
-            ->orderBy('classes.name', 'asc')
+            ->orderBy('classes.id', 'asc')
             ->get();
         return view('admin.assign_subject.create', $data);
     }
