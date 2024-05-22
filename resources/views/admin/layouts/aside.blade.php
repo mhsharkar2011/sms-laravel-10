@@ -285,7 +285,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('profile.edit', Auth::user()->id) }}"
+                            <a href="{{ route('admins.profile.edit', Auth::user()->id) }}"
                                 class="nav-link @if (Request::segment(3) == Auth::user()->id) active @endif">
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>

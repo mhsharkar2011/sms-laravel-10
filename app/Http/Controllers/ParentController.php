@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ParentController extends Controller
 {
@@ -66,24 +68,69 @@ class ParentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(User $user)
     {
-        //
+        $data['header_title'] = 'Parent Profile Edit';
+        $data['user'] = "";
+        return view('profile.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $id)
     {
-        //
+        $validatedData = $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            //'email' => 'required|email|unique:users|max:255'.$user->id,
+            //'password' => 'required|string|min:8',
+        ]);
+
+        $input = Arr::except($validatedData, 'avatar');
+
+        if ($id->avatar && $request->hasFile('avatar')) {
+            Storage::delete('public/avatars' . $id->avatar);
+            $id->avatar = null;
+        }
+        if (!empty($request->email)) {
+            $id->email = $request->email;
+            $id->save();
+        }
+        if (!empty($request->password)) {
+            $id->password = Hash::make($request->password);
+            $id->save();
+        }
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+            $filename = $id->id . '-' . $id->name . '-' . date('Ymd_Hsi') . '.' . $avatar->getClientOriginalExtension();
+            $avatar->storeAs('public/avatars', $filename);
+            $id->avatar = $filename;
+            $id->save();
+        }
+
+        $id->update($input);
+        return redirect()->route('admins.parents.index')->with('success', 'Parent Info Updated Successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $id)
     {
-        //
+        if(Auth::user()->user_type == 4){
+            $id->is_deleted = 1;
+            $id->save();
+        }
+        return redirect()->route('admins.parents.index')->with('success', 'Parents deleted successfully');
+    }
+
+    public function restore(User $id)
+    {
+        if(Auth::user()->user_type == 4){
+        $id->is_deleted = 0;
+        $id->save();
+        }
+        return redirect()->route('admins.parents.index')->with('success', 'Parents Restored successfully');
     }
 }

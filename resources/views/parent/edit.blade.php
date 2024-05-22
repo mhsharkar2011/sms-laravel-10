@@ -11,44 +11,48 @@
                     <!-- general form elements -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">New Teacher Add</h3>
+                            <h3 class="card-title">Parent Profile Update</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{ route('admins.teachers.store') }}" method="POST">
+                        <form action="" method="POST" enctype="multipart/form-data">
                             @csrf
+                            
                             <div class="card-body">
-                                @include('_message')
                                 <div class="form-group">
                                     <label for="first_name">First Name</label>
-                                    <input type="text" name="first_name" class="form-control" value="{{ old('first_name') }}" required placeholder="Enter First Name">
+                                    <input type="text" name="first_name" class="form-control" value="{{ old('first_name',$user->first_name) }}">
                                     <div class="text-red">{{ $errors->first('first_name') }}</div>
                                 </div>
                                 <div class="form-group">
                                     <label for="last_name">Last Name</label>
-                                    <input type="text" name="last_name" class="form-control" value="{{ old('last_name') }}" required placeholder="Enter Last Name">
+                                    <input type="text" name="last_name" class="form-control" value="{{ old('last_name',$user->last_name) }}">
                                     <div class="text-red">{{ $errors->first('last_name') }}</div>
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email Address</label>
-                                    <input type="email" name="email" class="form-control" value="{{ old('email') }}" required placeholder="Enter email">
+                                    <input type="email" name="email" class="form-control" value="{{ old('email', $user->email) }}" required placeholder="Email">
                                     <div class="text-red">{{ $errors->first('email') }}</div>
                                 </div>
                                 <div class="form-group">
                                     <label for="password">Password</label>
-                                    <input type="password" name="password" class="form-control" placeholder="Password">
+                                    <input type="password" name="password" class="form-control">
                                     <div class="text-red">{{ $errors->first('password') }}</div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="user_type">User Type</label>
-                                    <select name="user_type" id="" class="form-control">
-                                        <option value="2">Teacher</option>
-                                    </select>
+                                    <label for="avatar"><x-avatar :avatar="$user->avatar" width="80px" height="80px" class="rounded-circle"/></label>
+                                    
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" name="avatar" class="custom-file-input">
+                                            <label class="custom-file-label" for="avatar">Choose file</label>
+                                        </div>
+                                    </div>
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer text-center">
                                     <button type="reset" class="btn btn-warning">Clear</button>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             </div>
                         </form>

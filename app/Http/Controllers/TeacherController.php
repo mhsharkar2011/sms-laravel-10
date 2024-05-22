@@ -64,12 +64,12 @@ class TeacherController extends Controller
             'first_name' => $validatedData['first_name'],
             'last_name' => $validatedData['last_name'],
             'email' => $validatedData['email'],
-            'user_type' =>2,
+            'user_type' => $request->user_type,
             'created_by' => Auth::user()->id,
             'password' => Hash::make($validatedData['password']),
         ]);
 
-        return redirect()->route('admins.teacher.index')->with('success', 'Teacher added successfully');
+        return redirect()->route('admins.teachers.index')->with('success', 'Teacher added successfully');
     }
 
     /**

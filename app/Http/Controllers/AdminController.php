@@ -113,14 +113,14 @@ class AdminController extends Controller
     {
         $user->is_deleted = 1;
         $user->save();
-        return redirect()->route('admins.index')->with('success', 'User deleted successfully');
+        return redirect()->back()->with('success', 'User deleted successfully');
     }
 
     public function restore(User $user)
     {
         $user->is_deleted = 0;
         $user->save();
-        return redirect()->route('admins.index')->with('success', 'User Restored successfully');
+        return redirect()->back()->with('success', 'User Restored successfully');
     }
 
     
