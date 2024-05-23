@@ -26,7 +26,7 @@ class ClassTeacher extends Model
         return self::where('class_id', '=', $class_id)->delete();
     }
 
-    static function getClassSubject($teacher_id)
+    static function getMyClassSubject($teacher_id)
     {
         return self::select('class_teachers.*', 'classes.name as class_name','subjects.name as subject_name')
             ->join('classes', 'classes.id', '=', 'class_teachers.class_id')

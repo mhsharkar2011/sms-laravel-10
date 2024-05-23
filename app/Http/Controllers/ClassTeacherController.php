@@ -119,7 +119,7 @@ class ClassTeacherController extends Controller
     public function myClassSubject()
     {
         $data['header_title'] = 'My Classes & Subjects';
-        $data['getRecord'] = ClassTeacher::getClassSubject(Auth::user()->id);
+        $data['getRecord'] = ClassTeacher::getMyClassSubject(Auth::user()->id);
         return view('teacher.my-class-subject',$data);
     }
 
