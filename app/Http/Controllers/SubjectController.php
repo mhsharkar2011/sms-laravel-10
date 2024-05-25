@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subject;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -14,6 +15,12 @@ class SubjectController extends Controller
      */
     public function index()
     {
+        $localTimeZone = 'Asia/Dhaka';
+        $subjects = Subject::all();
+        foreach ($subjects as $subject) {
+            $subject->created_at = Carbon::createFromFormat('Y-m-d H:i:s', $subject->created_at, 'UTC')
+                ->setTimezone($localTimeZone);
+        }
         $data['header_title'] = 'Subject List';
         $data['getSubject'] = Subject::getSubject();
         return view('subject.subject-list', $data);
@@ -25,7 +32,7 @@ class SubjectController extends Controller
     public function create()
     {
         $data['header_title'] = 'Subject Create';
-        return view('subject.subject-create',$data);
+        return view('subject.subject-create', $data);
     }
 
     /**
@@ -38,10 +45,10 @@ class SubjectController extends Controller
             'name' => 'required|unique:subjects,name,' . $subject->id . 'id|min:3',
         ]);
 
-       $subject = new Subject;
-       $subject->name = $validatedData['name'];
-       $subject->status = $request->status;
-       $subject->created_by = Auth::user()->id;
+        $subject = new Subject;
+        $subject->name = $validatedData['name'];
+        $subject->status = $request->status;
+        $subject->created_by = Auth::user()->id;
         $subject->save();
         return back()->with('success', 'Subject Created successfully');
     }
@@ -51,19 +58,27 @@ class SubjectController extends Controller
     {
         $data['header_title'] = "Subject Edit";
         $data['subject'] = $subject;
-        return view('subject.subject-edit',$data);
+        return view('subject.subject-edit', $data);
     }
 
     public function update(Request $request, Subject $subject)
     {
-        $subject->update($request->all());
-        return redirect()->route('admins.subjects')->with('success', 'Subject has been updated');
+        $subject->name = $request->name;
+        $subject->status = $request->status;
+        $subject->created_by = Auth::user()->id;
+        $subject->created_at = Carbon::now('UTC');
+        $subject->updated_at = Carbon::now('UTC');
+        
+        $subject->update();
+
+        // $subject->update($request->all());
+        return redirect()->route('admins.subjects.index')->with('success', 'Subject has been updated');
     }
 
     public function destroy(Subject $subject)
     {
         $subject->is_deleted = 1;
         $subject->save();
-        return redirect()->route('admins.subjects.index')->with('success','Subject Deleted successfully');
+        return redirect()->route('admins.subjects.index')->with('success', 'Subject Deleted successfully');
     }
 }
