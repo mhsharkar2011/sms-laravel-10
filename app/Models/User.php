@@ -91,11 +91,8 @@ class User extends Authenticatable
             ->where('user_type', '=', '3')
             ->where('is_deleted', '=', '0')
             ->orderBy('id', 'desc');
-            if (!empty(Request::get('first_name'))) {
-                $return = $return->where('users.first_name', 'LIKE', '%' . Request::get('first_name') . '%');
-            }
-            if (!empty(Request::get('last_name'))) {
-                $return = $return->where('users.last_name', 'LIKE', '%' . Request::get('last_name') . '%');
+            if (!empty(Request::get('full_name'))) {
+                $return = $return->where('users.full_name', 'LIKE', '%' . Request::get('full_name') . '%');
             }
              if (!empty(Request::get('email'))) {
                 $return = $return->where('users.email', 'LIKE', '%' . Request::get('email') . '%');

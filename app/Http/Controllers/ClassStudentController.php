@@ -22,7 +22,7 @@ class ClassStudentController extends Controller
             $data['assignStudents'] = $data['assignStudents']->where('classes.name', 'LIKE', '%' . $request->class_name . '%');
         }
         if (!empty($request->student_name)) {
-            $data['assignStudents'] = $data['assignStudents']->where('users.first_name', 'LIKE', '%' . $request->student_name . '%');
+            $data['assignStudents'] = $data['assignStudents']->where('students.first_name', 'LIKE', '%' . $request->student_name . '%');
         }
         if (!empty($request->date)) {
             $data['assignStudents'] = $data['assignStudents']->whereDate('class_students.created_at', '=', $request->date);
@@ -35,15 +35,8 @@ class ClassStudentController extends Controller
     public function create()
     {
         $data['header_title'] = 'Assign Students';
-        $data['students'] = User::where('users.is_deleted', '=', 0)
-            ->where('users.user_type', '=', 3)
-            ->where('users.status', '=', 0)
-            ->orderBy('users.first_name', 'asc')
-            ->get();
-        $data['classes'] = ClassModel::where('classes.is_deleted', '=', 0)
-            ->where('classes.status', '=', 0)
-            ->orderBy('classes.name', 'asc')
-            ->get();
+        $data['students'] = User::getStudent();
+        $data['classes'] = ClassModel::getClass();
         return view('admin.assign_class_student.create', $data);
     }
 

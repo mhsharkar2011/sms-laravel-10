@@ -125,7 +125,7 @@ class ClassTeacherController extends Controller
     public function myStudent()
     {
         $data['header_title'] = 'My Students';
-        $data['getRecord'] = User::getMyStudent(Auth::user()->id);
+        $data['getRecord'] = User::getTeacherStudent(Auth::user()->id);
         return view('teacher.my-student', $data);
     }
 
