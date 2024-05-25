@@ -32,6 +32,8 @@ class ClassTeacher extends Model
             ->join('classes', 'classes.id', '=', 'class_teachers.class_id')
             ->join('class_subjects', 'class_subjects.class_id', '=', 'classes.id')
             ->join('subjects', 'subjects.id', '=', 'class_subjects.subject_id')
+            ->where('class_teachers.teacher_id', '=',$teacher_id)
+            ->where('class_teachers.is_deleted', '=',0)
             ->where('class_teachers.is_deleted', '=',0)
             ->where('class_teachers.status', '=',0)
             ->where('classes.is_deleted', '=',0)

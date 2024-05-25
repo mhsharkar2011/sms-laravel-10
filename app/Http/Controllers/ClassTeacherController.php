@@ -113,20 +113,26 @@ class ClassTeacherController extends Controller
      */
     public function destroy(ClassTeacher $classTeacher)
     {
-        
     }
 
     public function myClassSubject()
     {
         $data['header_title'] = 'My Classes & Subjects';
         $data['getRecord'] = ClassTeacher::getMyClassSubject(Auth::user()->id);
-        return view('teacher.my-class-subject',$data);
+        return view('teacher.my-class-subject', $data);
     }
 
     public function myStudent()
     {
         $data['header_title'] = 'My Students';
-        $data['getRecord'] = User::getTeacherStudent(Auth::user()->id);
-        return view('teacher.my-student',$data);
+        $data['getRecord'] = User::getMyStudent(Auth::user()->id);
+        return view('teacher.my-student', $data);
+    }
+
+    public function myClassStudent()
+    {
+        $data['header_title'] = 'My Students';
+        $data['getRecord'] = User::getMyClassStudent(Auth::user()->id);
+        return view('teacher.my-student', $data);
     }
 }
