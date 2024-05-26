@@ -105,29 +105,6 @@ class User extends Authenticatable
 
     }
 
-    static public function getTeacherStudent(){
-        $return = self::select('users.*', DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"),'classes.name as class_name')
-            ->join('classes', 'classes.id', '=', 'users.class_id')
-            ->where('users.user_type', '=', '3')
-            ->where('users.is_deleted', '=', '0')
-            ->orderBy('users.id', 'desc');
-            if (!empty(Request::get('first_name'))) {
-                $return = $return->where('users.first_name', 'LIKE', '%' . Request::get('first_name') . '%');
-            }
-            if (!empty(Request::get('last_name'))) {
-                $return = $return->where('users.last_name', 'LIKE', '%' . Request::get('last_name') . '%');
-            }
-             if (!empty(Request::get('email'))) {
-                $return = $return->where('users.email', 'LIKE', '%' . Request::get('email') . '%');
-            }
-            if (!empty(Request::get('date'))) {
-                $return = $return->whereDate('users.created_at', '=', Request::get('date'));
-            }
-            $return = $return->get();
-            return $return;
-    }
-
-
     static public function getParent()
     {
         $return = self::select('users.*', DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"))

@@ -62,4 +62,9 @@ class ClassTeacher extends Model
             ->where('subjects.status', '=',0)
             ->get();
     }
+
+    public function classStudents()
+    {
+        return $this->hasMany(ClassStudent::class, 'class_id', 'class_id');
+    }
 }
