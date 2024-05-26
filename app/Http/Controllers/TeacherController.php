@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClassTeacher;
 use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -175,4 +176,6 @@ class TeacherController extends Controller
         return view('teacher.teacher-list',$data);
 
     }
+
+    
 }

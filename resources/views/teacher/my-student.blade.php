@@ -34,27 +34,31 @@
                         <thead>
                         <tr>
                           <th>SL No.</th>
-                          <th>Full Name</th>
-                          <th>Photo</th>
+                          <th>Teacher Photo</th>
+                          <th>Teacher Name</th>
+                          <th>Student Name</th>
+                          <th>Student Contact No.</th>
+                          <th>Class Name</th>
+                          <th>Subject Name</th>
                           <th>Email</th>
-                          <th>Class</th>
-                          <th>Contact numnber</th>
                           <th>Assigned Date</th>
                         </tr>
                         </thead>
                         <tbody>
                             @foreach ($getRecord as $value )
                             <tr>
-                                <td>{{ $value->id }}</td>
+                              <td>{{ $value->id }}</td>
+                              <td><x-avatar :avatar="$value->avatar" width="48" height="48" class="rounded-circle" />
+                                <td>{{ $value->teacher_name }}</td>
                                 <td>{{ $value->student_name }}</td>
-                                <td><x-avatar :avatar="$value->avatar" width="48" height="48" class="rounded-circle" />
-                                <td>{{$value->email }}</td>
-                                <td>{{$value->class_name }}</td>
                                 @if (!empty($value->contact_number))
                                 <td>{{$value->contact_number }}</td>
                                 @else
                                 <td class="text-danger">{{ "NULL"}}</td>
                                 @endif
+                                <td>{{$value->class_name }}</td>
+                                <td>{{$value->subject_name }}</td>
+                                <td>{{$value->student_email }}</td>
                                 <td>{{date('d-m-Y H:i:A', strtotime($value->created_at)) }}</td>
                             </tr>
                             @endforeach
@@ -62,11 +66,13 @@
                         <tfoot>
                         <tr>
                           <th>SL No.</th>
-                          <th>Full Name</th>
-                          <th>Photo</th>
+                          <th>Teacher Photo</th>
+                          <th>Teacher Name</th>
+                          <th>Student Name</th>
+                          <th>Student Contact No.</th>
+                          <th>Class Name</th>
+                          <th>Subject Name</th>
                           <th>Email</th>
-                          <th>Class</th>
-                          <th>Contact numnber</th>
                           <th>Assigned Date</th>
                         </tr>
                         </tfoot>

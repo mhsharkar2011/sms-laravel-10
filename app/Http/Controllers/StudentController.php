@@ -20,9 +20,14 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         $data['header_title'] = 'Student List';
-        $data['getStudent'] = User::select('users.*', DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"),'classes.name as class_name', DB::raw("CONCAT(parents.first_name, ' ', parents.last_name) AS parent_name"))
+        $data['getStudent'] = User::select(
+                                'users.*',
+                                DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"),
+                                'classes.name as class_name',
+                                DB::raw("CONCAT(students.first_name, ' ', students.last_name) AS student_name")
+                                )
                                 ->join('classes','classes.id','=','users.class_id')
-                                ->join('users as parents','parents.id','=','users.parent_id')
+                                ->join('users as students','students.id','=','users.student_id')
                                 ->where('users.user_type',3);
         
         if (!empty($request->first_name)) {

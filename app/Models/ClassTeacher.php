@@ -45,6 +45,34 @@ class ClassTeacher extends Model
             ->get();
     }
 
+    static function getTeacherStudent($teacher_id)
+    {
+        return self::select(
+            'class_teachers.*', 
+            'classes.name as class_name', 
+            'subjects.name as subject_name', 
+            'teachers.first_name as teacher_name', 
+            'students.first_name as student_name',
+            'students.email as student_email'
+            )
+            ->join('classes', 'classes.id', '=', 'class_teachers.class_id')
+            ->join('class_subjects', 'class_subjects.class_id', '=', 'classes.id')
+            ->join('subjects', 'subjects.id', '=', 'class_subjects.subject_id')
+            ->join('users as teachers', 'teachers.id', '=', 'class_teachers.teacher_id')
+            ->join('class_students', 'class_students.class_id', '=', 'classes.id')
+            ->join('users as students', 'students.id', '=', 'class_students.student_id')
+            ->where('class_teachers.teacher_id', $teacher_id)
+            ->where('class_teachers.is_deleted', 0)
+            ->where('class_teachers.status', 0)
+            ->where('classes.is_deleted', 0)
+            ->where('classes.status', 0)
+            ->where('class_subjects.is_deleted', 0)
+            ->where('class_subjects.status', 0)
+            ->where('subjects.is_deleted', 0)
+            ->where('subjects.status', 0)
+            ->get();
+    }
+
     // public function classStudents()
     // {
     //     return $this->hasMany(ClassStudent::class, 'class_id', 'class_id');
