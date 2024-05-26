@@ -20,13 +20,15 @@
                                     @csrf
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-5">
                                                 <div class="form-group">
                                                     <label for="first_name">First Name</label>
                                                     <input type="text" name="first_name" class="form-control"
                                                         value="{{ $user->first_name }}">
                                                     <div class="text-red">{{ $errors->first('first_name') }}</div>
                                                 </div>
+                                            </div>
+                                            <div class="col-sm-5">
                                                 <div class="form-group">
                                                     <label for="last_name">Last Name</label>
                                                     <input type="text" name="last_name" class="form-control"
@@ -34,7 +36,7 @@
                                                     <div class="text-red">{{ $errors->first('last_name') }}</div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6 border rounded-lg text-center">
+                                            <div class="col-sm-2 border rounded-lg text-center">
                                                 <div class="form-group"><Label>Profile Photo</Label></div>
                                                 <div class="form-group">
                                                     <label for="avatar">
