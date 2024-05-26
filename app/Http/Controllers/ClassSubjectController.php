@@ -141,7 +141,16 @@ class ClassSubjectController extends Controller
     public function destroy(ClassSubject $id)
     {
         $id->is_deleted = 1;
+        $id->status = 1;
         $id->save();
         return redirect()->route('admins.assign_subjects.index')->with('success', 'Assigned Subject Deleted successfully');
+    }
+
+    public function restore(ClassSubject $id)
+    {
+        $id->is_deleted = 0;
+        $id->status = 0;
+        $id->save();
+        return redirect()->route('admins.assign_subjects.index')->with('success', 'Assigned Subject Restored successfully');
     }
 }
