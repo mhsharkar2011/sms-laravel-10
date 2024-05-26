@@ -46,7 +46,7 @@
                             @foreach ($getRecord as $value )
                             <tr>
                                 <td>{{ $value->id }}</td>
-                                <td>{{ $value->full_name }}</td>
+                                <td>{{ $value->student_name }}</td>
                                 <td><x-avatar :avatar="$value->avatar" width="48" height="48" class="rounded-circle" />
                                 <td>{{$value->email }}</td>
                                 <td>{{$value->class_name }}</td>
