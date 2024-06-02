@@ -9,6 +9,7 @@ use App\Http\Controllers\ClassSubjectController;
 use App\Http\Controllers\ClassTeacherController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ParentController;
+use App\Http\Controllers\ParentStudentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
@@ -126,6 +127,7 @@ Route::group(['middleware' => 'student'], function () {
 Route::group(['middleware' => 'parent'], function () {
     Route::prefix('parents')->name('parents.')->group(function () {
         Route::get('parent-dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+        Route::get('parents/students', [ParentStudentController::class, 'index'])->name('students.list');
     });
 });
 
