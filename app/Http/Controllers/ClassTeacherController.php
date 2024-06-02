@@ -27,17 +27,17 @@ class ClassTeacherController extends Controller
             ->join('users as teachers', 'teachers.id', '=', 'class_teachers.teacher_id')
             ->join('users as creators', 'creators.id', '=', 'class_teachers.created_by')
             ->join('classes', 'classes.id', '=', 'class_teachers.class_id')
-            ->where('class_teachers.is_deleted', 0)->get();
-        // if (!empty($request->class_name)) {
-        //     $data['assignTeachers'] = $data['assignTeachers']->where('classes.name', 'LIKE', '%' . $request->class_name . '%');
-        // }
-        // if (!empty($request->teacher_name)) {
-        //     $data['assignTeachers'] = $data['assignTeachers']->where('users.first_name', 'LIKE', '%' . $request->teacher_name . '%');
-        // }
-        // if (!empty($request->date)) {
-        //     $data['assignTeachers'] = $data['assignTeachers']->whereDate('class_teachers.created_at', '=', $request->date);
-        // }
-        // $data['assignTeachers'] =  $data['assignTeachers']->get();
+            ->where('class_teachers.is_deleted', 0);
+        if (!empty($request->class_name)) {
+            $data['assignTeachers'] = $data['assignTeachers']->where('classes.name', 'LIKE', '%' . $request->class_name . '%');
+        }
+        if (!empty($request->teacher_name)) {
+            $data['assignTeachers'] = $data['assignTeachers']->where('users.first_name', 'LIKE', '%' . $request->teacher_name . '%');
+        }
+        if (!empty($request->date)) {
+            $data['assignTeachers'] = $data['assignTeachers']->whereDate('class_teachers.created_at', '=', $request->date);
+        }
+        $data['assignTeachers'] =  $data['assignTeachers']->get();
 
         return view('admin.assign_class_teacher.list', $data);
     }
@@ -134,10 +134,4 @@ class ClassTeacherController extends Controller
         return view('teacher.my-student', $data);
     }
 
-    public function myClassStudent()
-    {
-        $data['header_title'] = 'My Students';
-        $data['getRecord'] = User::getMyClassStudent(Auth::user()->id);
-        return view('teacher.my-student', $data);
-    }
 }

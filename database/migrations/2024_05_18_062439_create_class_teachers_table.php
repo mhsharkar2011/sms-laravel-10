@@ -16,9 +16,10 @@ return new class extends Migration
             $table->integer('class_id')->nullable();
             $table->integer('teacher_id')->nullable();
             $table->integer('created_by')->nullable();
-            $table->integer('is_deleted')->default(0);
             $table->integer('status')->default(0);
+            $table->integer('is_deleted')->default(0);
             $table->timestamps();
+            $table->unique(['class_id', 'teacher_id']);
         });
     }
 
