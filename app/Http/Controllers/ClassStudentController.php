@@ -12,23 +12,29 @@ class ClassStudentController extends Controller
 {
     public function index(Request $request)
     {
-        $data['header_title'] = 'Assign Students';
-        $data['assignStudents'] = ClassStudent::select('class_students.*', 'classes.name as class_name', 'students.first_name as student_name', 'creators.first_name as created_by_name')
+        $data['header_title'] = 'Assign Student';
+        $data['getRecord'] = ClassStudent::select(
+            'class_students.*', 
+            'classes.name as class_name',
+            'students.first_name as student_name',
+            'creators.first_name as created_by_name'
+            )
             ->join('users as students', 'students.id', '=', 'class_students.student_id')
             ->join('users as creators', 'creators.id', '=', 'class_students.created_by')
             ->join('classes', 'classes.id', '=', 'class_students.class_id')
             ->where('class_students.is_deleted', 0);
+
         if (!empty($request->class_name)) {
-            $data['assignStudents'] = $data['assignStudents']->where('classes.name', 'LIKE', '%' . $request->class_name . '%');
+            $data['getRecord'] = $data['getRecord']->where('classes.name', 'LIKE', '%' . $request->class_name . '%');
         }
         if (!empty($request->student_name)) {
-            $data['assignStudents'] = $data['assignStudents']->where('students.first_name', 'LIKE', '%' . $request->student_name . '%');
+            $data['getRecord'] = $data['getRecord']->where('students.first_name', 'LIKE', '%' . $request->student_name . '%');
         }
         if (!empty($request->date)) {
-            $data['assignStudents'] = $data['assignStudents']->whereDate('class_students.created_at', '=', $request->date);
+            $data['getRecord'] = $data['getRecord']->whereDate('class_students.created_at', '=', $request->date);
         }
+        $data['getRecord'] =  $data['getRecord']->get();
 
-        $data['assignStudents'] =  $data['assignStudents']->get();
         return view('admin.assign_class_student.list', $data);
     }
 

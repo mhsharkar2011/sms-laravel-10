@@ -9,7 +9,7 @@
                 <div>
                   <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Student List (Total: {{ $getStudent->count() }})</h3>
+                      <h3 class="card-title">Student List (Total: {{ $getRecord->count() }})</h3>
                       <a href="{{ route('admins.students.create') }}" class="card-title float-right btn btn-sm btn-primary">Add New Student</a>
                     </div>
                   {{-- Search And Filtering Form--}}
@@ -56,7 +56,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                            @foreach ($getStudent as $value )
+                            @foreach ($getRecord as $value )
                             <tr>
                                 <td>{{ $value->roll_number }}</td>
                                 <td><x-avatar :avatar="$value->avatar" width="48" height="48" class="rounded-circle" />

@@ -18,22 +18,27 @@ class ClassTeacherController extends Controller
     public function index(Request $request)
     {
         $data['header_title'] = 'Assign Teacher';
-        $data['assignTeachers'] = ClassTeacher::select('class_teachers.*', 'classes.name as class_name', 'teachers.first_name as teacher_name', 'creators.first_name as created_by_name')
+        $data['assignTeachers'] = ClassTeacher::select(
+            'class_teachers.*', 
+            'classes.name as class_name',
+            'teachers.first_name as teacher_name',
+            'creators.first_name as created_by_name'
+            )
             ->join('users as teachers', 'teachers.id', '=', 'class_teachers.teacher_id')
             ->join('users as creators', 'creators.id', '=', 'class_teachers.created_by')
             ->join('classes', 'classes.id', '=', 'class_teachers.class_id')
-            ->where('class_teachers.is_deleted', 0);
-        if (!empty($request->class_name)) {
-            $data['assignTeachers'] = $data['assignTeachers']->where('classes.name', 'LIKE', '%' . $request->class_name . '%');
-        }
-        if (!empty($request->teacher_name)) {
-            $data['assignTeachers'] = $data['assignTeachers']->where('users.first_name', 'LIKE', '%' . $request->teacher_name . '%');
-        }
-        if (!empty($request->date)) {
-            $data['assignTeachers'] = $data['assignTeachers']->whereDate('class_teachers.created_at', '=', $request->date);
-        }
+            ->where('class_teachers.is_deleted', 0)->get();
+        // if (!empty($request->class_name)) {
+        //     $data['assignTeachers'] = $data['assignTeachers']->where('classes.name', 'LIKE', '%' . $request->class_name . '%');
+        // }
+        // if (!empty($request->teacher_name)) {
+        //     $data['assignTeachers'] = $data['assignTeachers']->where('users.first_name', 'LIKE', '%' . $request->teacher_name . '%');
+        // }
+        // if (!empty($request->date)) {
+        //     $data['assignTeachers'] = $data['assignTeachers']->whereDate('class_teachers.created_at', '=', $request->date);
+        // }
+        // $data['assignTeachers'] =  $data['assignTeachers']->get();
 
-        $data['assignTeachers'] =  $data['assignTeachers']->get();
         return view('admin.assign_class_teacher.list', $data);
     }
 

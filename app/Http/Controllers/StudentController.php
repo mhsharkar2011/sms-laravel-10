@@ -14,36 +14,40 @@ use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
+
     public function index(Request $request)
     {
         $data['header_title'] = 'Student List';
-        $data['getStudent'] = User::select(
-                                'users.*',
-                                DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"),
-                                'classes.name as class_name',
-                                DB::raw("CONCAT(students.first_name, ' ', students.last_name) AS student_name")
-                                )
-                                ->join('classes','classes.id','=','users.class_id')
-                                ->join('users as students','students.id','=','users.student_id')
-                                ->where('users.user_type',3);
-        
+        $data['getRecord'] = User::select(
+            'users.*', 
+                'classes.name as class_name',
+                DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS student_name"),
+                DB::raw("CONCAT(parents.first_name, ' ', parents.last_name) AS parent_name"),
+                DB::raw("CONCAT(creators.first_name, ' ', creators.last_name) AS created_by_name")
+        )
+            ->join('class_students', 'class_students.student_id', '=', 'users.id')
+            ->join('classes', 'classes.id', '=', 'class_students.class_id')
+            ->join('users as parents', 'parents.id', '=', 'users.parent_id')
+            ->join('users as creators', 'creators.id', '=', 'users.created_by')
+            ->where('users.user_type', 3);
+
         if (!empty($request->first_name)) {
-            $data['getStudent'] = $data['getStudent']->where('users.first_name', 'LIKE', '%' . $request->first_name . '%');
+            $data['getRecord'] = $data['getRecord']->where('users.first_name', 'LIKE', '%' . $request->first_name . '%');
         }
         if (!empty($request->last_name)) {
-            $data['getStudent'] = $data['getStudent']->where('users.last_name', 'LIKE', '%' . $request->last_name . '%');
+            $data['getRecord'] = $data['getRecord']->where('users.last_name', 'LIKE', '%' . $request->last_name . '%');
         }
-         if (!empty($request->email)) {
-            $data['getStudent'] = $data['getStudent']->where('users.email', 'LIKE', '%' . $request->email . '%');
+        if (!empty($request->email)) {
+            $data['getRecord'] = $data['getRecord']->where('users.email', 'LIKE', '%' . $request->email . '%');
         }
         if (!empty($request->date)) {
-            $data['getStudent'] = $data['getStudent']->whereDate('users.created_at', '=', $request->date);
+            $data['getRecord'] = $data['getRecord']->whereDate('users.created_at', '=', $request->date);
         }
-        $data['getStudent'] = $data['getStudent']->get();
-        return view('student.student-list',$data);
+
+        $data['getRecord'] = $data['getRecord']->get();
+
+        return view('student.student-list', $data);
     }
 
     /**
@@ -75,7 +79,7 @@ class StudentController extends Controller
             'first_name' => $validatedData['first_name'],
             'last_name' => $validatedData['last_name'],
             'email' => $validatedData['email'],
-            'user_type' =>3,
+            'user_type' => 3,
             'class_id' => $request->class_id,
             'created_by' => Auth::user()->id,
             'password' => Hash::make($validatedData['password']),
@@ -146,7 +150,7 @@ class StudentController extends Controller
      */
     public function destroy(User $user)
     {
-        if(Auth::user()->user_type == 1){
+        if (Auth::user()->user_type == 1) {
             $user->is_deleted = 1;
             $user->save();
         }
@@ -155,17 +159,18 @@ class StudentController extends Controller
 
     public function restore(User $user)
     {
-        if(Auth::user()->user_type == 1){
-        $user->is_deleted = 0;
-        $user->save();
+        if (Auth::user()->user_type == 1) {
+            $user->is_deleted = 0;
+            $user->save();
         }
         return redirect()->route('admins.students.index')->with('success', 'Student Restored successfully');
     }
 
-    
-    public function studentTeacher(){
+
+    public function studentTeacher()
+    {
         $data['header_title'] = 'Student Assigned Teachers';
-        $data['getStudentTeachers'] = User::getStudentTeachers(); 
+        $data['getStudentTeachers'] = User::getStudentTeachers();
         return view('student.student-teacher', $data);
     }
 }

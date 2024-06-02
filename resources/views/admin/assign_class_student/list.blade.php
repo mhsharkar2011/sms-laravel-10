@@ -42,7 +42,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($assignStudents as $value)
+                        @foreach ($getRecord as $value)
                             <tr>
                                 <td>{{ $value->id }}</td>
                                 <td>{{ $value->class_name }}</td>
