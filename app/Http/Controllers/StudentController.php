@@ -14,17 +14,17 @@ use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
-    
+
 
     public function index(Request $request)
     {
         $data['header_title'] = 'Student List';
         $data['getRecord'] = User::select(
-            'users.*', 
-                'classes.name as class_name',
-                DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS student_name"),
-                DB::raw("CONCAT(parents.first_name, ' ', parents.last_name) AS parent_name"),
-                DB::raw("CONCAT(creators.first_name, ' ', creators.last_name) AS created_by_name")
+            'users.*',
+            'classes.name as class_name',
+            DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS student_name"),
+            DB::raw("CONCAT(parents.first_name, ' ', parents.last_name) AS parent_name"),
+            DB::raw("CONCAT(creators.first_name, ' ', creators.last_name) AS created_by_name")
         )
             ->join('class_students', 'class_students.student_id', '=', 'users.id')
             ->join('classes', 'classes.id', '=', 'class_students.class_id')
@@ -60,12 +60,37 @@ class StudentController extends Controller
             ->where('classes.status', '=', 0)
             ->orderBy('classes.name', 'asc')
             ->get();
+        $data['users'] = User::getParent();
         return view('student.student-create', $data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    public function generateRollNumber()
+    {
+        $prefix = 'R-';
+        $lastRecord = User::orderBy('id', 'desc')->first();
+        if ($lastRecord) {
+            $lastRollNumber = intval(substr($lastRecord->roll_number, strlen($prefix)));
+            $newRollNumber = $lastRollNumber + 1;
+        } else {
+            $newRollNumber = 1;
+        }
+        return $prefix . str_pad($newRollNumber, 6, '0', STR_PAD_LEFT); // CS-000001
+    }
+
+    public function generateAdmissionNumber()
+    {
+        $prefix = 'AD-';
+        $lastRecord = User::orderBy('id', 'desc')->first();
+        if ($lastRecord) {
+            $lastRollNumber = intval(substr($lastRecord->admission_number, strlen($prefix)));
+            $newRollNumber = $lastRollNumber + 1;
+        } else {
+            $newRollNumber = 1;
+        }
+        return $prefix . str_pad($newRollNumber, 6, '0', STR_PAD_LEFT); // CS-000001
+    }
+
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -78,9 +103,13 @@ class StudentController extends Controller
         User::create([
             'first_name' => $validatedData['first_name'],
             'last_name' => $validatedData['last_name'],
+            'roll_number' => $this->generateRollNumber(),
+            'admission_number' => $this->generateAdmissionNumber(),
+            'admission_date' => now()->format('Y-m-d'),
             'email' => $validatedData['email'],
             'user_type' => 3,
             'class_id' => $request->class_id,
+            'parent_id' => $request->parent_id,
             'created_by' => Auth::user()->id,
             'password' => Hash::make($validatedData['password']),
         ]);

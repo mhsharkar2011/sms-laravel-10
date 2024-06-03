@@ -38,14 +38,18 @@ class ClassStudentController extends Controller
         return view('admin.assign_class_student.list', $data);
     }
 
-    public function create()
+    public function create($classId)
     {
+        $assignedStudentIds = ClassStudent::where('class_id', $classId)->pluck('student_id')->toArray();
+        
+        $students = User::whereNotIn('id', $assignedStudentIds)->get();
+        
+
         $data['header_title'] = 'Assign Students';
-        $data['students'] = User::getStudent();
+        $data['students'] = $students;
         $data['classes'] = ClassModel::getClass();
         return view('admin.assign_class_student.create', $data);
     }
-
     public function store(Request $request)
     {
         if (!empty($request->student_id)) {
@@ -53,12 +57,7 @@ class ClassStudentController extends Controller
                 $input = new ClassStudent();
                 $input->class_id = $request->class_id;
                 $input->student_id = $student_id;
-                $input->status = $request->status;
-                $input->created_by = Auth::user()->id;
                 $input->save();
-                $user = User::find($student_id);
-                $user->class_id = $input->class_id;
-                $user->save();
             }
             return redirect()->route('admins.assign_class_students.index')->with('success', 'student assign to class successfully');
         } else {
