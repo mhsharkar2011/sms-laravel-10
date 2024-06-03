@@ -39,6 +39,22 @@ class User extends Authenticatable
             ->get();
     }
 
+    static function getSingleUser($id)
+    {
+        return self::where('id', '=', $id)->first();
+    }
+
+    static function getSingleEmail($email)
+    {
+        return self::where('email', '=', $email)->first();
+    }
+
+    static function getSingleToken($remember_token)
+    {
+        return self::where('remember_token', '=', $remember_token)->first();
+    }
+
+    
     static public function getAdmin()
     {
         $return = self::select('users.*', DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"))
@@ -140,28 +156,5 @@ class User extends Authenticatable
             
             $return = $return->get();
             return $return;
-    }
-
-    static public function getParentStudent($parent_id)
-    {
-        return self::select('users.*', DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"))
-            ->where('user_type', '=', '4')
-            ->where('is_deleted', '=', '0')
-            ->orderBy('id', 'desc')->get();
-    }
-
-    static function getSingleUser($id)
-    {
-        return self::where('id', '=', $id)->first();
-    }
-
-    static function getSingleEmail($email)
-    {
-        return self::where('email', '=', $email)->first();
-    }
-
-    static function getSingleToken($remember_token)
-    {
-        return self::where('remember_token', '=', $remember_token)->first();
-    }
+    } 
 }

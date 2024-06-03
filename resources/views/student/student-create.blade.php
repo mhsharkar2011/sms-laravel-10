@@ -46,7 +46,16 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="status">Class Name</label>
+                                    <label for="parent_id">Parent Name</label>
+                                    <select name="parent_id" id="" class="form-control">
+                                        <option value="">Select Parent</option>
+                                        @foreach ($users as $value )
+                                        <option value="{{ $value->parent_id }}">{{ $value->full_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="class_id">Class Name</label>
                                     <select name="class_id" id="" class="form-control">
                                         <option value="">Select Class</option>
                                         @foreach ($classes as $class )

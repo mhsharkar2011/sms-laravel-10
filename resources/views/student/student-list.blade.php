@@ -9,8 +9,8 @@
                 <div>
                   <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Student List (Total: {{ $getRecord->count() }})</h3>
-                      <a href="{{ route('admins.students.create') }}" class="card-title float-right btn btn-sm btn-primary">Add New Student</a>
+                      <a href="{{ route('admins.students.create') }}" class="card-title float-left btn btn-sm btn-primary">Add New Student</a>
+                      <h3 class="card-title float-right btn btn-sm text-info">Student List (Total: {{ $getRecord->count() }})</h3>
                     </div>
                   {{-- Search And Filtering Form--}}
                   <form action="" method="get">
