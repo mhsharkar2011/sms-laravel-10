@@ -51,7 +51,7 @@ class TeacherController extends Controller
 
     public function generateTeacherId()
     {
-        $prefix = 'P-';
+        $prefix = 'T-';
         $lastRecord = User::orderBy('id', 'desc')->first();
         if ($lastRecord) {
             $lastTeacherId = intval(substr($lastRecord->teacher_id, strlen($prefix)));

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ClassModel;
+use App\Models\parentStudent;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -23,12 +24,11 @@ class StudentController extends Controller
             'users.*',
             'classes.name as class_name',
             DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS student_name"),
-            DB::raw("CONCAT(parents.first_name, ' ', parents.last_name) AS parent_name"),
+            
             DB::raw("CONCAT(creators.first_name, ' ', creators.last_name) AS created_by_name")
         )
             ->join('class_students', 'class_students.student_id', '=', 'users.id')
             ->join('classes', 'classes.id', '=', 'class_students.class_id')
-            ->join('users as parents', 'parents.id', '=', 'users.parent_id')
             ->join('users as creators', 'creators.id', '=', 'users.created_by')
             ->where('users.user_type', 3);
 
@@ -62,6 +62,19 @@ class StudentController extends Controller
             ->get();
         $data['users'] = User::getParent();
         return view('student.student-create', $data);
+    }
+
+    public function generateStudentId()
+    {
+        $prefix = 'S-';
+        $lastRecord = User::orderBy('id', 'desc')->first();
+        if ($lastRecord) {
+            $lastStudentId = intval(substr($lastRecord->student_id, strlen($prefix)));
+            $newStudentId = $lastStudentId + 1;
+        } else {
+            $newStudentId = 1;
+        }
+        return $prefix . str_pad($newStudentId, 6, '0', STR_PAD_LEFT); // CS-000001
     }
 
     public function generateRollNumber()
@@ -103,16 +116,21 @@ class StudentController extends Controller
         User::create([
             'first_name' => $validatedData['first_name'],
             'last_name' => $validatedData['last_name'],
+            'student_id' => $this->generateStudentId(),
             'roll_number' => $this->generateRollNumber(),
             'admission_number' => $this->generateAdmissionNumber(),
             'admission_date' => now()->format('Y-m-d'),
             'email' => $validatedData['email'],
             'user_type' => 3,
             'class_id' => $request->class_id,
-            'parent_id' => $request->parent_id,
             'created_by' => Auth::user()->id,
             'password' => Hash::make($validatedData['password']),
         ]);
+
+        $parent = new parentStudent();
+        $parent->parent_id = $request->parent_id;
+        $parent->student_id = $request->student_id;
+        $parent->save();
 
         return redirect()->route('admins.students.index')->with('success', 'Student added successfully');
     }

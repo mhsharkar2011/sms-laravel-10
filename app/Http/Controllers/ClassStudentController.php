@@ -38,9 +38,9 @@ class ClassStudentController extends Controller
         return view('admin.assign_class_student.list', $data);
     }
 
-    public function create($classId)
+    public function create()
     {
-        $assignedStudentIds = ClassStudent::where('class_id', $classId)->pluck('student_id')->toArray();
+        $assignedStudentIds = ClassStudent::where('class_id')->pluck('student_id')->toArray();
         
         $students = User::whereNotIn('id', $assignedStudentIds)->get();
         
