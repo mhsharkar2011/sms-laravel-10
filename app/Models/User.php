@@ -58,9 +58,7 @@ class User extends Authenticatable
     static public function getAdmin()
     {
         $return = self::select('users.*', DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"))
-            ->orderBy('id', 'desc')
             ->where('user_type', '=', '1')
-            // ->where('is_deleted', '=', '0')
             ->orderBy('id', 'desc');
             if (!empty(Request::get('first_name'))) {
                 $return = $return->where('users.first_name', 'LIKE', '%' . Request::get('first_name') . '%');

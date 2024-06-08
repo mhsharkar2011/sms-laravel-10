@@ -71,7 +71,12 @@ Route::group(['middleware' => 'admin'], function () {
         Route::put('assign_class_teachers/single_update/{update_single}', [ClassTeacherController::class, 'update_single'])->name('assign_class_teachers.update_single');
 
         // Assign Class to Student Route
-        Route::resource('assign_class_students', ClassStudentController::class)->except('show');
+        // Route::resource('assign_class_students', ClassStudentController::class)->except('show');
+        Route::get('assign_class_students', [ClassStudentController::class,'index'])->name('assign_class_students.index');
+        Route::get('assign_class_students/create', [ClassStudentController::class,'create'])->name('assign_class_students.create');
+        Route::post('assign_class_students/store', [ClassStudentController::class,'store'])->name('assign_class_students.store');
+        Route::get('assign_class_students/edit/{classId}', [ClassStudentController::class,'edit'])->name('assign_class_students.edit');
+        Route::post('assign_class_students/update/{classId}', [ClassStudentController::class,'update'])->name('assign_class_students.update');
         Route::get('assign_class_students/{id}', [ClassStudentController::class, 'destroy'])->name('assign_class_students.destroy');
         Route::put('assign_class_students/single_update/{update_single}', [ClassStudentController::class, 'update_single'])->name('assign_class_students.update_single');
 

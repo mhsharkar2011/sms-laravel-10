@@ -41,14 +41,8 @@
                           <th>Email</th>
                           <th>Admission No.</th>
                           <th>Class</th>
-                          <th>Gender</th>
-                          <th>Date Of Birth</th>
-                          <th>Religion</th>
                           <th>Contact No.</th>
                           <th>Admission Date</th>
-                          <th>Blood Group</th>
-                          <th>Height</th>
-                          <th>Weight</th>
                           <th>Status</th>
                           <th>Created By</th>
                           <th>Created Date</th>
@@ -65,14 +59,8 @@
                                 <td>{{$value->email }}</td>
                                 <td>{{$value->admission_number }}</td>
                                 <td>{{$value->class_name }}</td>
-                                <td>{{$value->gender }}</td>
-                                <td>{{$value->dob }}</td>
-                                <td>{{$value->religion }}</td>
                                 <td>{{$value->contact_number }}</td>
                                 <td>{{$value->admission_date }}</td>
-                                <td>{{$value->blood_group }}</td>
-                                <td>{{$value->height }}</td>
-                                <td>{{$value->weight }}</td>
                                 <td>
                                   @if ($value->status == 0)
                                   <span class="text-success">Active</span>
@@ -97,14 +85,8 @@
                           <th>Email</th>
                           <th>Admission No.</th>
                           <th>Class</th>
-                          <th>Gender</th>
-                          <th>Date Of Birth</th>
-                          <th>Religion</th>
                           <th>Contact No.</th>
                           <th>Admission Date</th>
-                          <th>Blood Group</th>
-                          <th>Height</th>
-                          <th>Weight</th>
                           <th>Status</th>
                           <th>Created By</th>
                           <th>Created Date</th>

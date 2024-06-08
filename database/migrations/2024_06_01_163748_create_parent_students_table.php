@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('parent_students', function (Blueprint $table) {
             $table->id();
-            $table->integer('parent_id')->nullable();
-            $table->integer('student_id')->nullable();
-            $table->integer('created_by')->nullable();
+            $table->string('parent_id')->nullable();
+            $table->string('student_id')->nullable();
+            $table->string('created_by')->nullable();
             $table->integer('is_deleted')->default(0);
             $table->integer('status')->default(0);
             $table->timestamps();

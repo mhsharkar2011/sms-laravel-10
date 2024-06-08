@@ -20,32 +20,22 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         $data['header_title'] = 'Student List';
-        $data['getRecord'] = User::select(
-            'users.*',
-            'classes.name as class_name',
-            DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS student_name"),
-            
-            DB::raw("CONCAT(creators.first_name, ' ', creators.last_name) AS created_by_name")
-        )
-            ->join('class_students', 'class_students.student_id', '=', 'users.id')
-            ->join('classes', 'classes.id', '=', 'class_students.class_id')
-            ->join('users as creators', 'creators.id', '=', 'users.created_by')
-            ->where('users.user_type', 3);
+        $data['getRecord'] = User::getStudent();
 
-        if (!empty($request->first_name)) {
-            $data['getRecord'] = $data['getRecord']->where('users.first_name', 'LIKE', '%' . $request->first_name . '%');
-        }
-        if (!empty($request->last_name)) {
-            $data['getRecord'] = $data['getRecord']->where('users.last_name', 'LIKE', '%' . $request->last_name . '%');
-        }
-        if (!empty($request->email)) {
-            $data['getRecord'] = $data['getRecord']->where('users.email', 'LIKE', '%' . $request->email . '%');
-        }
-        if (!empty($request->date)) {
-            $data['getRecord'] = $data['getRecord']->whereDate('users.created_at', '=', $request->date);
-        }
+        // if (!empty($request->first_name)) {
+        //     $data['getRecord'] = $data['getRecord']->where('users.first_name', 'LIKE', '%' . $request->first_name . '%');
+        // }
+        // if (!empty($request->last_name)) {
+        //     $data['getRecord'] = $data['getRecord']->where('users.last_name', 'LIKE', '%' . $request->last_name . '%');
+        // }
+        // if (!empty($request->email)) {
+        //     $data['getRecord'] = $data['getRecord']->where('users.email', 'LIKE', '%' . $request->email . '%');
+        // }
+        // if (!empty($request->date)) {
+        //     $data['getRecord'] = $data['getRecord']->whereDate('users.created_at', '=', $request->date);
+        // }
 
-        $data['getRecord'] = $data['getRecord']->get();
+        // $data['getRecord'] = $data['getRecord']->get();
 
         return view('student.student-list', $data);
     }
@@ -66,15 +56,14 @@ class StudentController extends Controller
 
     public function generateStudentId()
     {
-        $prefix = 'S-';
-        $lastRecord = User::orderBy('id', 'desc')->first();
+        $lastRecord = User::where('user_type',Auth::user()->user_type == 3)->orderBy('id', 'desc')->first();
         if ($lastRecord) {
-            $lastStudentId = intval(substr($lastRecord->student_id, strlen($prefix)));
-            $newStudentId = $lastStudentId + 1;
+            $lastStudentId = $lastRecord->student_id;
+            $newStudentId = $lastStudentId + Auth::user()->id;
         } else {
             $newStudentId = 1;
         }
-        return $prefix . str_pad($newStudentId, 6, '0', STR_PAD_LEFT); // CS-000001
+        return $newStudentId;
     }
 
     public function generateRollNumber()
@@ -113,11 +102,9 @@ class StudentController extends Controller
             'password' => 'required|string|min:8',
         ]);
 
-        User::create([
+        $student = User::create([
             'first_name' => $validatedData['first_name'],
             'last_name' => $validatedData['last_name'],
-            'student_id' => $this->generateStudentId(),
-            'roll_number' => $this->generateRollNumber(),
             'admission_number' => $this->generateAdmissionNumber(),
             'admission_date' => now()->format('Y-m-d'),
             'email' => $validatedData['email'],
@@ -127,10 +114,10 @@ class StudentController extends Controller
             'password' => Hash::make($validatedData['password']),
         ]);
 
-        $parent = new parentStudent();
-        $parent->parent_id = $request->parent_id;
-        $parent->student_id = $request->student_id;
-        $parent->save();
+        $parentStudent = new parentStudent();
+        $parentStudent->parent_id = $request->parent_id;
+        $parentStudent->student_id = $student->id;
+        $parentStudent->save();
 
         return redirect()->route('admins.students.index')->with('success', 'Student added successfully');
     }
