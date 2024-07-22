@@ -43,13 +43,14 @@
                                             <th>SL No</th>
                                             <th>Class Name</th>
                                             <th>Subject Name</th>
+                                            <th>Assigned By</th>
                                             <th>Created At</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($getRecord as $value)
                                             <tr>
-                                                <td>{{ $value->class_id }}</td>
+                                                <td>{{ $value->id }}</td>
                                                 <td>{{ $value->class_name }}</td>
                                                 <td>
                                                     @if (!empty($value->subject_name))
@@ -58,6 +59,7 @@
                                                         <span class="text-danger">No Subjects</span>
                                                     @endif
                                                 </td>
+                                                <td>{{ $value->created_by}}</td>
                                                 <td>{{ date('d-m-Y H:i:A', strtotime($value->created_at)) }}</td>
                                             </tr>
                                         @endforeach
@@ -67,6 +69,7 @@
                                             <th>SL No</th>
                                             <th>Class Name</th>
                                             <th>Subject Name</th>
+                                            <th>Assigned By</th>
                                             <th>Created At</th>
                                         </tr>
                                     </tfoot>

@@ -26,23 +26,20 @@ class ClassTeacher extends Model
         return self::where('class_id', '=', $class_id)->delete();
     }
 
-    static function getMyClassSubject($teacher_id)
+    static function getMyClassSubject($id)
     {
         return self::select(
             'class_teachers.id',
-            'class_teachers.teacher_id',
-            'class_teachers.class_id',
-            'class_teachers.status',
-            'class_teachers.is_deleted',
             'class_teachers.created_at',
             'classes.name as class_name',
-            // 'subjects.name as subject_name',
-            DB::raw('GROUP_CONCAT(subjects.name SEPARATOR ", ") as subject_name')
+            DB::raw('GROUP_CONCAT(subjects.name SEPARATOR ", ") as subject_name'),
+             'users.first_name as created_by'
         )
             ->join('classes', 'classes.id', '=', 'class_teachers.class_id')
             ->join('class_subjects', 'class_subjects.class_id', '=', 'classes.id')
             ->join('subjects', 'subjects.id', '=', 'class_subjects.subject_id')
-            ->where('class_teachers.teacher_id', $teacher_id)
+            ->join('users', 'users.id', '=', 'class_teachers.created_by')
+            ->where('class_teachers.teacher_id',$id)
             ->where('class_teachers.is_deleted', 0)
             ->where('class_teachers.status', 0)
             ->where('classes.is_deleted', 0)
@@ -53,11 +50,6 @@ class ClassTeacher extends Model
             ->where('subjects.status', 0)
             ->groupBy(
                 'class_teachers.id',
-                'class_teachers.teacher_id', 
-                'class_teachers.class_id', 
-                'class_teachers.status', 
-                'class_teachers.is_deleted',
-                'class_teachers.created_at',
                 'classes.name'
             )
             ->get();
