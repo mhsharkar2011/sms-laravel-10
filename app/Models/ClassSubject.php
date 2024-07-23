@@ -41,6 +41,19 @@ class ClassSubject extends Model
     //         );
     // }
 
+    static function getClassSubject()
+    {
+        return self::select('class_subjects.*', 
+                            'classes.name as class_name', 
+                            'subjects.name as subject_name', 
+                            'users.first_name as created_by_name'
+                            )
+                            ->join('subjects', 'subjects.id', '=', 'class_subjects.subject_id')
+                            ->join('classes', 'classes.id', '=', 'class_subjects.class_id')
+                            ->join('users', 'users.id', '=', 'class_subjects.created_by')
+                            ->where('class_subjects.is_deleted', 0);
+    }
+
     static function getAssignSubjectId($class_id){
         return self::where('class_id', '=', $class_id)->where('is_deleted','=',0)->get();
     }

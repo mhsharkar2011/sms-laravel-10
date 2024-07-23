@@ -44,7 +44,7 @@
                     <tbody>
                         @foreach ($assignSubjects as $value)
                             <tr>
-                                <td>{{ $value->class_id }}</td>
+                                <td>{{ $value->id }}</td>
                                 <td>{{ $value->class_name }}</td>
                                 <td>
                                 @if (!empty($value->subject_name))
@@ -64,7 +64,7 @@
                                 <td>{{ date('d-m-Y H:i:A', strtotime($value->created_at)) }}</td>
                                 <td class="project-actions text-start">
                                     {{-- <a class="btn btn-info btn-sm" href="{{ route('admins.assign_subjects.show',$value->id) }}"><i class="fas fa-eye"></i></a> --}}
-                                    <a class="btn btn-info btn-sm" href="{{ route('admins.assign_subjects.edit', $value->class_id) }}"><i class="fas fa-pencil-alt"></i></a>
+                                    <a class="btn btn-info btn-sm" href="{{ route('admins.assign_subjects.edit', $value->id) }}"><i class="fas fa-pencil-alt"></i></a>
                                     <a class="btn btn-danger btn-sm" href="{{ url('admins/assign_subjects', $value->id) }}"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
