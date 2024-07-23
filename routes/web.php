@@ -59,11 +59,6 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('parents', [ParentController::class,'index'])->name('parents.index');
         Route::get('parents/create', [ParentController::class,'create'])->name('parents.create');
         Route::post('parents', [ParentController::class,'store'])->name('parents.store');
-        
-        // Assign Subject to Class Route
-        Route::resource('assign_subjects', ClassSubjectController::class)->except('show');
-        Route::get('assign_subjects/{id}', [ClassSubjectController::class, 'destroy'])->name('assign_subjects.destroy');
-        Route::put('assign_subjects/single_update/{update_single}', [ClassSubjectController::class, 'update_single'])->name('assign_subjects.update_single');
 
         // Assign Class to Teacher Route
         Route::resource('assign_class_teachers', ClassTeacherController::class);
@@ -99,7 +94,7 @@ Route::group(['middleware' => 'admin'], function () {
         Route::resource('assign_subjects', ClassSubjectController::class);
         Route::get('assign_subjects/edit/{id}', [ClassSubjectController::class, 'edit'])->name('assign_subjects.edit');
         // Route::get('assign_subjects/update/{id}', [ClassSubjectController::class, 'update'])->name('assign_subjects.update');
-        Route::get('assign_subjects/{id}', [ClassSubjectController::class, 'destroy'])->name('assign_subjects.destroy');
+        // Route::get('assign_subjects/{id}', [ClassSubjectController::class, 'destroy'])->name('assign_subjects.destroy');
         Route::put('assign_subjects/single_update/{update_single}', [ClassSubjectController::class, 'update_single'])->name('assign_subjects.update_single');
     });
 });
