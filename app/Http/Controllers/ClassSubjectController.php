@@ -101,7 +101,7 @@ class ClassSubjectController extends Controller
     public function edit(ClassSubject $assignSubject)
     {
         $data['header_title'] = 'Edit Assignment Subject';
-
+         
         if (!empty($assignSubject)) {
             $data['assignSubject'] = $assignSubject;
             $assignSubject = $assignSubject;
@@ -114,8 +114,9 @@ class ClassSubjectController extends Controller
         }
     }
 
-    public function update(Request $request)
+    public function update(Request $request, ClassSubject $assignSubject)
     {
+        
         ClassSubject::deleteSubject($request->class_id);
 
         foreach ($request->subject_id as $subject_id) {

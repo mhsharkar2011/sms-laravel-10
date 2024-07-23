@@ -97,7 +97,8 @@ Route::group(['middleware' => 'admin'], function () {
 
         // Assign Subject to Class Route
         Route::resource('assign_subjects', ClassSubjectController::class);
-        Route::get('assign_subjects/{id}/edit', [ClassSubjectController::class, 'edit'])->name('assign_subjects.edit');
+        Route::get('assign_subjects/edit/{id}', [ClassSubjectController::class, 'edit'])->name('assign_subjects.edit');
+        // Route::get('assign_subjects/update/{id}', [ClassSubjectController::class, 'update'])->name('assign_subjects.update');
         Route::get('assign_subjects/{id}', [ClassSubjectController::class, 'destroy'])->name('assign_subjects.destroy');
         Route::put('assign_subjects/single_update/{update_single}', [ClassSubjectController::class, 'update_single'])->name('assign_subjects.update_single');
     });
