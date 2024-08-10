@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\ClassModel;
 use App\Models\ClassSubject;
 use App\Models\Subject;
+
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,11 +16,7 @@ class ClassSubjectController extends Controller
     {
 
         $data['header_title'] = 'Subject Assignment';
-        $data['assignSubjects'] = ClassSubject::select('class_subjects.*', 'classes.name as class_name', 'subjects.name as subject_name', 'users.first_name as created_by_name')
-            ->join('subjects', 'subjects.id', '=', 'class_subjects.subject_id')
-            ->join('classes', 'classes.id', '=', 'class_subjects.class_id')
-            ->join('users', 'users.id', '=', 'class_subjects.created_by')
-            ->where('class_subjects.is_deleted', 0);
+        $data['assignSubjects'] = ClassSubject::getClassSubject();
         if (!empty($request->class_name)) {
             $data['assignSubjects'] = $data['assignSubjects']->where('classes.name', 'LIKE', '%' . $request->class_name . '%');
         }
@@ -30,6 +28,7 @@ class ClassSubjectController extends Controller
         }
 
         $data['assignSubjects'] =  $data['assignSubjects']->get();
+
         return view('admin.assign_subject.list', $data);
     }
 
@@ -65,16 +64,17 @@ class ClassSubjectController extends Controller
 
     public function show(ClassSubject $assignSubject)
     {
-        $data['header_title'] = 'Show Assigned Subject';
+        dd('ok');
+        // $data['header_title'] = 'Show Assigned Subject';
 
-        if (!empty($assignSubject)) {
-            $data['assignSubject'] = $assignSubject;
-            $data['getClass'] = ClassModel::getClass();
-            $data['getSubject'] = Subject::getSubject();
-            return view('admin.assign_subject.show', $data);
-        } else {
-            abort(404);
-        }
+        // if (!empty($assignSubject)) {
+        //     $data['assignSubject'] = $assignSubject;
+        //     $data['getClass'] = ClassModel::getClass();
+        //     $data['getSubject'] = Subject::getSubject();
+        //     return view('admin.assign_subject.show', $data);
+        // } else {
+        //     abort(404);
+        // }
     }
 
     public function update_single(Request $request)
@@ -101,7 +101,7 @@ class ClassSubjectController extends Controller
     public function edit(ClassSubject $assignSubject)
     {
         $data['header_title'] = 'Edit Assignment Subject';
-
+         
         if (!empty($assignSubject)) {
             $data['assignSubject'] = $assignSubject;
             $assignSubject = $assignSubject;
@@ -114,8 +114,9 @@ class ClassSubjectController extends Controller
         }
     }
 
-    public function update(Request $request)
+    public function update(Request $request, ClassSubject $assignSubject)
     {
+        
         ClassSubject::deleteSubject($request->class_id);
 
         foreach ($request->subject_id as $subject_id) {
