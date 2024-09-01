@@ -106,6 +106,7 @@ class StudentController extends Controller
             'first_name' => $validatedData['first_name'],
             'last_name' => $validatedData['last_name'],
             'admission_number' => $this->generateAdmissionNumber(),
+            'roll_number' => $this->generateRollNumber(),
             'admission_date' => now()->format('Y-m-d'),
             'email' => $validatedData['email'],
             'user_type' => 3,
