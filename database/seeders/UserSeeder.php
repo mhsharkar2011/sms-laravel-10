@@ -31,6 +31,7 @@ class UserSeeder extends Seeder
                 'created_at' => now(),
             ],
             [
+                'teacher_id' => 'T_123',
                 'first_name' => 'Teacher',
                 'last_name' => '',
                 'email' => 'teacher@mail.com',
@@ -43,6 +44,7 @@ class UserSeeder extends Seeder
                 'created_at' => now(),
             ],
             [
+                'student_id' => 'S_123',
                 'first_name' => 'Student',
                 'last_name' => '',
                 'email' => 'student@mail.com',
@@ -55,6 +57,7 @@ class UserSeeder extends Seeder
                 'created_at' => now(),
             ],
             [
+                'parent_id' => 'P_123',
                 'first_name' => 'Parent',
                 'last_name' => '',
                 'email' => 'parent@mail.com',
