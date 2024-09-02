@@ -54,18 +54,48 @@ class StudentController extends Controller
         return view('student.student-create', $data);
     }
 
+// Generate Teacher Id ###################################################################
+    public function generateTeacherId()
+    {
+        $prefix = 'T-';
+        $lastRecord = User::orderBy('id', 'desc')->first();
+        if ($lastRecord) {
+            $lastTeacherId = intval(substr($lastRecord->teacher_id, strlen($prefix)));
+            $newTeacherId = $lastTeacherId + 1;
+        } else {
+            $newTeacherId = 1;
+        }
+        return $prefix . str_pad($newTeacherId, 6, '0', STR_PAD_LEFT); // CS-000001
+    }
+// Generate Student Id ###################################################################
     public function generateStudentId()
     {
-        $lastRecord = User::where('user_type',Auth::user()->user_type == 3)->orderBy('id', 'desc')->first();
+        $prefix = 'S-';
+        $lastRecord = User::orderBy('id', 'desc')->first();
         if ($lastRecord) {
-            $lastStudentId = $lastRecord->student_id;
-            $newStudentId = $lastStudentId + Auth::user()->id;
+            $lastStudentId = intval(substr($lastRecord->student_id, strlen($prefix)));
+            $newStudentId = $lastStudentId + 1;
         } else {
             $newStudentId = 1;
         }
-        return $newStudentId;
+        return $prefix . str_pad($newStudentId, 6, '0', STR_PAD_LEFT); // CS-000001
     }
 
+// Generate Parent Id ###################################################################
+    public function generateParentId()
+    {
+        $prefix = 'S-';
+        $lastRecord = User::orderBy('id', 'desc')->first();
+        if ($lastRecord) {
+            $lastParentId = intval(substr($lastRecord->parent_id, strlen($prefix)));
+            $newParentId = $lastParentId + 1;
+        } else {
+            $newParentId = 1;
+        }
+        return $prefix . str_pad($newParentId, 6, '0', STR_PAD_LEFT); // CS-000001
+    }
+
+// Generate Roll Number Id ###################################################################
     public function generateRollNumber()
     {
         $prefix = 'R-';
@@ -79,6 +109,7 @@ class StudentController extends Controller
         return $prefix . str_pad($newRollNumber, 6, '0', STR_PAD_LEFT); // CS-000001
     }
 
+// Generate Admission Number ###################################################################
     public function generateAdmissionNumber()
     {
         $prefix = 'AD-';
@@ -103,6 +134,7 @@ class StudentController extends Controller
         ]);
 
         $student = User::create([
+            'student_id' => $this->generateStudentId(),
             'first_name' => $validatedData['first_name'],
             'last_name' => $validatedData['last_name'],
             'admission_number' => $this->generateAdmissionNumber(),

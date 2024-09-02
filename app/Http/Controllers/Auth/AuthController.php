@@ -22,11 +22,11 @@ class AuthController extends Controller
             if (Auth::user()->user_type == 1) {
                 return redirect()->route('admins.dashboard')->with('success', 'Hello!' . Auth::user()->first_name . 'Welcome to School Management System');
             } else if (Auth::user()->user_type == 2) {
-                return redirect()->route('admins.dashboard')->with('success', 'Hello!' . Auth::user()->first_name . 'Welcome to School Management System');
+                return redirect()->route('teachers.dashboard')->with('success', 'Hello!' . Auth::user()->first_name . 'Welcome to School Management System');
             } else if (Auth::user()->user_type == 3) {
-                return redirect()->route('admins.dashboard')->with('success', 'Hello!' .  Auth::user()->first_name . 'Welcome to School Management System');
+                return redirect()->route('students.dashboard')->with('success', 'Hello!' .  Auth::user()->first_name . 'Welcome to School Management System');
             } else if (Auth::user()->user_type == 4) {
-                return redirect()->route('admins.dashboard')->with('success', 'Hello!' .  Auth::user()->first_name . 'Welcome to School Management System');
+                return redirect()->route('parents.dashboard')->with('success', 'Hello!' .  Auth::user()->first_name . 'Welcome to School Management System');
             }
         }
         return view('auth.login', $data);
