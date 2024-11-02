@@ -23,7 +23,7 @@
                         <div class="form-group col-md-3 ">
                           <div class="row" style="margin-top:32px">
                             <x-form-button col="" class="btn-primary">Submit</x-form-button>
-                            <x-link-button col="" class="btn-warning ml-2"  route="{{ route('admins.index') }}" icon="">Reset</x-link-button>
+                            <x-link-button col="" class="btn-warning ml-2"  route="{{ route('admins.list') }}" icon="">Reset</x-link-button>
                           </div>  
                         </div>
                       </div>
@@ -72,9 +72,7 @@
                                 </td>
                                 <td>{{ $value->created_by_name }}</td>
                                 <td>{{date('d-m-Y H:i:A', strtotime($value->created_at)) }}</td>
-                                <td class="project-actions text-nowrap">
-                                  <x-action-button :userId="$value->id"/>
-                                </td>
+                                <td class="project-actions text-nowrap"> <x-action-button :userId="$value->id"/></td>
                             </tr>
                             @endforeach
                         </tbody>

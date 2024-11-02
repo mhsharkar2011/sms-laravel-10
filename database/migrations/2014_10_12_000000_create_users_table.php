@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('class_id')->unique()->nullable();
+            // $table->string('class_id')->unique()->nullable();
+            $table->string('admin_id')->unique()->nullable();
             $table->string('teacher_id')->unique()->nullable();
-            $table->string('student_id')->unique();
+            $table->string('student_id')->unique()->nullable();
             $table->string('parent_id')->unique()->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
@@ -42,7 +43,7 @@ return new class extends Migration
             $table->string('created_by')->nullable();
             $table->rememberToken();
             $table->timestamps();
-            $table->unique(['class_id', 'id']);
+            // $table->unique(['class_id', 'id']);
         });
     }
 

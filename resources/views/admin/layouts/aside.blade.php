@@ -42,7 +42,7 @@
                 @if (Auth::user()->user_type == 1)
                     <li class="nav-item">
                         <a href="{{ route('admins.dashboard') }}"
-                            class="nav-link @if (Request::segment(2) == 'admin-dashboard') active @endif">
+                            class="nav-link @if (Request::segment(2) == 'admin_dashboard') active @endif">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 Dashboard
@@ -50,7 +50,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admins.index') }}"
+                        <a href="{{ route('admins.list') }}"
                             class="nav-link @if (Request::segment(2) == 'list') active @endif">
                             <i class="nav-icon fas fa-user"></i>
                             <p>

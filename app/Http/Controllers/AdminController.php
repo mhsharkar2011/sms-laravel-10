@@ -20,7 +20,7 @@ class AdminController extends Controller
     {
         $data['header_title'] = 'Admin List';
         $data['getAdmin'] = User::getAdmin();
-        return view('admin.admin-list', $data);
+        return view('admin.admin_list', $data);
     }
 
     /**
@@ -29,7 +29,7 @@ class AdminController extends Controller
     public function create()
     {
         $data['header_title'] = 'User Create';
-        return view('admin.admin-create', $data);
+        return view('admin.admin_create', $data);
     }
 
     public function store(Request $request)
@@ -72,7 +72,7 @@ class AdminController extends Controller
     {
         $data['header_title'] = 'Profile Edit';
         $data['user'] = $user;
-        return view('profile.edit', $data);
+        return view('admin.admin_edit', $data);
     }
 
     /**
