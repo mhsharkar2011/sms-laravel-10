@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ClassModel;
+use App\Models\parentStudent;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -14,30 +15,29 @@ use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+
     public function index(Request $request)
     {
         $data['header_title'] = 'Student List';
-        $data['getStudent'] = User::select('users.*', DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS created_by_name"),'classes.name as class_name')
-                                ->join('classes','classes.id','=','users.class_id')
-                                ->where('users.user_type',3);
-        
-        if (!empty($request->first_name)) {
-            $data['getStudent'] = $data['getStudent']->where('users.first_name', 'LIKE', '%' . $request->first_name . '%');
-        }
-        if (!empty($request->last_name)) {
-            $data['getStudent'] = $data['getStudent']->where('users.last_name', 'LIKE', '%' . $request->last_name . '%');
-        }
-         if (!empty($request->email)) {
-            $data['getStudent'] = $data['getStudent']->where('users.email', 'LIKE', '%' . $request->email . '%');
-        }
-        if (!empty($request->date)) {
-            $data['getStudent'] = $data['getStudent']->whereDate('users.created_at', '=', $request->date);
-        }
-        $data['getStudent'] = $data['getStudent']->get();
-        return view('student.student-list',$data);
+        $data['getRecord'] = User::getStudent();
+
+        // if (!empty($request->first_name)) {
+        //     $data['getRecord'] = $data['getRecord']->where('users.first_name', 'LIKE', '%' . $request->first_name . '%');
+        // }
+        // if (!empty($request->last_name)) {
+        //     $data['getRecord'] = $data['getRecord']->where('users.last_name', 'LIKE', '%' . $request->last_name . '%');
+        // }
+        // if (!empty($request->email)) {
+        //     $data['getRecord'] = $data['getRecord']->where('users.email', 'LIKE', '%' . $request->email . '%');
+        // }
+        // if (!empty($request->date)) {
+        //     $data['getRecord'] = $data['getRecord']->whereDate('users.created_at', '=', $request->date);
+        // }
+
+        // $data['getRecord'] = $data['getRecord']->get();
+
+        return view('student.student-list', $data);
     }
 
     /**
@@ -50,12 +50,80 @@ class StudentController extends Controller
             ->where('classes.status', '=', 0)
             ->orderBy('classes.name', 'asc')
             ->get();
+        $data['users'] = User::getParent();
         return view('student.student-create', $data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+// Generate Teacher Id ###################################################################
+    public function generateTeacherId()
+    {
+        $prefix = 'T-';
+        $lastRecord = User::orderBy('id', 'desc')->first();
+        if ($lastRecord) {
+            $lastTeacherId = intval(substr($lastRecord->teacher_id, strlen($prefix)));
+            $newTeacherId = $lastTeacherId + 1;
+        } else {
+            $newTeacherId = 1;
+        }
+        return $prefix . str_pad($newTeacherId, 6, '0', STR_PAD_LEFT); // CS-000001
+    }
+// Generate Student Id ###################################################################
+    public function generateStudentId()
+    {
+        $prefix = 'S-';
+        $lastRecord = User::orderBy('id', 'desc')->first();
+        if ($lastRecord) {
+            $lastStudentId = intval(substr($lastRecord->student_id, strlen($prefix)));
+            $newStudentId = $lastStudentId + 1;
+        } else {
+            $newStudentId = 1;
+        }
+        return $prefix . str_pad($newStudentId, 6, '0', STR_PAD_LEFT); // CS-000001
+    }
+
+// Generate Parent Id ###################################################################
+    public function generateParentId()
+    {
+        $prefix = 'S-';
+        $lastRecord = User::orderBy('id', 'desc')->first();
+        if ($lastRecord) {
+            $lastParentId = intval(substr($lastRecord->parent_id, strlen($prefix)));
+            $newParentId = $lastParentId + 1;
+        } else {
+            $newParentId = 1;
+        }
+        return $prefix . str_pad($newParentId, 6, '0', STR_PAD_LEFT); // CS-000001
+    }
+
+// Generate Roll Number Id ###################################################################
+    public function generateRollNumber()
+    {
+        $prefix = 'R-';
+        $lastRecord = User::orderBy('id', 'desc')->first();
+        if ($lastRecord) {
+            $lastRollNumber = intval(substr($lastRecord->roll_number, strlen($prefix)));
+            $newRollNumber = $lastRollNumber + 1;
+        } else {
+            $newRollNumber = 1;
+        }
+        return $prefix . str_pad($newRollNumber, 6, '0', STR_PAD_LEFT); // CS-000001
+    }
+
+// Generate Admission Number ###################################################################
+    public function generateAdmissionNumber()
+    {
+        $prefix = 'AD-';
+        $lastRecord = User::orderBy('id', 'desc')->first();
+        if ($lastRecord) {
+            $lastRollNumber = intval(substr($lastRecord->admission_number, strlen($prefix)));
+            $newRollNumber = $lastRollNumber + 1;
+        } else {
+            $newRollNumber = 1;
+        }
+        return $prefix . str_pad($newRollNumber, 6, '0', STR_PAD_LEFT); // CS-000001
+    }
+
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -65,15 +133,24 @@ class StudentController extends Controller
             'password' => 'required|string|min:8',
         ]);
 
-        User::create([
+        $student = User::create([
+            'student_id' => $this->generateStudentId(),
             'first_name' => $validatedData['first_name'],
             'last_name' => $validatedData['last_name'],
+            'admission_number' => $this->generateAdmissionNumber(),
+            'roll_number' => $this->generateRollNumber(),
+            'admission_date' => now()->format('Y-m-d'),
             'email' => $validatedData['email'],
-            'user_type' =>3,
+            'user_type' => 3,
             'class_id' => $request->class_id,
             'created_by' => Auth::user()->id,
             'password' => Hash::make($validatedData['password']),
         ]);
+
+        $parentStudent = new parentStudent();
+        $parentStudent->parent_id = $request->parent_id;
+        $parentStudent->student_id = $student->id;
+        $parentStudent->save();
 
         return redirect()->route('admins.students.index')->with('success', 'Student added successfully');
     }
@@ -140,7 +217,7 @@ class StudentController extends Controller
      */
     public function destroy(User $user)
     {
-        if(Auth::user()->user_type == 1){
+        if (Auth::user()->user_type == 1) {
             $user->is_deleted = 1;
             $user->save();
         }
@@ -149,17 +226,18 @@ class StudentController extends Controller
 
     public function restore(User $user)
     {
-        if(Auth::user()->user_type == 1){
-        $user->is_deleted = 0;
-        $user->save();
+        if (Auth::user()->user_type == 1) {
+            $user->is_deleted = 0;
+            $user->save();
         }
         return redirect()->route('admins.students.index')->with('success', 'Student Restored successfully');
     }
 
-    
-    public function studentTeacher(){
+
+    public function studentTeacher()
+    {
         $data['header_title'] = 'Student Assigned Teachers';
-        $data['getStudentTeachers'] = User::getStudentTeachers(); 
+        $data['getStudentTeachers'] = User::getStudentTeachers();
         return view('student.student-teacher', $data);
     }
 }

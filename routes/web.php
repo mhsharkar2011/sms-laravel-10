@@ -9,6 +9,7 @@ use App\Http\Controllers\ClassSubjectController;
 use App\Http\Controllers\ClassTeacherController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ParentController;
+use App\Http\Controllers\ParentStudentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
@@ -37,12 +38,17 @@ Route::post('change_password', [ProfileController::class, 'update_password'])->n
 // Admin Middleware =================================================================
 Route::group(['middleware' => 'admin'], function () {
     Route::prefix('admins')->name('admins.')->group(function () {
-        Route::get('admin-dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+        Route::get('admin_dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
         // Admins Route
-        Route::get('list', [AdminController::class, 'index'])->name('index');
+        Route::get('list', [AdminController::class, 'index'])->name('list');
         Route::get('create', [AdminController::class, 'create'])->name('create');
         Route::post('store', [AdminController::class, 'store'])->name('store');
+        Route::get('show/{id}', [AdminController::class, 'show'])->name('show');
+        Route::get('edit/{id}', [AdminController::class, 'edit'])->name('edit');
+        Route::get('update/{user}', [AdminController::class, 'update'])->name('update');
+        Route::get('delete/{id}', [AdminController::class, 'destroy'])->name('destroy');
+        Route::get('restore/{id}', [AdminController::class, 'restore'])->name('restore');
 
         // Teachers Route
         Route::get('teachers', [TeacherController::class,'index'])->name('teachers.index');
@@ -58,19 +64,19 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('parents', [ParentController::class,'index'])->name('parents.index');
         Route::get('parents/create', [ParentController::class,'create'])->name('parents.create');
         Route::post('parents', [ParentController::class,'store'])->name('parents.store');
-        
-        // Assign Subject to Class Route
-        Route::resource('assign_subjects', ClassSubjectController::class)->except('show');
-        Route::get('assign_subjects/{id}', [ClassSubjectController::class, 'destroy'])->name('assign_subjects.destroy');
-        Route::put('assign_subjects/single_update/{update_single}', [ClassSubjectController::class, 'update_single'])->name('assign_subjects.update_single');
 
         // Assign Class to Teacher Route
-        Route::resource('assign_class_teachers', ClassTeacherController::class)->except('show');
-        Route::get('assign_class_teachers/{id}', [ClassTeacherController::class, 'destroy'])->name('assign_class_teachers.destroy');
+        Route::resource('assign_class_teachers', ClassTeacherController::class);
+        // Route::get('assign_class_teachers/{id}', [ClassTeacherController::class, 'destroy'])->name('assign_class_teachers.destroy');
         Route::put('assign_class_teachers/single_update/{update_single}', [ClassTeacherController::class, 'update_single'])->name('assign_class_teachers.update_single');
 
         // Assign Class to Student Route
-        Route::resource('assign_class_students', ClassStudentController::class)->except('show');
+        // Route::resource('assign_class_students', ClassStudentController::class)->except('show');
+        Route::get('assign_class_students', [ClassStudentController::class,'index'])->name('assign_class_students.index');
+        Route::get('assign_class_students/create', [ClassStudentController::class,'create'])->name('assign_class_students.create');
+        Route::post('assign_class_students/store', [ClassStudentController::class,'store'])->name('assign_class_students.store');
+        Route::get('assign_class_students/edit/{classId}', [ClassStudentController::class,'edit'])->name('assign_class_students.edit');
+        Route::post('assign_class_students/update/{classId}', [ClassStudentController::class,'update'])->name('assign_class_students.update');
         Route::get('assign_class_students/{id}', [ClassStudentController::class, 'destroy'])->name('assign_class_students.destroy');
         Route::put('assign_class_students/single_update/{update_single}', [ClassStudentController::class, 'update_single'])->name('assign_class_students.update_single');
 
@@ -90,13 +96,15 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('classes/restore/{class}', [ClassController::class, 'restore'])->name('classes.restore');
 
         // Subject Route
-        Route::resource('subjects', SubjectController::class)->except('show');
+        Route::resource('subjects', SubjectController::class);
         Route::get('subjects/delete/{subject}', [SubjectController::class, 'destroy'])->name('subjects.destroy');
 
 
         // Assign Subject to Class Route
-        Route::resource('assign_subjects', ClassSubjectController::class)->except('show');
-        Route::get('assign_subjects/{id}', [ClassSubjectController::class, 'destroy'])->name('assign_subjects.destroy');
+        Route::resource('assign_subjects', ClassSubjectController::class);
+        Route::get('assign_subjects/edit/{id}', [ClassSubjectController::class, 'edit'])->name('assign_subjects.edit');
+        // Route::get('assign_subjects/update/{id}', [ClassSubjectController::class, 'update'])->name('assign_subjects.update');
+        // Route::get('assign_subjects/{id}', [ClassSubjectController::class, 'destroy'])->name('assign_subjects.destroy');
         Route::put('assign_subjects/single_update/{update_single}', [ClassSubjectController::class, 'update_single'])->name('assign_subjects.update_single');
     });
 });
@@ -126,10 +134,11 @@ Route::group(['middleware' => 'student'], function () {
 Route::group(['middleware' => 'parent'], function () {
     Route::prefix('parents')->name('parents.')->group(function () {
         Route::get('parent-dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+        Route::get('parents/students', [ParentStudentController::class, 'index'])->name('students.list');
     });
 });
 
 
-Route::fallback(function () {
-    return "<h1>Page Not Found</h1>";
-});
+// Route::fallback(function () {
+//     return "<h1>Page Not Found</h1>";
+// });

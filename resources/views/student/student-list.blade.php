@@ -6,11 +6,11 @@
         <section class="content">
             <div class="container-fluid">
               <div class="row">
-                <div class="col-12">
+                <div>
                   <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Student List (Total: {{ $getStudent->count() }})</h3>
-                      <a href="{{ route('admins.students.create') }}" class="card-title float-right btn btn-sm btn-primary">Add New Student</a>
+                      <a href="{{ route('admins.students.create') }}" class="card-title float-left btn btn-sm btn-primary">Add New Student</a>
+                      <h3 class="card-title float-right btn btn-sm text-info">Student List (Total: {{ $getRecord->count() }})</h3>
                     </div>
                   {{-- Search And Filtering Form--}}
                   <form action="" method="get">
@@ -34,11 +34,15 @@
                       <table id="example1" class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                          <th>SL No.</th>
-                          <th>Full Name</th>
+                          <th>Roll No.</th>
                           <th>Photo</th>
-                          <th>Class</th>
+                          <th>Full Name</th>
+                          <th>Parent Name</th>
                           <th>Email</th>
+                          <th>Admission No.</th>
+                          <th>Class</th>
+                          <th>Contact No.</th>
+                          <th>Admission Date</th>
                           <th>Status</th>
                           <th>Created By</th>
                           <th>Created Date</th>
@@ -46,15 +50,19 @@
                         </tr>
                         </thead>
                         <tbody>
-                            @foreach ($getStudent as $value )
+                            @foreach ($getRecord as $value )
                             <tr>
-                                <td>{{ $value->id }}</td>
-                                <td>{{ $value->first_name }} {{ $value->last_name }}</td>
+                                <td>{{ $value->roll_number }}</td>
                                 <td><x-avatar :avatar="$value->avatar" width="48" height="48" class="rounded-circle" />
-                                <td>{{$value->class_name }}</td>
+                                <td>{{ $value->first_name }} {{ $value->last_name }}</td>
+                                <td>{{$value->parent_name }}</td>
                                 <td>{{$value->email }}</td>
+                                <td>{{$value->admission_number }}</td>
+                                <td>{{$value->class_name }}</td>
+                                <td>{{$value->contact_number }}</td>
+                                <td>{{$value->admission_date }}</td>
                                 <td>
-                                  @if ($value->is_deleted == 0)
+                                  @if ($value->status == 0)
                                   <span class="text-success">Active</span>
                                 @else
                                   <span class="text-danger">Inactive</span>
@@ -70,11 +78,15 @@
                         </tbody>
                         <tfoot>
                         <tr>
-                          <th>SL No.</th>
-                          <th>Name</th>
+                          <th>Roll No.</th>
                           <th>Photo</th>
-                          <th>Class</th>
+                          <th>Full Name</th>
+                          <th>Parent Name</th>
                           <th>Email</th>
+                          <th>Admission No.</th>
+                          <th>Class</th>
+                          <th>Contact No.</th>
+                          <th>Admission Date</th>
                           <th>Status</th>
                           <th>Created By</th>
                           <th>Created Date</th>

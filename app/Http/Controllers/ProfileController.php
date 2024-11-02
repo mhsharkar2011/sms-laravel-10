@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\ClassModel;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -27,6 +28,7 @@ class ProfileController extends Controller
     {
         $data['header_title'] = "Update Profile";
         $data['user'] = $user;
+        $data['getClass'] = ClassModel::getClass();
         return view('profile.edit', $data);
     }
 
@@ -35,20 +37,17 @@ class ProfileController extends Controller
         $validatedData = $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
-            'password' => 'required|string|min:8',
-            'email' => 'required|email|unique:users|max:255'.$user->id,
+            // 'password' => 'required|string|min:8',
+            // 'email' => 'required|email|unique:users|max:255'.$user->id,
         ]);
 
-        $input = Arr::except($validatedData, 'avatar');
+        $input = Arr::except($request->all(), 'avatar');
 
         if ($user->avatar && $request->hasFile('avatar')) {
             Storage::delete('public/avatars/' . $user->avatar);
             $user->avatar = null;
         }
-        if (!empty($request->password)) {
-            $user->password = Hash::make($request->password);
-            $user->save();
-        }
+        
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
             $filename = $user->id . '-' . $user->name . '-' . date('Ymd_Hsi') . '.' . $avatar->getClientOriginalExtension();
@@ -82,23 +81,24 @@ class ProfileController extends Controller
         return Redirect::route('profile.change_password')->with('status', 'profile-updated');
     }
 
-    public function destroy(Request $request): RedirectResponse
-    {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
-        $user = $request->user();
-        Auth::logout();
-        $user->delete();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return Redirect::to('/');
-    }
+    // public function destroy(Request $request): RedirectResponse
+    // {
+    //     $request->validateWithBag('userDeletion', [
+    //         'password' => ['required', 'current_password'],
+    //     ]);
+    //     $user = $request->user();
+    //     Auth::logout();
+    //     $user->delete();
+    //     $request->session()->invalidate();
+    //     $request->session()->regenerateToken();
+    //     return Redirect::to('/');
+    // }
 
 
     public function destroyProfile(User $user)
     {
         $user->is_deleted = 1;
+        $user->status = 1;
         $user->save();
         return redirect()->back()->with('success', 'User deleted successfully');
     }
@@ -106,6 +106,7 @@ class ProfileController extends Controller
     public function restoreProfile(User $user)
     {
         $user->is_deleted = 0;
+        $user->status = 0;
         $user->save();
         return redirect()->back()->with('success', 'User Restored successfully');
     }

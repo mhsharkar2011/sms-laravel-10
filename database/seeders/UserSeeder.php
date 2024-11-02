@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
+                
                 'first_name' => 'Monir',
                 'last_name' => 'Hossain',
                 'email' => 'admin@mail.com',
@@ -29,8 +30,10 @@ class UserSeeder extends Seeder
                 'email_verified_at' => now(),
                 'remember_token' => Str::random(34),
                 'created_at' => now(),
+                
             ],
             [
+               
                 'first_name' => 'Teacher',
                 'last_name' => '',
                 'email' => 'teacher@mail.com',
@@ -43,6 +46,7 @@ class UserSeeder extends Seeder
                 'created_at' => now(),
             ],
             [
+                
                 'first_name' => 'Student',
                 'last_name' => '',
                 'email' => 'student@mail.com',
@@ -55,6 +59,7 @@ class UserSeeder extends Seeder
                 'created_at' => now(),
             ],
             [
+                
                 'first_name' => 'Parent',
                 'last_name' => '',
                 'email' => 'parent@mail.com',

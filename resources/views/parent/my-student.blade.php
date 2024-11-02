@@ -50,16 +50,16 @@
                                             <th>Student Contact No.</th>
                                             <th>Student Email</th>
                                             <th>Admission Date</th>
-                                            <th>Parent Name</th>
-                                            <th>Parent Contact No.</th>
-                                            <th>Parent Email</th>
+                                            <th>Teacher Name</th>
+                                            <th>Teacher Contact No.</th>
+                                            <th>Teacher Email</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($getRecord as $value)
                                             <tr>
-                                                <td>{{ $value->roll_number }}</td>
+                                                <td>{{ $value->student_roll_number }}</td>
                                                 <td><x-avatar :avatar="$value->avatar" width="48" height="48"
                                                         class="rounded-circle" />
                                                 <td>{{ $value->student_name }}</td>
@@ -84,13 +84,13 @@
                                                 <td>{{ $value->student_email }}</td>
                                                 <td>{{ date('d-m-Y H:i:A', strtotime($value->student_admission_date)) }}
                                                 </td>
-                                                <td>{{ $value->parent_name }}</td>
-                                                @if (!empty($value->parent_contact_number))
-                                                    <td>{{ $value->parent_contact_number }}</td>
+                                                <td>{{ $value->teacher_name }}</td>
+                                                @if (!empty($value->teacher_contact_number))
+                                                    <td>{{ $value->teacher_contact_number }}</td>
                                                 @else
                                                     <td class="text-danger">{{ 'NULL' }}</td>
                                                 @endif
-                                                <td>{{ $value->parent_email }}</td>
+                                                <td>{{ $value->teacher_email }}</td>
                                                 @if ($value->status == '0')
                                                     <td><span class="text-success">Active</span></td>
                                                 @else
@@ -113,9 +113,9 @@
                                             <th>Student Contact No.</th>
                                             <th>Student Email</th>
                                             <th>Admission Date</th>
-                                            <th>Parent Name</th>
-                                            <th>Parent Contact No.</th>
-                                            <th>Parent Email</th>
+                                            <th>Teacher Name</th>
+                                            <th>Teacher Contact No.</th>
+                                            <th>Teacher Email</th>
                                             <th>Status</th>
                                         </tr>
                                     </tfoot>

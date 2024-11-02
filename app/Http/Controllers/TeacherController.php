@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClassTeacher;
 use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -48,9 +49,19 @@ class TeacherController extends Controller
         return view('teacher.teacher-create', $data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    public function generateTeacherId()
+    {
+        $prefix = 'T-';
+        $lastRecord = User::orderBy('id', 'desc')->first();
+        if ($lastRecord) {
+            $lastTeacherId = intval(substr($lastRecord->teacher_id, strlen($prefix)));
+            $newTeacherId = $lastTeacherId + 1;
+        } else {
+            $newTeacherId = 1;
+        }
+        return $prefix . str_pad($newTeacherId, 6, '0', STR_PAD_LEFT); // CS-000001
+    }
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -64,6 +75,7 @@ class TeacherController extends Controller
             'first_name' => $validatedData['first_name'],
             'last_name' => $validatedData['last_name'],
             'email' => $validatedData['email'],
+            'teacher_id' => $this->generateTeacherId(),
             'user_type' => $request->user_type,
             'created_by' => Auth::user()->id,
             'password' => Hash::make($validatedData['password']),
@@ -175,4 +187,6 @@ class TeacherController extends Controller
         return view('teacher.teacher-list',$data);
 
     }
+
+    
 }

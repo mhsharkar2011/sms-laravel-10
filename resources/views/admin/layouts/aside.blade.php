@@ -28,7 +28,8 @@
                 </div>
             @elseif (Auth::user()->user_type == 4)
                 <div class="info">
-                    <a href="{{ route('profile', Auth::user()->id) }}" class="d-block">{{ Auth::user()->full_name }}</a>
+                    <a href="{{ route('profile.show', Auth::user()->id) }}"
+                        class="d-block">{{ Auth::user()->full_name }}</a>
                 </div>
             @endif
         </div>
@@ -41,7 +42,7 @@
                 @if (Auth::user()->user_type == 1)
                     <li class="nav-item">
                         <a href="{{ route('admins.dashboard') }}"
-                            class="nav-link @if (Request::segment(2) == 'admin-dashboard') active @endif">
+                            class="nav-link @if (Request::segment(2) == 'admin_dashboard') active @endif">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 Dashboard
@@ -49,7 +50,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admins.index') }}"
+                        <a href="{{ route('admins.list') }}"
                             class="nav-link @if (Request::segment(2) == 'list') active @endif">
                             <i class="nav-icon fas fa-user"></i>
                             <p>
@@ -257,8 +258,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('students') }}"
-                            class="nav-link @if (Request::segment(2) == 'list') active @endif">
+                        <a href="{{ route('parents.students.list') }}"
+                            class="nav-link @if (Request::segment(2) == 'parents/tudents') active @endif">
                             <i class="nav-icon fas fa-user"></i>
                             <p>
                                 My Student

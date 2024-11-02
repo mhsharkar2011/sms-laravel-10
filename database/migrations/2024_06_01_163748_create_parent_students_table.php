@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('class_teachers', function (Blueprint $table) {
+        Schema::create('parent_students', function (Blueprint $table) {
             $table->id();
-            $table->integer('class_id')->nullable();
-            $table->integer('teacher_id')->nullable();
-            $table->integer('created_by')->nullable();
-            $table->integer('status')->default(0);
+            $table->string('parent_id')->nullable();
+            $table->string('student_id')->nullable();
+            $table->string('created_by')->nullable();
             $table->integer('is_deleted')->default(0);
+            $table->integer('status')->default(0);
             $table->timestamps();
-            $table->unique(['class_id', 'teacher_id']);
+            $table->unique(['parent_id', 'student_id']);
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('class_teachers');
+        Schema::dropIfExists('parent_students');
     }
 };

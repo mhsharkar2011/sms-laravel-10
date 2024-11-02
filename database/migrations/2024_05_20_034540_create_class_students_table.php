@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('class_id')->nullable();
             $table->integer('student_id')->nullable();
+            $table->integer('roll_number')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('is_deleted')->default(0);
             $table->integer('status')->default(0);

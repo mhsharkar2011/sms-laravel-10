@@ -57,13 +57,9 @@
                                 <td>{{ $value->created_by_name }}</td>
                                 <td>{{ date('d-m-Y H:i:A', strtotime($value->created_at)) }}</td>
                                 <td class="project-actions text-start">
-                                    {{-- <a class="btn btn-info btn-sm" href="{{ route('admins.assign_subjects.show',$value->id) }}"><i class="fas fa-eye"></i></a> --}}
-                                    <a class="btn btn-info btn-sm"
-                                        href="{{ route('admins.assign_class_teachers.edit', $value->id) }}"><i
-                                            class="fas fa-pencil-alt"></i></a>
-                                    <a class="btn btn-danger btn-sm"
-                                        href="{{ url('admins/assign_calss_teachers', $value->id) }}"><i
-                                            class="fas fa-trash"></i></a>
+                                    <a class="btn btn-info btn-sm" href="{{ route('admins.assign_class_teachers.show',$value->id) }}"><i class="fas fa-eye"></i></a>
+                                    <a class="btn btn-info btn-sm" href="{{ route('admins.assign_class_teachers.edit', $value->id) }}"><i class="fas fa-pencil-alt"></i></a>
+                                    <a class="btn btn-danger btn-sm" href="{{ url('admins/assign_class_teachers', $value->id) }}"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
                         @endforeach

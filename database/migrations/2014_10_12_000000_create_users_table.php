@@ -13,22 +13,24 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->integer('class_id')->nullable();
-            $table->integer('subject_id')->nullable();
+            // $table->string('class_id')->unique()->nullable();
+            $table->string('admin_id')->unique()->nullable();
+            $table->string('teacher_id')->unique()->nullable();
+            $table->string('student_id')->unique()->nullable();
+            $table->string('parent_id')->unique()->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('email')->unique();
-            $table->string('std_nid')->unique()->nullable();
+            $table->string('dob_id')->unique()->nullable();
             $table->string('parent_nid')->unique()->nullable();
             $table->string('teacher_nid')->unique()->nullable();
             $table->string('gender',50)->nullable();
             $table->date('dob')->nullable();
-            $table->string('caste',50)->nullable();
             $table->string('religion',50)->nullable();
             $table->string('contact_number',15)->unique()->nullable();
+            $table->date('admission_date')->nullable();
             $table->string('admission_number',50)->unique()->nullable();
             $table->string('roll_number',50)->unique()->nullable();
-            $table->date('admission_date')->nullable();
             $table->string('blood_group',10)->nullable();
             $table->string('weight',10)->nullable();
             $table->string('height',10)->nullable();
@@ -41,7 +43,7 @@ return new class extends Migration
             $table->string('created_by')->nullable();
             $table->rememberToken();
             $table->timestamps();
-            $table->unique(['class_id', 'id']);
+            // $table->unique(['class_id', 'id']);
         });
     }
 

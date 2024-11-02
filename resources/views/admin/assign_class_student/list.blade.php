@@ -21,7 +21,7 @@
                     <div class="form-group col-md-3 ">
                       <div class="row" style="margin-top:32px">
                         <x-form-button col="" class="btn-primary">Submit</x-form-button>
-                        <x-link-button col="" class="btn-warning ml-2"  route="{{ route('admins.assign_class_teachers.index') }}" icon="">Reset</x-link-button>
+                        <x-link-button col="" class="btn-warning ml-2"  route="{{ route('admins.assign_class_students.index') }}" icon="">Reset</x-link-button>
                       </div>  
                     </div>
                   </div>
@@ -42,7 +42,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($assignStudents as $value)
+                        @foreach ($getRecord as $value)
                             <tr>
                                 <td>{{ $value->id }}</td>
                                 <td>{{ $value->class_name }}</td>

@@ -78,7 +78,16 @@ class SubjectController extends Controller
     public function destroy(Subject $subject)
     {
         $subject->is_deleted = 1;
+        $subject->status = 1;
         $subject->save();
         return redirect()->route('admins.subjects.index')->with('success', 'Subject Deleted successfully');
+    }
+
+    public function restore(Subject $subject)
+    {
+        $subject->is_deleted = 0;
+        $subject->status = 0;
+        $subject->save();
+        return redirect()->route('admins.subjects.index')->with('success', 'Subjects Restored successfully');
     }
 }

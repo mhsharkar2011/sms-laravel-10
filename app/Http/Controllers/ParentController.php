@@ -30,9 +30,20 @@ class ParentController extends Controller
         return view('parent.parent-create',$data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
+    public function generateParentId()
+    {
+        $prefix = 'P-';
+        $lastRecord = User::orderBy('id', 'desc')->first();
+        if ($lastRecord) {
+            $lastParentId = intval(substr($lastRecord->parent_id, strlen($prefix)));
+            $newParentId = $lastParentId + 1;
+        } else {
+            $newParentId = 1;
+        }
+        return $prefix . str_pad($newParentId, 6, '0', STR_PAD_LEFT); // CS-000001
+    }
+
     public function store(Request $request)
     {
         
@@ -48,6 +59,7 @@ class ParentController extends Controller
             'last_name' => $validatedData['last_name'],
             'email' => $validatedData['email'],
             'user_type' => 4,
+            'parent_id' => $this->generateParentId(),
             'created_by' => Auth::user()->id,
             'password' => Hash::make($validatedData['password']),
         ]);
