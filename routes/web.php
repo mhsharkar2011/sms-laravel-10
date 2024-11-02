@@ -38,12 +38,17 @@ Route::post('change_password', [ProfileController::class, 'update_password'])->n
 // Admin Middleware =================================================================
 Route::group(['middleware' => 'admin'], function () {
     Route::prefix('admins')->name('admins.')->group(function () {
-        Route::get('admin-dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+        Route::get('admin_dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
         // Admins Route
-        Route::get('list', [AdminController::class, 'index'])->name('index');
+        Route::get('list', [AdminController::class, 'index'])->name('list');
         Route::get('create', [AdminController::class, 'create'])->name('create');
         Route::post('store', [AdminController::class, 'store'])->name('store');
+        Route::get('show/{id}', [AdminController::class, 'show'])->name('show');
+        Route::get('edit/{id}', [AdminController::class, 'edit'])->name('edit');
+        Route::get('update/{user}', [AdminController::class, 'update'])->name('update');
+        Route::get('delete/{id}', [AdminController::class, 'destroy'])->name('destroy');
+        Route::get('restore/{id}', [AdminController::class, 'restore'])->name('restore');
 
         // Teachers Route
         Route::get('teachers', [TeacherController::class,'index'])->name('teachers.index');
